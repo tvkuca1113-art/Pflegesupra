@@ -32,7 +32,7 @@ export function pageMeta({ title, description, path, noindex }: PageMetaInput): 
   };
 }
 
-const [muenchen, pfaffenhofen] = business.locations;
+const [muenchen] = business.locations;
 
 /**
  * Organization / MedicalBusiness graph.
