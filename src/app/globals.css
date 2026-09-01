@@ -1,0 +1,373 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   SUPRA DESIGN SYSTEM — "Die klare Auskunft"
+   --------------------------------------------------------------------------
+   The whole system comes out of the logo: deep blue script over an orange
+   rising sun. Two rules govern every colour decision below.
+
+   1. BLUE CARRIES STRUCTURE AND ACTION.
+      #003399 on white = 10.86:1 contrast. It is the only colour allowed to
+      fill a button or set body-size text, because it is the only brand colour
+      that clears WCAG AA everywhere.
+
+   2. ORANGE MARKS, IT NEVER SPEAKS.
+      #FF6600 on white = 2.94:1 — below AA for text and below 3:1 for UI
+      contrast. So brand orange is used ONLY as a graphic mark of at least
+      4px (the "Horizont" rule, list markers, the active-nav underline) where
+      no contrast minimum applies, never for text and never as a button fill
+      with white on top. Where orange must carry words, --ink-accent
+      (#A83B00, 6.38:1 on white) is used instead.
+
+   That single constraint is why this site does not look like the usual
+   orange-button care template — and it is also why it is readable.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/libre-franklin-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/libre-franklin-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  /* --- Brand, sampled from the client's logo file ----------------------- */
+  --color-brand: #003399;         /* 10.86:1 on white */
+  --color-brand-deep: #002270;    /* headers, footer ground */
+  --color-brand-ink: #001a52;     /* headings */
+  --color-sun: #ff6600;           /* graphic mark only, never text */
+  --color-sun-soft: #ffd9b8;
+  --color-ink-accent: #a83b00;    /* 6.38:1 on white — the only orange that may speak */
+
+  /* --- Surfaces ---------------------------------------------------------- */
+  --color-page: #ffffff;
+  --color-paper: #f5f6f9;         /* section alternation */
+  --color-paper-warm: #fdf7f1;    /* the one warm surface, sun-adjacent */
+  --color-line: #d3d8e4;
+  --color-line-strong: #7b86a3;  /* 3.63:1 on white, 3.36:1 on paper — clears WCAG 1.4.11 */
+
+  /* --- Text -------------------------------------------------------------- */
+  --color-ink: #16181d;           /* 16.6:1 on white */
+  --color-ink-muted: #4b5364;     /* 7.6:1 on white — still AA for body */
+
+  /* --- Feedback ---------------------------------------------------------- */
+  --color-ok: #14603a;
+  --color-ok-bg: #e7f4ec;
+  --color-err: #a3131f;
+  --color-err-bg: #fdeceb;
+
+  /* --- Type scale --------------------------------------------------------
+     Base is 18px, not 16px. The primary reader is 55+ and often reading on a
+     phone in a stressful moment. Every step is a deliberate jump, so hierarchy
+     survives being skimmed. */
+  --text-xs: 0.833rem;
+  --text-sm: 0.944rem;
+  --text-base: 1rem;
+  --text-lg: 1.167rem;
+  --text-xl: 1.333rem;
+  --text-2xl: 1.611rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.556rem;
+  --text-5xl: 3.222rem;
+
+  --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* --- Rhythm ------------------------------------------------------------ */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+
+  --shadow-raised: 0 1px 2px rgb(0 26 82 / 0.07), 0 4px 14px rgb(0 26 82 / 0.06);
+  --shadow-lifted: 0 2px 4px rgb(0 26 82 / 0.09), 0 12px 32px rgb(0 26 82 / 0.11);
+}
+
+:root {
+  color-scheme: light;
+  font-size: 18px;
+  --measure: 66ch;
+  --gutter: 1.25rem;
+  --shell: 78rem;
+}
+@media (max-width: 30rem) {
+  :root { font-size: 17px; }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  color: var(--color-brand-ink);
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.14;
+  text-wrap: balance;
+  margin: 0;
+}
+p { margin: 0; text-wrap: pretty; }
+img, svg, video { max-width: 100%; height: auto; }
+
+/* --- Focus -------------------------------------------------------------
+   A single ring that stays visible on white, on grey and on deep blue: a
+   white halo underneath a solid blue ring. On dark surfaces the two swap.
+   Never removed, never reduced to a browser default. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 6px #fff;
+}
+.on-dark :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: #ffffff;
+  box-shadow: 0 0 0 6px var(--color-sun);
+}
+
+/* ==========================================================================
+   LAYOUT PRIMITIVES
+   ========================================================================== */
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@media (min-width: 48rem) { :root { --gutter: 2rem; } }
+
+.measure { max-width: var(--measure); }
+
+.section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.section--tight { padding-block: clamp(2.25rem, 5vw, 3.5rem); }
+.section--paper { background: var(--color-paper); }
+.section--warm { background: var(--color-paper-warm); }
+
+/* --- The Horizont ------------------------------------------------------
+   The single motif carried through the whole site: a flat orange line with
+   the light of the logo's sun rising off it. It appears above section titles
+   and nowhere else, so it stays a signature instead of decoration. */
+.horizont {
+  display: block;
+  width: 3.5rem;
+  height: 4px;
+  border: 0;
+  margin: 0 0 1.1rem;
+  background: var(--color-sun);
+  position: relative;
+}
+.horizont::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 100%;
+  width: 3.5rem;
+  height: 1.75rem;
+  background: radial-gradient(
+    ellipse 1.75rem 1.75rem at 50% 100%,
+    color-mix(in srgb, var(--color-sun) 26%, transparent),
+    transparent 70%
+  );
+}
+
+.eyebrow {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-ink-accent);
+  margin: 0 0 0.4rem;
+}
+
+/* ==========================================================================
+   CONTROLS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;              /* ≥44px touch target, WCAG 2.2 (2.5.8) */
+  padding: 0.75rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn--primary {
+  background: var(--color-brand);
+  color: #fff;
+  border-color: var(--color-brand);
+}
+.btn--primary:hover { background: var(--color-brand-deep); border-color: var(--color-brand-deep); }
+.btn--secondary {
+  background: #fff;
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+.btn--secondary:hover { background: #eef2fb; }
+.btn--onDark {
+  background: #fff;
+  color: var(--color-brand-deep);
+  border-color: #fff;
+}
+.btn--onDark:hover { background: var(--color-sun-soft); border-color: var(--color-sun-soft); }
+.btn--ghostDark {
+  background: transparent;
+  color: #fff;
+  border-color: rgb(255 255 255 / 0.55);
+}
+.btn--ghostDark:hover { background: rgb(255 255 255 / 0.12); border-color: #fff; }
+.btn[aria-disabled='true'], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Text links inside prose stay obviously links, not colour-only. */
+.prose a,
+.linkish {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 2px;
+}
+.prose a:hover, .linkish:hover { color: var(--color-brand-deep); text-decoration-thickness: 3px; }
+
+/* ==========================================================================
+   PROSE
+   ========================================================================== */
+.prose { max-width: var(--measure); }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font-size: var(--text-2xl); margin-top: 2em; }
+.prose h3 { font-size: var(--text-xl); margin-top: 1.6em; }
+.prose ul { margin: 0; padding-left: 1.35rem; }
+.prose li + li { margin-top: 0.45rem; }
+.prose strong { font-weight: 700; color: var(--color-brand-ink); }
+
+/* Checklist — the orange marker earns its place here as a 6px block. */
+.checklist { list-style: none; margin: 0; padding: 0; }
+.checklist li {
+  position: relative;
+  padding-left: 1.6rem;
+}
+.checklist li + li { margin-top: 0.6rem; }
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--color-sun);
+}
+
+/* ==========================================================================
+   FORMS
+   ========================================================================== */
+.field { display: block; margin-bottom: 1.35rem; }
+.field__label {
+  display: block;
+  font-weight: 700;
+  color: var(--color-brand-ink);
+  margin-bottom: 0.3rem;
+}
+.field__hint {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  margin-bottom: 0.4rem;
+}
+.field__control {
+  display: block;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  color: var(--color-ink);
+  background: #fff;
+  border: 2px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+}
+.field__control:hover { border-color: var(--color-brand); }
+textarea.field__control { min-height: 8rem; resize: vertical; }
+.field__control[aria-invalid='true'] { border-color: var(--color-err); background: var(--color-err-bg); }
+.field__error {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-err);
+}
+.field--check { display: flex; gap: 0.75rem; align-items: flex-start; }
+.field--check input {
+  width: 1.5rem; height: 1.5rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--color-brand);
+  flex: none;
+}
+
+.notice { padding: 1rem 1.15rem; border-radius: var(--radius-md); border-left: 6px solid; }
+.notice--ok { background: var(--color-ok-bg); border-color: var(--color-ok); color: var(--color-ok); }
+.notice--err { background: var(--color-err-bg); border-color: var(--color-err); color: var(--color-err); }
+
+/* ==========================================================================
+   SKIP LINK
+   ========================================================================== */
+.skip {
+  position: absolute;
+  left: 0.5rem;
+  top: -100vh;
+  z-index: 100;
+  background: var(--color-brand);
+  color: #fff;
+  padding: 0.85rem 1.25rem;
+  font-weight: 700;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+.skip:focus { top: 0; }
+
+/* Screen-reader-only, still focusable. */
+.sr-only:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
