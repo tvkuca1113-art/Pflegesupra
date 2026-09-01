@@ -139,11 +139,11 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
         className="notice notice--ok outline-none"
         role="status"
       >
-        <h2 className="flex items-center gap-2.5 text-[var(--text-2xl)] text-[var(--color-ok)]">
+        <h2 className="flex items-center gap-2.5 text-2xl text-ok">
           <IconCheck />
           {isJob ? 'Ihre Bewerbung ist angekommen.' : 'Ihre Anfrage ist angekommen.'}
         </h2>
-        <p className="measure mt-3 text-[var(--color-ink)]">
+        <p className="measure mt-3 text-ink">
           Wir melden uns bei Ihnen. Wenn es dringend ist, rufen Sie bitte direkt an — das
           geht immer schneller als jedes Formular.
         </p>
@@ -201,14 +201,14 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
       )}
 
       {hasKompass && (
-        <div className="mb-7 rounded-[var(--radius-md)] border-l-4 border-[var(--color-brand)] bg-[var(--color-paper)] p-4">
-          <p className="m-0 font-bold text-[var(--color-brand-ink)]">Aus dem Pflege-Kompass übernommen</p>
-          <ul className="m-0 mt-2 list-none space-y-1 p-0 text-[var(--color-ink-muted)]">
+        <div className="mb-7 rounded-md border-l-4 border-brand bg-paper p-4">
+          <p className="m-0 font-bold text-brand-ink">Aus dem Pflege-Kompass übernommen</p>
+          <ul className="m-0 mt-2 list-none space-y-1 p-0 text-ink-muted">
             {kompass.grad ? <li>Pflegegrad: {kompass.grad}</li> : null}
             {kompass.bedarf ? <li>Bedarf: {kompass.bedarf.split(',').join(', ')}</li> : null}
             {kompass.ort ? <li>Ort: {kompass.ort}</li> : null}
           </ul>
-          <p className="m-0 mt-2 text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+          <p className="m-0 mt-2 text-sm text-ink-muted">
             Diese Angaben werden mitgeschickt, damit wir vorbereitet zurückrufen.
           </p>
         </div>
@@ -232,7 +232,7 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
 
         <div className="field">
           <label className="field__label" htmlFor={`${uid}-lastName`}>
-            Nachname <span className="text-[var(--color-err)]" aria-hidden="true">*</span>
+            Nachname <span className="text-err" aria-hidden="true">*</span>
             <span className="sr-only">(Pflichtfeld)</span>
           </label>
           <input
@@ -256,7 +256,7 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
 
         <div className="field">
           <label className="field__label" htmlFor={`${uid}-email`}>
-            E-Mail-Adresse <span className="text-[var(--color-err)]" aria-hidden="true">*</span>
+            E-Mail-Adresse <span className="text-err" aria-hidden="true">*</span>
             <span className="sr-only">(Pflichtfeld)</span>
           </label>
           <input
@@ -325,7 +325,7 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
       <div className="field">
         <label className="field__label" htmlFor={`${uid}-message`}>
           {isJob ? 'Ihre Nachricht' : 'Was brauchen Sie?'}{' '}
-          <span className="text-[var(--color-err)]" aria-hidden="true">*</span>
+          <span className="text-err" aria-hidden="true">*</span>
           <span className="sr-only">(Pflichtfeld)</span>
         </label>
         <span className="field__hint" id={`${uid}-message-hint`}>
@@ -378,7 +378,7 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
           Ich habe die <Link href="/datenschutz" className="linkish">Datenschutzerklärung</Link>{' '}
           gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung dieser
           Anfrage gespeichert werden.{' '}
-          <span className="text-[var(--color-err)]" aria-hidden="true">*</span>
+          <span className="text-err" aria-hidden="true">*</span>
           <span className="sr-only">(Pflichtfeld)</span>
           {errors.consent && (
             <span className="field__error" id={`${uid}-consent-err`}>
@@ -395,7 +395,7 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
         {state === 'sending' ? 'Ihre Anfrage wird gesendet.' : ''}
       </p>
 
-      <p className="mt-4 text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+      <p className="mt-4 text-sm text-ink-muted">
         Mit <span aria-hidden="true">*</span> markierte Felder sind Pflichtfelder. Ihre Angaben
         gehen ausschließlich an uns und werden nicht für Werbung verwendet.
       </p>

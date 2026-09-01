@@ -29,8 +29,9 @@ export default function LeistungenPage() {
         wer sie bezahlt und ab welchem Pflegegrad sie möglich ist."
       />
 
-      <section className="section">
+      <section className="section" aria-labelledby="leistungen-uebersicht">
         <div className="shell">
+          <h2 id="leistungen-uebersicht" className="sr-only">Übersicht unserer Leistungen</h2>
           <ul className="m-0 grid list-none gap-x-8 gap-y-10 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
               <LinkCard
@@ -48,7 +49,7 @@ export default function LeistungenPage() {
       <section className="section section--paper">
         <div className="shell">
           <div className="prose">
-            <h2 className="text-[var(--text-3xl)]">Zwei Kostenträger, nicht einer</h2>
+            <h2 className="text-3xl">Zwei Kostenträger, nicht einer</h2>
             <p>
               Der häufigste Irrtum in der ambulanten Pflege ist die Annahme, dass alles aus
               einem Topf bezahlt wird. Tatsächlich gibt es zwei getrennte Systeme, und

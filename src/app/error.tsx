@@ -24,8 +24,8 @@ export default function Error({
       <div className="shell">
         <p className="eyebrow">Technischer Fehler</p>
         <span className="horizont" aria-hidden="true" />
-        <h1 className="text-[var(--text-4xl)]">Hier ist etwas schiefgelaufen.</h1>
-        <p className="measure mt-5 text-[var(--text-lg)] text-[var(--color-ink-muted)]">
+        <h1 className="text-4xl">Hier ist etwas schiefgelaufen.</h1>
+        <p className="measure mt-5 text-lg text-ink-muted">
           Das liegt an uns, nicht an Ihnen. Versuchen Sie es noch einmal — und wenn es
           eilt, rufen Sie bitte direkt an.
         </p>
@@ -39,7 +39,7 @@ export default function Error({
           </button>
         </div>
         {error.digest ? (
-          <p className="mt-6 text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+          <p className="mt-6 text-sm text-ink-muted">
             Fehlerkennung für den Support: <code>{error.digest}</code>
           </p>
         ) : null}

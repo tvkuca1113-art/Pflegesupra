@@ -53,40 +53,40 @@ export default function KostenPage() {
                 Leistungsbeträge der Pflegeversicherung {BENEFIT_SOURCE.validFor} je Pflegegrad
               </caption>
               <thead>
-                <tr className="border-b-4 border-[var(--color-brand)]">
+                <tr className="border-b-4 border-brand">
                   <th scope="col" className="py-3 pr-4 align-bottom">Pflegegrad</th>
                   <th scope="col" className="py-3 pr-4 align-bottom">
-                    Pflegesachleistung<span className="block text-[var(--text-sm)] font-normal text-[var(--color-ink-muted)]">§36 SGB XI, monatlich</span>
+                    Pflegesachleistung<span className="block text-sm font-normal text-ink-muted">§36 SGB XI, monatlich</span>
                   </th>
                   <th scope="col" className="py-3 pr-4 align-bottom">
-                    Pflegegeld<span className="block text-[var(--text-sm)] font-normal text-[var(--color-ink-muted)]">§37 SGB XI, monatlich</span>
+                    Pflegegeld<span className="block text-sm font-normal text-ink-muted">§37 SGB XI, monatlich</span>
                   </th>
                   <th scope="col" className="py-3 pr-4 align-bottom">
-                    Entlastungsbetrag<span className="block text-[var(--text-sm)] font-normal text-[var(--color-ink-muted)]">§45b SGB XI, monatlich</span>
+                    Entlastungsbetrag<span className="block text-sm font-normal text-ink-muted">§45b SGB XI, monatlich</span>
                   </th>
                   <th scope="col" className="py-3 align-bottom">
-                    Gemeinsamer Jahresbetrag<span className="block text-[var(--text-sm)] font-normal text-[var(--color-ink-muted)]">§39 SGB XI, jährlich</span>
+                    Gemeinsamer Jahresbetrag<span className="block text-sm font-normal text-ink-muted">§39 SGB XI, jährlich</span>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {grades.map((g) => (
-                  <tr key={g.grad} className="border-b border-[var(--color-line)] align-top">
-                    <th scope="row" className="py-4 pr-4 font-bold text-[var(--color-brand-ink)]">
+                  <tr key={g.grad} className="border-b border-line align-top">
+                    <th scope="row" className="py-4 pr-4 font-bold text-brand-ink">
                       Pflegegrad {g.grad}
-                      <span className="mt-1 block max-w-[22ch] text-[var(--text-sm)] font-normal text-[var(--color-ink-muted)]">
+                      <span className="mt-1 block max-w-[22ch] text-sm font-normal text-ink-muted">
                         {g.summary}
                       </span>
                     </th>
-                    <td className="py-4 pr-4 text-[var(--text-lg)] font-bold tabular-nums">
-                      {g.sachleistung ? euro(g.sachleistung) : <span className="font-normal text-[var(--color-ink-muted)]">nicht vorgesehen</span>}
+                    <td className="py-4 pr-4 text-lg font-bold tabular-nums">
+                      {g.sachleistung ? euro(g.sachleistung) : <span className="font-normal text-ink-muted">nicht vorgesehen</span>}
                     </td>
-                    <td className="py-4 pr-4 text-[var(--text-lg)] font-bold tabular-nums">
-                      {g.pflegegeld ? euro(g.pflegegeld) : <span className="font-normal text-[var(--color-ink-muted)]">nicht vorgesehen</span>}
+                    <td className="py-4 pr-4 text-lg font-bold tabular-nums">
+                      {g.pflegegeld ? euro(g.pflegegeld) : <span className="font-normal text-ink-muted">nicht vorgesehen</span>}
                     </td>
-                    <td className="py-4 pr-4 text-[var(--text-lg)] font-bold tabular-nums">{euro(g.entlastungsbetrag)}</td>
-                    <td className="py-4 text-[var(--text-lg)] font-bold tabular-nums">
-                      {g.jahresbetrag ? euro(g.jahresbetrag) : <span className="font-normal text-[var(--color-ink-muted)]">ab Pflegegrad 2</span>}
+                    <td className="py-4 pr-4 text-lg font-bold tabular-nums">{euro(g.entlastungsbetrag)}</td>
+                    <td className="py-4 text-lg font-bold tabular-nums">
+                      {g.jahresbetrag ? euro(g.jahresbetrag) : <span className="font-normal text-ink-muted">ab Pflegegrad 2</span>}
                     </td>
                   </tr>
                 ))}
@@ -129,25 +129,25 @@ export default function KostenPage() {
               title="Was viele übersehen"
               intro="Ansprüche, die häufig ungenutzt verfallen, obwohl sie zustehen."
             />
-            <dl className="m-0 grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-line)]">
+            <dl className="m-0 grid gap-px overflow-hidden rounded-md border border-line bg-line">
               {extraBenefits.map((b) => (
                 <div key={b.label} className="flex items-baseline justify-between gap-4 bg-white p-4">
                   <dt>
-                    <span className="block font-bold text-[var(--color-brand-ink)]">{b.label}</span>
+                    <span className="block font-bold text-brand-ink">{b.label}</span>
                     {b.note ? (
-                      <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{b.note}</span>
+                      <span className="block text-sm text-ink-muted">{b.note}</span>
                     ) : null}
                   </dt>
                   <dd className="m-0 whitespace-nowrap text-right">
-                    <span className="block text-[var(--text-xl)] font-bold tabular-nums text-[var(--color-brand-ink)]">
+                    <span className="block text-xl font-bold tabular-nums text-brand-ink">
                       {euro(b.amount)}
                     </span>
-                    <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{b.unit}</span>
+                    <span className="block text-sm text-ink-muted">{b.unit}</span>
                   </dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-5 text-[var(--color-ink-muted)]">
+            <p className="mt-5 text-ink-muted">
               Der Entlastungsbetrag von {euro(131)} monatlich verfällt nicht sofort: Reste
               lassen sich ins Folgejahr übertragen und dort bis zum 30. Juni nutzen.
             </p>

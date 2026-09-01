@@ -34,12 +34,12 @@ export default function FaqPage() {
         <div className="shell grid gap-10 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]">
           {/* Anchor navigation — helps on a long page and works without JS. */}
           <nav aria-label="Themen" className="self-start lg:sticky lg:top-28">
-            <h2 className="text-[var(--text-lg)]">Themen</h2>
+            <h2 className="text-lg">Themen</h2>
             <span className="horizont mt-3" aria-hidden="true" />
             <ul className="m-0 list-none space-y-2 p-0">
               {faqCategories.map((c) => (
                 <li key={c}>
-                  <a href={`#${encodeURIComponent(c)}`} className="linkish">{c}</a>
+                  <a href={`#${encodeURIComponent(c)}`} className="linkish inline-block py-1">{c}</a>
                 </li>
               ))}
             </ul>
@@ -51,16 +51,16 @@ export default function FaqPage() {
               if (!items.length) return null;
               return (
                 <section key={c} id={encodeURIComponent(c)} className="mb-12 scroll-mt-28">
-                  <h2 className="text-[var(--text-2xl)]">{c}</h2>
+                  <h2 className="text-2xl">{c}</h2>
                   <span className="horizont mt-3" aria-hidden="true" />
                   <FaqList items={items} />
                 </section>
               );
             })}
 
-            <div className="rounded-[var(--radius-lg)] border-2 border-[var(--color-line)] bg-[var(--color-paper)] p-6">
-              <h2 className="text-[var(--text-xl)]">Ihre Frage ist nicht dabei?</h2>
-              <p className="mt-2 text-[var(--color-ink-muted)]">
+            <div className="rounded-lg border-2 border-line bg-paper p-6">
+              <h2 className="text-xl">Ihre Frage ist nicht dabei?</h2>
+              <p className="mt-2 text-ink-muted">
                 Dann stellen Sie sie uns direkt. Sie kostet nichts und verpflichtet zu nichts.
               </p>
               <Link href="/kontakt" className="btn btn--primary mt-4">Frage stellen</Link>

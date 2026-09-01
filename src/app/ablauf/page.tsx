@@ -78,20 +78,20 @@ export default function AblaufPage() {
             {phases.map((p) => (
               <li key={p.n} className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
                 <div>
-                  <p className="m-0 text-[var(--text-4xl)] font-bold leading-none tabular-nums text-[var(--color-sun)]">
+                  <p className="m-0 text-4xl font-bold leading-none tabular-nums text-sun">
                     {String(p.n).padStart(2, '0')}
                   </p>
-                  <h2 className="mt-2 text-[var(--text-2xl)]">{p.t}</h2>
-                  <p className="mt-1 text-[var(--text-sm)] font-bold uppercase tracking-[0.07em] text-[var(--color-ink-accent)]">
+                  <h2 className="mt-2 text-2xl">{p.t}</h2>
+                  <p className="mt-1 text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
                     {p.when}
                   </p>
-                  <div className="prose mt-4 text-[var(--color-ink-muted)]">
+                  <div className="prose mt-4 text-ink-muted">
                     {p.body.map((b) => <p key={b}>{b}</p>)}
                   </div>
                 </div>
-                <div className="self-start rounded-[var(--radius-md)] border-l-4 border-[var(--color-brand)] bg-[var(--color-paper)] p-5">
-                  <h3 className="flex items-center gap-2 text-[var(--text-lg)]">
-                    <IconDocument className="text-[var(--color-brand)]" />
+                <div className="self-start rounded-md border-l-4 border-brand bg-paper p-5">
+                  <h3 className="flex items-center gap-2 text-lg">
+                    <IconDocument className="text-brand" />
                     Was Sie bereithalten sollten
                   </h3>
                   <ul className="checklist mt-3">
@@ -129,14 +129,14 @@ export default function AblaufPage() {
                 'Ein Pflegevertrag ist kündbar — Sie binden sich nicht auf Jahre.',
                 'Wir sagen Ihnen ehrlich, wenn ein anderer Dienst oder eine andere Versorgungsform besser passt.',
               ].map((x) => (
-                <li key={x} className="flex items-start gap-2.5 text-[var(--text-lg)]">
-                  <IconCheck className="mt-1 flex-none text-[var(--color-brand)]" />
+                <li key={x} className="flex items-start gap-2.5 text-lg">
+                  <IconCheck className="mt-1 flex-none text-brand" />
                   <span>{x}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 flex items-start gap-2.5 rounded-[var(--radius-md)] bg-[var(--color-paper-warm)] p-4 text-[var(--color-ink)]">
-              <IconAlert className="mt-1 flex-none text-[var(--color-ink-accent)]" />
+            <p className="mt-6 flex items-start gap-2.5 rounded-md bg-paper-warm p-4 text-ink">
+              <IconAlert className="mt-1 flex-none text-ink-accent" />
               <span>
                 Unabhängige, kostenlose Beratung — die nichts mit uns zu tun hat — bekommen
                 Sie bei der{' '}

@@ -40,22 +40,22 @@ export default function KontaktPage() {
             />
             {/* useSearchParams needs a boundary so the rest of the page can
                 still be prerendered as static HTML. */}
-            <Suspense fallback={<p className="text-[var(--color-ink-muted)]">Formular wird geladen …</p>}>
+            <Suspense fallback={<p className="text-ink-muted">Formular wird geladen …</p>}>
               <InquiryForm kind="beratung" />
             </Suspense>
           </div>
 
           <aside className="self-start">
-            <div className="rounded-[var(--radius-lg)] border-2 border-[var(--color-brand)] p-6">
+            <div className="rounded-lg border-2 border-brand p-6">
               <p className="eyebrow">Schneller als jedes Formular</p>
               <span className="horizont" aria-hidden="true" />
-              <h2 className="text-[var(--text-2xl)]">Rufen Sie einfach an</h2>
-              <p className="mt-2 text-[var(--color-ink-muted)]">
+              <h2 className="text-2xl">Rufen Sie einfach an</h2>
+              <p className="mt-2 text-ink-muted">
                 Bei einer Entlassung aus dem Krankenhaus oder einer akuten Verschlechterung
                 ist das Telefon immer der richtige Weg.
               </p>
               <ContactLinks />
-              <p className="mt-5 flex items-start gap-2.5 text-[var(--color-ink-muted)]">
+              <p className="mt-5 flex items-start gap-2.5 text-ink-muted">
                 <IconClock className="mt-1 flex-none" />
                 <span>
                   Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
@@ -64,18 +64,18 @@ export default function KontaktPage() {
               </p>
             </div>
 
-            <div className="mt-6 rounded-[var(--radius-lg)] bg-[var(--color-paper)] p-6">
-              <h2 className="text-[var(--text-xl)]">Standorte</h2>
+            <div className="mt-6 rounded-lg bg-paper p-6">
+              <h2 className="text-xl">Standorte</h2>
               <span className="horizont mt-3" aria-hidden="true" />
               <ul className="m-0 list-none space-y-5 p-0">
                 {business.locations.map((l) => (
                   <li key={l.id} className="flex items-start gap-2.5">
-                    <IconPin className="mt-1 flex-none text-[var(--color-brand)]" />
+                    <IconPin className="mt-1 flex-none text-brand" />
                     <span>
-                      <span className="block font-bold text-[var(--color-brand-ink)]">
+                      <span className="block font-bold text-brand-ink">
                         {l.role} {l.city}
                       </span>
-                      <address className="not-italic text-[var(--color-ink-muted)]">
+                      <address className="not-italic text-ink-muted">
                         {l.street}
                         <br />
                         {l.postalCode} {l.city}
@@ -84,7 +84,7 @@ export default function KontaktPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-5 text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+              <p className="mt-5 text-sm text-ink-muted">
                 Die Büros sind Verwaltungsstandorte. Beratungsgespräche führen wir bei Ihnen
                 zu Hause — dort, wo die Pflege später stattfindet.
               </p>

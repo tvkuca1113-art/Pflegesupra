@@ -52,7 +52,7 @@ export default function DatenschutzPage() {
               Telefon {business.phone.display}, E-Mail{' '}
               <a href={`mailto:${business.email}`} className="linkish">{business.email}</a>.
             </p>
-            <p className="text-[var(--color-err)]">
+            <p className="text-err">
               zu bestätigen — ob ein Datenschutzbeauftragter benannt ist und, falls ja,
               dessen Kontaktdaten.
             </p>
@@ -144,7 +144,7 @@ export default function DatenschutzPage() {
               innerhalb der Europäischen Union (Irland). Eine Übermittlung in ein Drittland
               findet dabei nicht statt.
             </p>
-            <p className="text-[var(--color-err)]">
+            <p className="text-err">
               zu bestätigen — Abschluss eines Auftragsverarbeitungsvertrags mit dem
               Datenbankanbieter und dem Hoster, sowie Ergänzung des tatsächlichen Hosters
               mit vollständiger Anschrift.
@@ -196,7 +196,7 @@ export default function DatenschutzPage() {
             </p>
 
             <p className="mt-10">
-              <Link href="/impressum" className="linkish font-bold">Zum Impressum</Link>
+              <Link href="/impressum" className="linkish inline-block py-1 font-bold">Zum Impressum</Link>
             </p>
           </div>
         </div>

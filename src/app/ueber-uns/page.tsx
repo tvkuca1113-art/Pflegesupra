@@ -58,7 +58,7 @@ export default function UeberUnsPage() {
         <div className="shell grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
           <div>
             <SectionHead title="„Supra“ heißt „darüber“" />
-            <div className="prose text-[var(--color-ink-muted)]">
+            <div className="prose text-ink-muted">
               <p>
                 Der Name kommt aus dem Lateinischen und bedeutet <em>über</em>. Er beschreibt
                 das Ziel dieses Dienstes: das Wohlbefinden über die Probleme zu heben, so weit
@@ -76,9 +76,9 @@ export default function UeberUnsPage() {
             <SectionHead title="Vier Grundsätze" />
             <dl className="m-0 space-y-8">
               {principles.map((p) => (
-                <div key={p.t} className="border-t-4 border-[var(--color-sun)] pt-4">
-                  <dt className="text-[var(--text-xl)] font-bold text-[var(--color-brand-ink)]">{p.t}</dt>
-                  <dd className="m-0 mt-2 text-[var(--color-ink-muted)]">{p.b}</dd>
+                <div key={p.t} className="border-t-4 border-sun pt-4">
+                  <dt className="text-xl font-bold text-brand-ink">{p.t}</dt>
+                  <dd className="m-0 mt-2 text-ink-muted">{p.b}</dd>
                 </div>
               ))}
             </dl>
@@ -97,7 +97,7 @@ export default function UeberUnsPage() {
           />
           <ul className="m-0 grid list-none gap-6 p-0 lg:grid-cols-3">
             {honesty.map((h) => (
-              <li key={h} className="border-l-4 border-[var(--color-line-strong)] bg-white p-5 text-[var(--color-ink-muted)]">
+              <li key={h} className="border-l-4 border-line-strong bg-white p-5 text-ink-muted">
                 {h}
               </li>
             ))}
@@ -110,18 +110,18 @@ export default function UeberUnsPage() {
           <SectionHead title="Wo Sie uns finden" />
           <ul className="m-0 grid list-none gap-8 p-0 sm:grid-cols-2">
             {business.locations.map((l) => (
-              <li key={l.id} className="border-t-4 border-[var(--color-brand)] pt-4">
-                <h3 className="flex items-center gap-2 text-[var(--text-xl)]">
-                  <IconPin className="text-[var(--color-brand)]" />
+              <li key={l.id} className="border-t-4 border-brand pt-4">
+                <h3 className="flex items-center gap-2 text-xl">
+                  <IconPin className="text-brand" />
                   {l.role} {l.city}
                 </h3>
-                <address className="mt-2 not-italic text-[var(--color-ink-muted)]">
+                <address className="mt-2 not-italic text-ink-muted">
                   {l.street}
                   <br />
                   {l.postalCode} {l.city}
                   {l.district ? <><br />Stadtbezirk {l.district}</> : null}
                 </address>
-                <Link href={`/einsatzgebiet/${l.slug}`} className="linkish mt-3 inline-block font-bold">
+                <Link href={`/einsatzgebiet/${l.slug}`} className="linkish mt-3 inline-block py-1 font-bold">
                   Pflege in {l.city}
                 </Link>
               </li>

@@ -47,13 +47,13 @@ export default function ConsentBanner({ analyticsConfigured }: { analyticsConfig
       role="dialog"
       aria-modal="false"
       aria-labelledby="consent-titel"
-      className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-[var(--color-sun)] bg-white shadow-[0_-8px_40px_rgb(0_26_82/0.18)]"
+      className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-sun bg-white shadow-[0_-8px_40px_rgb(0_26_82/0.18)]"
     >
       <div className="shell py-5">
-        <h2 id="consent-titel" className="text-[var(--text-xl)]">
+        <h2 id="consent-titel" className="text-xl">
           Dürfen wir messen, welche Seiten weiterhelfen?
         </h2>
-        <p className="measure mt-2 text-[var(--color-ink-muted)]">
+        <p className="measure mt-2 text-ink-muted">
           Für den Betrieb dieser Seite setzen wir keine Cookies. Zusätzlich würden wir gerne
           anonym auswerten, welche Inhalte gelesen werden, um sie zu verbessern. Das ist
           freiwillig und lässt sich jederzeit widerrufen.{' '}

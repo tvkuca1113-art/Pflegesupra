@@ -46,19 +46,19 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       {/* The three questions a reader has before any description: who pays,
           do I qualify, what do I actually get. Answered before the prose. */}
-      <section className="section--tight border-b border-[var(--color-line)]">
-        <dl className="shell m-0 grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-line)] sm:grid-cols-2">
+      <section className="section--tight border-b border-line">
+        <dl className="shell m-0 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
           <div className="bg-white p-5">
-            <dt className="text-[var(--text-sm)] font-bold uppercase tracking-[0.07em] text-[var(--color-ink-accent)]">
+            <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
               Wer bezahlt
             </dt>
-            <dd className="m-0 mt-1.5 text-[var(--text-lg)]">{s.payer}</dd>
+            <dd className="m-0 mt-1.5 text-lg">{s.payer}</dd>
           </div>
           <div className="bg-white p-5">
-            <dt className="text-[var(--text-sm)] font-bold uppercase tracking-[0.07em] text-[var(--color-ink-accent)]">
+            <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
               Voraussetzung
             </dt>
-            <dd className="m-0 mt-1.5 text-[var(--text-lg)]">{s.eligibility}</dd>
+            <dd className="m-0 mt-1.5 text-lg">{s.eligibility}</dd>
           </div>
         </dl>
       </section>
@@ -67,7 +67,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="shell grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
           <div>
             <SectionHead title="Das übernehmen wir" />
-            <ul className="checklist text-[var(--text-lg)]">
+            <ul className="checklist text-lg">
               {s.includes.map((i) => <li key={i}>{i}</li>)}
             </ul>
 
@@ -79,8 +79,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 />
                 <ul className="m-0 list-none space-y-3 p-0">
                   {s.notIncluded.map((i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-[var(--color-ink-muted)]">
-                      <IconAlert className="mt-1 flex-none text-[var(--color-ink-accent)]" />
+                    <li key={i} className="flex items-start gap-2.5 text-ink-muted">
+                      <IconAlert className="mt-1 flex-none text-ink-accent" />
                       <span>{i}</span>
                     </li>
                   ))}
@@ -89,15 +89,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             ) : null}
           </div>
 
-          <aside className="self-start rounded-[var(--radius-lg)] border-2 border-[var(--color-line)] bg-[var(--color-paper)] p-6">
-            <h2 className="text-[var(--text-xl)]">Häufige Fragen dazu</h2>
+          <aside className="self-start rounded-lg border-2 border-line bg-paper p-6">
+            <h2 className="text-xl">Häufige Fragen dazu</h2>
             <span className="horizont mt-3" aria-hidden="true" />
             {related.length ? (
               <ul className="m-0 list-none space-y-5 p-0">
                 {related.map((f) => (
                   <li key={f.id}>
-                    <h3 className="text-[var(--text-lg)]">{f.question}</h3>
-                    <p className="mt-1.5 text-[var(--color-ink-muted)]">{f.answer[0]}</p>
+                    <h3 className="text-lg">{f.question}</h3>
+                    <p className="mt-1.5 text-ink-muted">{f.answer[0]}</p>
                   </li>
                 ))}
               </ul>
@@ -117,11 +117,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           />
           <ul className="m-0 grid list-none gap-x-8 gap-y-6 p-0 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((o) => (
-              <li key={o.slug} className="border-t-4 border-[var(--color-line)] pt-3">
-                <Link href={`/leistungen/${o.slug}`} className="font-bold text-[var(--color-brand)] no-underline">
+              <li key={o.slug} className="border-t-4 border-line pt-3">
+                <Link href={`/leistungen/${o.slug}`} className="inline-block py-1 font-bold text-brand no-underline">
                   {o.name}
                 </Link>
-                <p className="mt-1.5 text-[var(--text-sm)] text-[var(--color-ink-muted)]">{o.payer}</p>
+                <p className="mt-1.5 text-sm text-ink-muted">{o.payer}</p>
               </li>
             ))}
           </ul>

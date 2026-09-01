@@ -20,8 +20,8 @@ export default function NotFound() {
       <div className="shell">
         <p className="eyebrow">Fehler 404</p>
         <span className="horizont" aria-hidden="true" />
-        <h1 className="text-[var(--text-4xl)]">Diese Seite gibt es nicht (mehr).</h1>
-        <p className="measure mt-5 text-[var(--text-lg)] text-[var(--color-ink-muted)]">
+        <h1 className="text-4xl">Diese Seite gibt es nicht (mehr).</h1>
+        <p className="measure mt-5 text-lg text-ink-muted">
           Möglicherweise stammt der Link aus einer älteren Fassung unserer Website. Hier
           kommen Sie weiter — oder rufen Sie einfach an, das ist ohnehin der kürzeste Weg.
         </p>
@@ -37,16 +37,16 @@ export default function NotFound() {
         </div>
 
         <nav aria-label="Alle Seiten" className="mt-12">
-          <h2 className="text-[var(--text-xl)]">Alle Bereiche</h2>
+          <h2 className="text-xl">Alle Bereiche</h2>
           <span className="horizont mt-3" aria-hidden="true" />
           <ul className="m-0 grid list-none gap-x-8 gap-y-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {[...primaryNav, { href: '/kontakt', label: 'Kontakt', hint: 'Beratung anfragen' }].map((i) => (
-              <li key={i.href} className="border-t-4 border-[var(--color-line)] pt-3">
-                <Link href={i.href} className="font-bold text-[var(--color-brand)] no-underline">
+              <li key={i.href} className="border-t-4 border-line pt-3">
+                <Link href={i.href} className="inline-block py-1 font-bold text-brand no-underline">
                   {i.label}
                 </Link>
                 {i.hint ? (
-                  <p className="mt-1 text-[var(--text-sm)] text-[var(--color-ink-muted)]">{i.hint}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{i.hint}</p>
                 ) : null}
               </li>
             ))}

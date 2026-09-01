@@ -85,29 +85,29 @@ export default function PflegeKompass() {
   const stepLabels = ['Pflegegrad', 'Bedarf', 'Ort', 'Ergebnis'];
 
   return (
-    <div className="overflow-hidden rounded-[var(--radius-lg)] border-2 border-[var(--color-brand)] bg-white shadow-[var(--shadow-lifted)]">
-      <div className="on-dark bg-[var(--color-brand)] px-5 py-4 text-white sm:px-7">
-        <p className="m-0 text-[var(--text-sm)] font-bold uppercase tracking-[0.09em] text-[var(--color-sun-soft)]">
+    <div className="overflow-hidden rounded-lg border-2 border-brand bg-white shadow-lifted">
+      <div className="on-dark bg-brand px-5 py-4 text-white sm:px-7">
+        <p className="m-0 text-sm font-bold uppercase tracking-[0.09em] text-sun-soft">
           Pflege-Kompass
         </p>
-        <p className="m-0 text-[var(--text-xl)] font-bold">
+        <p className="m-0 text-xl font-bold">
           Drei Fragen — dann wissen Sie, was Ihnen zusteht.
         </p>
       </div>
 
       {/* Progress. Presented as an ordered list so it is meaningful without the
           visual styling, with the current step marked via aria-current. */}
-      <ol className="m-0 flex list-none gap-0 border-b border-[var(--color-line)] p-0">
+      <ol className="m-0 flex list-none gap-0 border-b border-line p-0">
         {stepLabels.map((label, i) => (
           <li key={label} className="flex-1">
             <span
               aria-current={i === step ? 'step' : undefined}
-              className={`flex h-full flex-col items-center justify-center gap-0.5 border-b-4 px-1 py-2.5 text-center text-[var(--text-xs)] font-bold sm:text-[var(--text-sm)] ${
+              className={`flex h-full flex-col items-center justify-center gap-0.5 border-b-4 px-1 py-2.5 text-center text-xs font-bold sm:text-sm ${
                 i === step
-                  ? 'border-[var(--color-sun)] text-[var(--color-brand-ink)]'
+                  ? 'border-sun text-brand-ink'
                   : i < step
-                    ? 'border-[var(--color-brand)] text-[var(--color-brand)]'
-                    : 'border-[var(--color-line)] text-[var(--color-ink-muted)]'
+                    ? 'border-brand text-brand'
+                    : 'border-line text-ink-muted'
               }`}
             >
               <span className="tabular-nums">{i + 1}</span>
@@ -121,7 +121,7 @@ export default function PflegeKompass() {
         <p
           ref={headingRef}
           tabIndex={-1}
-          className="m-0 mb-4 text-[var(--text-2xl)] font-bold leading-tight text-[var(--color-brand-ink)] outline-none"
+          className="m-0 mb-4 text-2xl font-bold leading-tight text-brand-ink outline-none"
         >
           {step === 0 && 'Welcher Pflegegrad liegt vor?'}
           {step === 1 && 'Wobei wird Unterstützung gebraucht?'}
@@ -137,22 +137,22 @@ export default function PflegeKompass() {
               {GRAD_CHOICES.map((c) => (
                 <label
                   key={String(c.value)}
-                  className={`flex cursor-pointer items-start gap-3 rounded-[var(--radius-md)] border-2 p-3.5 ${
+                  className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3.5 ${
                     grad === c.value
-                      ? 'border-[var(--color-brand)] bg-[#eef2fb]'
-                      : 'border-[var(--color-line)] hover:border-[var(--color-brand)]'
+                      ? 'border-brand bg-[#eef2fb]'
+                      : 'border-line hover:border-brand'
                   }`}
                 >
                   <input
                     type="radio"
                     name={`${uid}-grad`}
-                    className="mt-1 h-5 w-5 flex-none accent-[var(--color-brand)]"
+                    className="mt-1 h-6 w-6 flex-none accent-brand"
                     checked={grad === c.value}
                     onChange={() => { begin(); setGrad(c.value); }}
                   />
                   <span>
-                    <span className="block font-bold text-[var(--color-brand-ink)]">{c.label}</span>
-                    <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{c.sub}</span>
+                    <span className="block font-bold text-brand-ink">{c.label}</span>
+                    <span className="block text-sm text-ink-muted">{c.sub}</span>
                   </span>
                 </label>
               ))}
@@ -172,26 +172,26 @@ export default function PflegeKompass() {
         {step === 1 && (
           <fieldset className="m-0 border-0 p-0">
             <legend className="sr-only">Bedarf auswählen — Mehrfachauswahl möglich</legend>
-            <p className="mb-3 text-[var(--color-ink-muted)]">Mehrfachauswahl möglich.</p>
+            <p className="mb-3 text-ink-muted">Mehrfachauswahl möglich.</p>
             <div className="grid gap-2.5">
               {NEEDS.map((n) => (
                 <label
                   key={n.id}
-                  className={`flex cursor-pointer items-start gap-3 rounded-[var(--radius-md)] border-2 p-3.5 ${
+                  className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3.5 ${
                     needs.includes(n.id)
-                      ? 'border-[var(--color-brand)] bg-[#eef2fb]'
-                      : 'border-[var(--color-line)] hover:border-[var(--color-brand)]'
+                      ? 'border-brand bg-[#eef2fb]'
+                      : 'border-line hover:border-brand'
                   }`}
                 >
                   <input
                     type="checkbox"
-                    className="mt-1 h-5 w-5 flex-none accent-[var(--color-brand)]"
+                    className="mt-1 h-6 w-6 flex-none accent-brand"
                     checked={needs.includes(n.id)}
                     onChange={() => toggleNeed(n.id)}
                   />
                   <span>
-                    <span className="block font-bold text-[var(--color-brand-ink)]">{n.label}</span>
-                    <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{n.hint}</span>
+                    <span className="block font-bold text-brand-ink">{n.label}</span>
+                    <span className="block text-sm text-ink-muted">{n.hint}</span>
                   </span>
                 </label>
               ))}
@@ -219,22 +219,22 @@ export default function PflegeKompass() {
                 { value: 'anderswo', label: 'Ein anderer Ort', sub: 'Wir sagen Ihnen ehrlich, ob wir hinkommen' }].map((c) => (
                 <label
                   key={c.value}
-                  className={`flex cursor-pointer items-start gap-3 rounded-[var(--radius-md)] border-2 p-3.5 ${
+                  className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3.5 ${
                     area === c.value
-                      ? 'border-[var(--color-brand)] bg-[#eef2fb]'
-                      : 'border-[var(--color-line)] hover:border-[var(--color-brand)]'
+                      ? 'border-brand bg-[#eef2fb]'
+                      : 'border-line hover:border-brand'
                   }`}
                 >
                   <input
                     type="radio"
                     name={`${uid}-ort`}
-                    className="mt-1 h-5 w-5 flex-none accent-[var(--color-brand)]"
+                    className="mt-1 h-6 w-6 flex-none accent-brand"
                     checked={area === c.value}
                     onChange={() => setArea(c.value)}
                   />
                   <span>
-                    <span className="block font-bold text-[var(--color-brand-ink)]">{c.label}</span>
-                    <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{c.sub}</span>
+                    <span className="block font-bold text-brand-ink">{c.label}</span>
+                    <span className="block text-sm text-ink-muted">{c.sub}</span>
                   </span>
                 </label>
               ))}
@@ -261,7 +261,7 @@ export default function PflegeKompass() {
           <div aria-live="polite">
             {gradData ? (
               <>
-                <p className="measure m-0 text-[var(--text-lg)]">
+                <p className="measure m-0 text-lg">
                   Bei <strong>Pflegegrad {gradData.grad}</strong> übernimmt die Pflegekasse
                   monatlich bis zu{' '}
                   <strong className="whitespace-nowrap">{euro(gradData.sachleistung)}</strong>{' '}
@@ -269,7 +269,7 @@ export default function PflegeKompass() {
                     ? '— Sachleistungen sind hier nicht vorgesehen.'
                     : 'für die Pflege durch einen Dienst wie uns.'}
                 </p>
-                <dl className="mt-5 grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-line)] sm:grid-cols-3">
+                <dl className="mt-5 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-3">
                   {[
                     { t: 'Pflegesachleistung', v: euro(gradData.sachleistung), s: 'pro Monat, §36 SGB XI' },
                     { t: 'Entlastungsbetrag', v: euro(gradData.entlastungsbetrag), s: 'pro Monat, §45b SGB XI' },
@@ -280,9 +280,9 @@ export default function PflegeKompass() {
                     },
                   ].map((x) => (
                     <div key={x.t} className="bg-white p-4">
-                      <dt className="text-[var(--text-sm)] font-bold text-[var(--color-ink-muted)]">{x.t}</dt>
-                      <dd className="m-0 text-[var(--text-2xl)] font-bold tabular-nums text-[var(--color-brand-ink)]">{x.v}</dd>
-                      <p className="m-0 text-[var(--text-xs)] text-[var(--color-ink-muted)]">{x.s}</p>
+                      <dt className="text-sm font-bold text-ink-muted">{x.t}</dt>
+                      <dd className="m-0 text-2xl font-bold tabular-nums text-brand-ink">{x.v}</dd>
+                      <p className="m-0 text-xs text-ink-muted">{x.s}</p>
                     </div>
                   ))}
                 </dl>
@@ -300,16 +300,16 @@ export default function PflegeKompass() {
 
             {matched.length > 0 && (
               <div className="mt-6">
-                <p className="m-0 mb-2.5 font-bold text-[var(--color-brand-ink)]">
+                <p className="m-0 mb-2.5 font-bold text-brand-ink">
                   Diese Leistungen passen zu dem, was Sie angegeben haben:
                 </p>
                 <ul className="m-0 list-none space-y-2 p-0">
                   {matched.map((s) => (
                     <li key={s.slug} className="flex items-start gap-2.5">
-                      <IconCheck className="mt-1 flex-none text-[var(--color-brand)]" />
+                      <IconCheck className="mt-1 flex-none text-brand" />
                       <span>
                         <Link href={`/leistungen/${s.slug}`} className="linkish font-bold">{s.name}</Link>
-                        <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{s.payer}</span>
+                        <span className="block text-sm text-ink-muted">{s.payer}</span>
                       </span>
                     </li>
                   ))}
@@ -318,7 +318,7 @@ export default function PflegeKompass() {
             )}
 
             {area === 'anderswo' && (
-              <p className="measure mt-5 rounded-[var(--radius-md)] bg-[var(--color-paper-warm)] p-4 text-[var(--color-ink)]">
+              <p className="measure mt-5 rounded-md bg-paper-warm p-4 text-ink">
                 Ihr Ort liegt außerhalb unserer beiden Standorte. Ob wir Sie anfahren können,
                 sagen wir Ihnen im Gespräch — und wenn nicht, sagen wir Ihnen, wen Sie
                 stattdessen fragen sollten.
@@ -354,7 +354,7 @@ export default function PflegeKompass() {
               </button>
             </div>
 
-            <p className="mt-5 text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+            <p className="mt-5 text-sm text-ink-muted">
               Angaben nach den Leistungsbeträgen der Pflegeversicherung für 2026. Sie sind
               eine Orientierung, keine verbindliche Zusage Ihrer Pflegekasse.
             </p>

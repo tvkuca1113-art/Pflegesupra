@@ -53,8 +53,8 @@ export default function Header() {
       {/* Utility strip. The phone number is the single most valuable element on
           this site, so it sits above everything and never scrolls out of reach
           on desktop. */}
-      <div className="on-dark bg-[var(--color-brand-deep)] text-white">
-        <div className="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-[var(--text-sm)]">
+      <div className="on-dark bg-brand-deep text-white">
+        <div className="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-sm">
           <p className="m-0">
             Ambulante Pflege zu Hause · München &amp; Pfaffenhofen a.d.&nbsp;Ilm
           </p>
@@ -72,7 +72,7 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-[var(--color-line)] bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
         <div className="shell flex items-center justify-between gap-4 py-3">
           <Link href="/" className="flex-none" aria-label={`${business.legalName} — zur Startseite`}>
             <Image
@@ -81,7 +81,7 @@ export default function Header() {
               width={420}
               height={297}
               priority
-              className="h-11 w-auto sm:h-14"
+              className="h-12 w-auto sm:h-16"
             />
           </Link>
 
@@ -92,14 +92,14 @@ export default function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
-                    className="relative block rounded px-3 py-2.5 font-semibold text-[var(--color-brand-ink)] no-underline hover:bg-[#eef2fb]"
+                    className="relative block rounded px-3 py-2.5 font-semibold text-brand-ink no-underline hover:bg-[#eef2fb]"
                   >
                     {item.label}
                     {/* The active marker is the Horizont, 4px of brand orange —
                         the one place orange appears in the chrome. */}
                     <span
                       aria-hidden="true"
-                      className={`absolute inset-x-3 -bottom-0.5 h-1 bg-[var(--color-sun)] ${
+                      className={`absolute inset-x-3 -bottom-0.5 h-1 bg-sun ${
                         isActive(item.href) ? 'opacity-100' : 'opacity-0'
                       }`}
                     />
@@ -133,26 +133,26 @@ export default function Header() {
           id="mobilmenue"
           ref={panelRef}
           hidden={!open}
-          className="max-h-[calc(100dvh-8rem)] overflow-y-auto border-t border-[var(--color-line)] bg-white lg:hidden"
+          className="max-h-[calc(100dvh-8rem)] overflow-y-auto border-t border-line bg-white lg:hidden"
         >
           <nav aria-label="Hauptnavigation (mobil)" className="shell py-4">
             <ul className="m-0 list-none p-0">
               {primaryNav.map((item) => (
-                <li key={item.href} className="border-b border-[var(--color-line)] last:border-0">
+                <li key={item.href} className="border-b border-line last:border-0">
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
                     className="flex items-center justify-between gap-3 py-3.5 no-underline"
                   >
                     <span>
-                      <span className="block font-bold text-[var(--color-brand-ink)]">{item.label}</span>
+                      <span className="block font-bold text-brand-ink">{item.label}</span>
                       {item.hint ? (
-                        <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+                        <span className="block text-sm text-ink-muted">
                           {item.hint}
                         </span>
                       ) : null}
                     </span>
-                    <IconArrow className="flex-none text-[var(--color-brand)]" />
+                    <IconArrow className="flex-none text-brand" />
                   </Link>
                 </li>
               ))}

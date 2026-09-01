@@ -38,7 +38,7 @@ export default function ImpressumPage() {
 
           <div className="prose">
             <h2>Angaben gemäß §5 DDG (vormals §5 TMG)</h2>
-            <dl className="m-0 grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-line)] sm:grid-cols-[14rem_minmax(0,1fr)]">
+            <dl className="m-0 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-[14rem_minmax(0,1fr)]">
               {[
                 ['Unternehmen', business.legalName],
                 ['Inhaber', business.owner],
@@ -49,32 +49,32 @@ export default function ImpressumPage() {
                 ['E-Mail', business.email],
               ].map(([k, v]) => (
                 <div key={k} className="contents">
-                  <dt className="bg-[var(--color-paper)] p-3 font-bold text-[var(--color-brand-ink)]">{k}</dt>
+                  <dt className="bg-paper p-3 font-bold text-brand-ink">{k}</dt>
                   <dd className="m-0 bg-white p-3">{v}</dd>
                 </div>
               ))}
               <div className="contents">
-                <dt className="bg-[var(--color-paper)] p-3 font-bold text-[var(--color-brand-ink)]">
+                <dt className="bg-paper p-3 font-bold text-brand-ink">
                   Umsatzsteuer-IdNr.
                 </dt>
-                <dd className="m-0 bg-white p-3 text-[var(--color-err)]">
+                <dd className="m-0 bg-white p-3 text-err">
                   zu bestätigen — falls vorhanden, hier eintragen (§27a UStG)
                 </dd>
               </div>
               <div className="contents">
-                <dt className="bg-[var(--color-paper)] p-3 font-bold text-[var(--color-brand-ink)]">
+                <dt className="bg-paper p-3 font-bold text-brand-ink">
                   Zuständige Aufsichtsbehörde
                 </dt>
-                <dd className="m-0 bg-white p-3 text-[var(--color-err)]">
+                <dd className="m-0 bg-white p-3 text-err">
                   zu bestätigen — die konkrete Behörde ist mit vollständigem Namen und
                   Anschrift zu benennen
                 </dd>
               </div>
               <div className="contents">
-                <dt className="bg-[var(--color-paper)] p-3 font-bold text-[var(--color-brand-ink)]">
+                <dt className="bg-paper p-3 font-bold text-brand-ink">
                   Berufsbezeichnung &amp; berufsrechtliche Regelungen
                 </dt>
-                <dd className="m-0 bg-white p-3 text-[var(--color-err)]">
+                <dd className="m-0 bg-white p-3 text-err">
                   zu bestätigen — Berufsbezeichnung, verleihender Staat und Fundstelle der
                   berufsrechtlichen Regelungen
                 </dd>
@@ -135,7 +135,7 @@ export default function ImpressumPage() {
             </p>
 
             <h2>Hosting</h2>
-            <p className="text-[var(--color-err)]">
+            <p className="text-err">
               zu bestätigen — hier ist der tatsächlich eingesetzte Hoster mit vollständiger
               Anschrift einzutragen, sobald die Seite produktiv geschaltet ist. Bei einem
               Betrieb über Vercel ist das die Vercel Inc. mit dem für die EU maßgeblichen

@@ -10,7 +10,7 @@ export default function ContactLinks() {
     <div className="mt-5 flex flex-col gap-3">
       <a
         href={business.phone.href}
-        className="btn btn--primary text-[var(--text-lg)]"
+        className="btn btn--primary text-lg"
         onClick={() => track('phone_click', { placement: 'kontakt_aside' })}
       >
         <IconPhone />

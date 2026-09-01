@@ -44,7 +44,7 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
         <div className="shell grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
           <div>
             <SectionHead title={`Ob wir zu Ihnen kommen`} />
-            <p className="measure text-[var(--text-lg)]">{a.coverage}</p>
+            <p className="measure text-lg">{a.coverage}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href={business.phone.href} className="btn btn--primary">
                 <IconPhone />
@@ -57,26 +57,26 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
 
             <div className="mt-12 space-y-9">
               {a.localNotes.map((n) => (
-                <div key={n.heading} className="border-t-4 border-[var(--color-sun)] pt-4">
-                  <h2 className="text-[var(--text-xl)]">{n.heading}</h2>
-                  <p className="measure mt-2 text-[var(--color-ink-muted)]">{n.body}</p>
+                <div key={n.heading} className="border-t-4 border-sun pt-4">
+                  <h2 className="text-xl">{n.heading}</h2>
+                  <p className="measure mt-2 text-ink-muted">{n.body}</p>
                 </div>
               ))}
             </div>
           </div>
 
           <aside className="self-start">
-            <div className="rounded-[var(--radius-lg)] border-2 border-[var(--color-brand)] p-6">
-              <h2 className="flex items-center gap-2 text-[var(--text-xl)]">
-                <IconPin className="text-[var(--color-brand)]" />
+            <div className="rounded-lg border-2 border-brand p-6">
+              <h2 className="flex items-center gap-2 text-xl">
+                <IconPin className="text-brand" />
                 {loc.role} {loc.city}
               </h2>
-              <address className="mt-2 not-italic text-[var(--color-ink-muted)]">
+              <address className="mt-2 not-italic text-ink-muted">
                 {loc.street}
                 <br />
                 {loc.postalCode} {loc.city}
               </address>
-              <p className="mt-3 flex items-start gap-2 text-[var(--color-ink-muted)]">
+              <p className="mt-3 flex items-start gap-2 text-ink-muted">
                 <IconClock className="mt-1 flex-none" />
                 <span>
                   Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
@@ -88,11 +88,11 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
             {/* Independent public advice. Linking to a service that competes for
                 the same attention is deliberate: it is what a trustworthy
                 provider does, and it is what E-E-A-T actually looks like. */}
-            <div className="mt-6 rounded-[var(--radius-lg)] bg-[var(--color-paper-warm)] p-6">
+            <div className="mt-6 rounded-lg bg-paper-warm p-6">
               <p className="eyebrow">Unabhängige Beratung</p>
-              <h2 className="text-[var(--text-xl)]">{a.officialAdvice.name}</h2>
-              <p className="mt-2 text-[var(--color-ink-muted)]">{a.officialAdvice.what}</p>
-              <ul className="m-0 mt-4 list-none space-y-2 p-0 text-[var(--color-ink)]">
+              <h2 className="text-xl">{a.officialAdvice.name}</h2>
+              <p className="mt-2 text-ink-muted">{a.officialAdvice.what}</p>
+              <ul className="m-0 mt-4 list-none space-y-2 p-0 text-ink">
                 {a.officialAdvice.address ? (
                   <li className="flex items-start gap-2"><IconPin className="mt-1 flex-none" />{a.officialAdvice.address}</li>
                 ) : null}
@@ -135,16 +135,16 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
           <SectionHead title={`Leistungen in ${a.city}`} />
           <ul className="m-0 grid list-none gap-x-8 gap-y-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
-              <li key={s.slug} className="border-t-4 border-[var(--color-line)] pt-3">
-                <Link href={`/leistungen/${s.slug}`} className="font-bold text-[var(--color-brand)] no-underline">
+              <li key={s.slug} className="border-t-4 border-line pt-3">
+                <Link href={`/leistungen/${s.slug}`} className="inline-block py-1 font-bold text-brand no-underline">
                   {s.name}
                 </Link>
-                <p className="mt-1.5 text-[var(--text-sm)] text-[var(--color-ink-muted)]">{s.promise}</p>
+                <p className="mt-1.5 text-sm text-ink-muted">{s.promise}</p>
               </li>
             ))}
           </ul>
           <p className="mt-9">
-            <Link href={`/einsatzgebiet/${other.slug}`} className="linkish font-bold">
+            <Link href={`/einsatzgebiet/${other.slug}`} className="linkish inline-block py-1 font-bold">
               Auch in {other.city} sind wir vor Ort
             </Link>
           </p>

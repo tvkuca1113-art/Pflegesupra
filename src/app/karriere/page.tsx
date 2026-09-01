@@ -56,9 +56,9 @@ export default function KarrierePage() {
             <SectionHead title="Was wir zusagen können" />
             <dl className="m-0 space-y-8">
               {promises.map((p) => (
-                <div key={p.t} className="border-t-4 border-[var(--color-sun)] pt-4">
-                  <dt className="text-[var(--text-xl)] font-bold text-[var(--color-brand-ink)]">{p.t}</dt>
-                  <dd className="m-0 mt-2 text-[var(--color-ink-muted)]">{p.b}</dd>
+                <div key={p.t} className="border-t-4 border-sun pt-4">
+                  <dt className="text-xl font-bold text-brand-ink">{p.t}</dt>
+                  <dd className="m-0 mt-2 text-ink-muted">{p.b}</dd>
                 </div>
               ))}
             </dl>
@@ -69,7 +69,7 @@ export default function KarrierePage() {
               title="Wen wir suchen"
               intro="Die fachliche Qualifikation ist die Voraussetzung. Entschieden wird über die Haltung."
             />
-            <ul className="checklist text-[var(--text-lg)]">
+            <ul className="checklist text-lg">
               <li>Pflegefachkräfte (examiniert), Vollzeit oder Teilzeit</li>
               <li>Pflegehelferinnen und Pflegehelfer</li>
               <li>Betreuungskräfte nach §43b SGB XI</li>
@@ -77,9 +77,9 @@ export default function KarrierePage() {
               <li>Auszubildende und Praktikantinnen und Praktikanten</li>
             </ul>
 
-            <div className="mt-8 flex items-start gap-3 rounded-[var(--radius-md)] bg-[var(--color-paper-warm)] p-5">
-              <IconAlert className="mt-1 flex-none text-[var(--color-ink-accent)]" />
-              <p className="m-0 text-[var(--color-ink)]">
+            <div className="mt-8 flex items-start gap-3 rounded-md bg-paper-warm p-5">
+              <IconAlert className="mt-1 flex-none text-ink-accent" />
+              <p className="m-0 text-ink">
                 <strong>Wir nennen hier bewusst keine Gehaltsspanne und keine
                 Zuschlagsliste.</strong> Beides hängt von Qualifikation, Umfang und Erfahrung ab,
                 und eine Zahl auf einer Website, die im Gespräch dann doch anders aussieht,
@@ -95,7 +95,7 @@ export default function KarrierePage() {
                 'Rückmeldung bekommen Sie in jedem Fall — auch bei einer Absage.',
               ].map((x) => (
                 <li key={x} className="flex items-start gap-2.5">
-                  <IconCheck className="mt-1 flex-none text-[var(--color-brand)]" />
+                  <IconCheck className="mt-1 flex-none text-brand" />
                   <span>{x}</span>
                 </li>
               ))}
@@ -111,10 +111,10 @@ export default function KarrierePage() {
             title="Schreiben Sie uns"
             intro="Kurz genügt. Wer Sie sind, was Sie können, ab wann und in welchem Umfang."
           />
-          <Suspense fallback={<p className="text-[var(--color-ink-muted)]">Formular wird geladen …</p>}>
+          <Suspense fallback={<p className="text-ink-muted">Formular wird geladen …</p>}>
             <InquiryForm kind="bewerbung" />
           </Suspense>
-          <p className="mt-8 text-[var(--color-ink-muted)]">
+          <p className="mt-8 text-ink-muted">
             Lieber telefonisch? {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr
             unter{' '}
             <a href={business.phone.href} className="linkish font-bold">{business.phone.display}</a>.

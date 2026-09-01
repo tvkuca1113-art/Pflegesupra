@@ -26,6 +26,13 @@ const trustPoints = [
   { label: 'Keine Vorleistung', sub: 'Gesetzlich Versicherte zahlen nichts vor' },
 ];
 
+/** The hero card. Short on purpose — the full version lives on /ablauf. */
+const firstSteps = [
+  { n: 1, t: 'Zehn Minuten am Telefon', b: 'Wir klären, was gebraucht wird und ob wir Ihre Adresse anfahren können.' },
+  { n: 2, t: 'Kostenloses Erstgespräch', b: 'Bei Ihnen zu Hause, unverbindlich — dort, wo die Pflege später stattfindet.' },
+  { n: 3, t: 'Kosten schriftlich', b: 'Was die Kasse trägt und was gegebenenfalls privat bliebe, vor der Unterschrift.' },
+];
+
 const steps = [
   { n: 1, t: 'Sie rufen an', b: 'Ein Gespräch, in dem wir zuhören statt zu verkaufen. Wir klären, was gebraucht wird und ob wir Ihre Adresse anfahren können.' },
   { n: 2, t: 'Wir kommen vorbei', b: 'Kostenloses Erstgespräch bei Ihnen zu Hause. Wir sehen die Wohnung, die Situation und die Menschen — das geht am Telefon nicht.' },
@@ -40,22 +47,22 @@ export default function Home() {
           Answers all four questions in the first screen: who we help, what we
           do, where, and what to do next. No text over a photograph, so contrast
           is never at the mercy of an image. */}
-      <section className="relative overflow-hidden border-b border-[var(--color-line)] bg-white">
-        <div className="shell grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:py-16">
+      <section className="relative overflow-hidden border-b border-line bg-white">
+        <div className="shell grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
           <div>
             <p className="eyebrow">Ambulante Pflege zu Hause</p>
             <span className="horizont" aria-hidden="true" />
-            <h1 className="text-[var(--text-4xl)] sm:text-[var(--text-5xl)]">
+            <h1 className="text-4xl sm:text-5xl">
               Pflege in den eigenen vier Wänden — in München und Pfaffenhofen&nbsp;a.d.&nbsp;Ilm.
             </h1>
-            <p className="measure mt-5 text-[var(--text-lg)] text-[var(--color-ink-muted)]">
+            <p className="measure mt-5 text-lg text-ink-muted">
               Grundpflege, ärztlich verordnete Behandlungspflege, Betreuung und Hauswirtschaft
               — geplant nach dem, was eine Aufgabe wirklich dauert, nicht nach der
               Minutenliste. Für gesetzlich Versicherte rechnen wir direkt mit der Kasse ab.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href={business.phone.href} className="btn btn--primary text-[var(--text-lg)]">
+              <a href={business.phone.href} className="btn btn--primary text-lg">
                 <IconPhone />
                 {business.phone.display}
               </a>
@@ -63,26 +70,51 @@ export default function Home() {
                 Rückruf anfordern <IconArrow />
               </Link>
             </div>
-            <p className="mt-3 text-[var(--text-sm)] text-[var(--color-ink-muted)]">
+            <p className="mt-3 text-sm text-ink-muted">
               Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
               Ein Erstgespräch kostet Sie nichts.
             </p>
           </div>
 
-          <div className="hidden lg:block">
-            <SunriseMark className="w-full rounded-[var(--radius-lg)]" />
-          </div>
+          {/* Right column answers the question the hero raises but does not
+              settle: "what am I actually committing to if I call?" A decorative
+              image here would occupy the same space and answer nothing. */}
+          <aside className="overflow-hidden rounded-lg border-2 border-line bg-white shadow-raised">
+            <SunriseMark className="block w-full" />
+            <div className="p-6">
+              <h2 className="text-xl">Was passiert, wenn Sie anrufen</h2>
+              <ol className="m-0 mt-4 list-none space-y-4 p-0">
+                {firstSteps.map((s) => (
+                  <li key={s.t} className="flex gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-sm bg-brand text-sm font-bold tabular-nums text-white"
+                    >
+                      {s.n}
+                    </span>
+                    <span>
+                      <span className="block font-bold text-brand-ink">{s.t}</span>
+                      <span className="block text-sm text-ink-muted">{s.b}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-5 border-t border-line pt-4 text-sm text-ink-muted">
+                Sie unterschreiben nichts, bevor Sie schriftlich wissen, was es kostet.
+              </p>
+            </div>
+          </aside>
         </div>
 
         {/* Trust row — only claims the client already publishes about itself. */}
-        <div className="border-t border-[var(--color-line)] bg-[var(--color-paper)]">
+        <div className="border-t border-line bg-paper">
           <ul className="shell m-0 grid list-none gap-x-8 gap-y-4 p-0 py-6 sm:grid-cols-2 lg:grid-cols-4">
             {trustPoints.map((p) => (
               <li key={p.label} className="flex items-start gap-2.5">
-                <IconCheck className="mt-1 flex-none text-[var(--color-brand)]" />
+                <IconCheck className="mt-1 flex-none text-brand" />
                 <span>
-                  <span className="block font-bold text-[var(--color-brand-ink)]">{p.label}</span>
-                  <span className="block text-[var(--text-sm)] text-[var(--color-ink-muted)]">{p.sub}</span>
+                  <span className="block font-bold text-brand-ink">{p.label}</span>
+                  <span className="block text-sm text-ink-muted">{p.sub}</span>
                 </span>
               </li>
             ))}
@@ -136,12 +168,12 @@ export default function Home() {
           />
           <ol className="m-0 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s) => (
-              <li key={s.n} className="border-t-4 border-[var(--color-sun)] pt-4">
-                <span className="block text-[var(--text-3xl)] font-bold tabular-nums text-[var(--color-brand)]">
+              <li key={s.n} className="border-t-4 border-sun pt-4">
+                <span className="block text-3xl font-bold tabular-nums text-brand">
                   {String(s.n).padStart(2, '0')}
                 </span>
-                <h3 className="mt-1 text-[var(--text-xl)]">{s.t}</h3>
-                <p className="mt-2 text-[var(--color-ink-muted)]">{s.b}</p>
+                <h3 className="mt-1 text-xl">{s.t}</h3>
+                <p className="mt-2 text-ink-muted">{s.b}</p>
               </li>
             ))}
           </ol>
@@ -162,7 +194,7 @@ export default function Home() {
               eyebrow="Weshalb Supra"
               title="Wir planen nach Erfahrung, nicht nach der Minutenliste."
             />
-            <div className="prose text-[var(--color-ink-muted)]">
+            <div className="prose text-ink-muted">
               <p>
                 In vielen Diensten steht vor jedem Einsatz eine Liste: welche Tätigkeit
                 bringt wie viel Geld in welcher Zeit. Was dabei herauskommt, kennen
@@ -185,13 +217,13 @@ export default function Home() {
             </Link>
           </div>
 
-          <figure className="m-0 self-start border-l-4 border-[var(--color-sun)] bg-[var(--color-paper-warm)] p-7">
-            <blockquote className="m-0 text-[var(--text-2xl)] font-bold leading-snug text-[var(--color-brand-ink)]">
+          <figure className="m-0 self-start border-l-4 border-sun bg-paper-warm p-7">
+            <blockquote className="m-0 text-2xl font-bold leading-snug text-brand-ink">
               „Krankenpflege ist eine Kunst, die wie jede andere vor allen Dingen eine
               Reihe angeborener Eigenschaften und Anlagen bedingt, ohne die auch die beste
               technische Schulung keinen Wert hat.“
             </blockquote>
-            <figcaption className="mt-4 text-[var(--color-ink-muted)]">
+            <figcaption className="mt-4 text-ink-muted">
               — Agnes Karll, Begründerin der deutschen Krankenpflegeorganisation.
               Das Zitat steht seit der Gründung über der Arbeit dieses Dienstes.
             </figcaption>
@@ -211,18 +243,18 @@ export default function Home() {
             {areas.map((a) => {
               const loc = business.locations.find((l) => l.slug === a.slug)!;
               return (
-                <li key={a.slug} className="group relative border-t-4 border-[var(--color-line)] bg-white pt-4 transition-colors hover:border-[var(--color-sun)]">
-                  <h3 className="text-[var(--text-xl)]">
+                <li key={a.slug} className="group relative border-t-4 border-line bg-white pt-4 transition-colors hover:border-sun">
+                  <h3 className="text-xl">
                     <Link href={`/einsatzgebiet/${a.slug}`} className="no-underline after:absolute after:inset-0 after:content-['']">
                       Pflege in {a.city}
                     </Link>
                   </h3>
-                  <p className="mt-2 flex items-start gap-2 text-[var(--color-ink-muted)]">
+                  <p className="mt-2 flex items-start gap-2 text-ink-muted">
                     <IconPin className="mt-1 flex-none" />
                     <span>{loc.role} · {loc.street}, {loc.postalCode} {loc.city}</span>
                   </p>
-                  <p className="mt-3 text-[var(--color-ink-muted)]">{a.coverage}</p>
-                  <p className="mt-4 flex items-center gap-2 font-bold text-[var(--color-brand)]">
+                  <p className="mt-3 text-ink-muted">{a.coverage}</p>
+                  <p className="mt-4 flex items-center gap-2 font-bold text-brand">
                     Zur Seite
                     <IconArrow className="transition-transform group-hover:translate-x-1" />
                   </p>
@@ -235,14 +267,14 @@ export default function Home() {
 
       {/* ================================================================ KARRIERE */}
       <section className="section">
-        <div className="shell grid items-center gap-8 rounded-[var(--radius-lg)] border-2 border-[var(--color-brand)] p-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:p-10">
+        <div className="shell grid items-center gap-8 rounded-lg border-2 border-brand p-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:p-10">
           <div>
             <p className="eyebrow">Für Pflegekräfte</p>
             <span className="horizont" aria-hidden="true" />
-            <h2 className="max-w-[24ch] text-[var(--text-3xl)]">
+            <h2 className="max-w-[24ch] text-3xl">
               Sie sind Pflegekraft und haben genug von der Minutenliste?
             </h2>
-            <p className="measure mt-4 text-[var(--text-lg)] text-[var(--color-ink-muted)]">
+            <p className="measure mt-4 text-lg text-ink-muted">
               Derselbe Grundsatz, der unseren Klienten zugutekommt, gilt für die Touren
               unserer Mitarbeiterinnen und Mitarbeiter: geplant nach realer Erfahrung, nicht
               nach dem, was rechnerisch gerade noch geht.
