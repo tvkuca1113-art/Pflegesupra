@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check:contrast": "node scripts/contrast.mjs",
     "qa": "node scripts/qa.mjs",
-    "verify": "npm run typecheck && npm run lint && npm run check:contrast && npm run build"
+    "verify": "npm run typecheck && npm run lint && npm run check:contrast && npm run build",
+    "check:hero": "node scripts/hero-contrast.mjs"
   },
   "dependencies": {
     "next": "^15.5.25",
@@ -27,6 +28,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^15.5.25",
     "playwright": "^1.62.1",
+    "pngjs": "^7.0.0",
     "postcss": "^8.5.26",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",

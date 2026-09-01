@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PflegeKompass from '@/components/PflegeKompass';
 import SunriseMark from '@/components/SunriseMark';
+import HeroSunrise from '@/components/HeroSunrise';
 import { CtaBand, LinkCard, SectionHead } from '@/components/Blocks';
 import { IconPhone, IconArrow, IconCheck, IconPin } from '@/components/Icons';
 import { business } from '@/content/business';
@@ -47,36 +48,45 @@ export default function Home() {
           Answers all four questions in the first screen: who we help, what we
           do, where, and what to do next. No text over a photograph, so contrast
           is never at the mercy of an image. */}
-      {/* No overflow-hidden here on purpose: it would clip an oversized
-          headline instead of letting it show as a layout error, which is
-          exactly how a Safari text-wrap bug went unnoticed once. */}
-      <section className="relative border-b border-line bg-white">
-        <div className="shell grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
+      {/* The section is NOT overflow-hidden: that would clip an oversized
+          headline instead of showing it as a layout error, which is how a
+          Safari text-wrap bug went unnoticed once. Only the decorative layer
+          inside HeroSunrise clips, and it contains no text. */}
+      <section className="on-dark relative isolate text-white">
+        <HeroSunrise />
+        {/* Extra top padding below `lg` reserves the corner for the sun, so it
+            sits above the eyebrow instead of printing across it. */}
+        <div className="shell grid items-center gap-10 pb-12 pt-24 sm:pt-28 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
           <div>
-            <p className="eyebrow">Ambulante Pflege zu Hause</p>
+            {/* On the dark ground the eyebrow uses the sun's light tint rather
+                than --color-ink-accent, which is a dark orange built for white. */}
+            <p className="eyebrow text-sun-soft">Ambulante Pflege zu Hause</p>
             <span className="horizont" aria-hidden="true" />
-            <h1 className="text-4xl sm:text-5xl">
+            <h1 className="text-4xl text-white sm:text-5xl">
               {/* No non-breaking spaces here. They glued "Pfaffenhofen a.d. Ilm."
                   into a single 22-character token that cannot fit a phone line,
                   which is what pushed the headline past the screen edge. */}
               Pflege in den eigenen vier Wänden — in München und Pfaffenhofen a.d. Ilm.
             </h1>
-            <p className="measure mt-5 text-lg text-ink-muted">
-              Grundpflege, ärztlich verordnete Behandlungspflege, Betreuung und Hauswirtschaft
-              — geplant nach dem, was eine Aufgabe wirklich dauert, nicht nach der
-              Minutenliste. Für gesetzlich Versicherte rechnen wir direkt mit der Kasse ab.
+            {/* One sentence, not two. The billing point moved to the trust row
+                below, where it is a scannable fact instead of the tail of a
+                seven-line paragraph on a phone. */}
+            <p className="measure mt-5 text-lg text-white/90">
+              Grundpflege, ärztlich verordnete Behandlungspflege, Betreuung und
+              Hauswirtschaft — geplant nach dem, was eine Aufgabe wirklich dauert,
+              nicht nach der Minutenliste.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href={business.phone.href} className="btn btn--primary text-lg">
+              <a href={business.phone.href} className="btn btn--onDark text-lg">
                 <IconPhone />
                 {business.phone.display}
               </a>
-              <Link href="/kontakt" className="btn btn--secondary">
+              <Link href="/kontakt" className="btn btn--ghostDark">
                 Rückruf anfordern <IconArrow />
               </Link>
             </div>
-            <p className="mt-3 text-sm text-ink-muted">
+            <p className="mt-3 text-sm text-white/75">
               Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
               Ein Erstgespräch kostet Sie nichts.
             </p>
@@ -111,21 +121,23 @@ export default function Home() {
             </div>
           </aside>
         </div>
+      </section>
 
-        {/* Trust row — only claims the client already publishes about itself. */}
-        <div className="border-t border-line bg-paper">
-          <ul className="shell m-0 grid list-none gap-x-8 gap-y-4 p-0 py-6 sm:grid-cols-2 lg:grid-cols-4">
-            {trustPoints.map((p) => (
-              <li key={p.label} className="flex items-start gap-2.5">
-                <IconCheck className="mt-1 flex-none text-brand" />
-                <span>
-                  <span className="block font-bold text-brand-ink">{p.label}</span>
-                  <span className="block text-sm text-ink-muted">{p.sub}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* Trust row — only claims the client already publishes about itself.
+          Its own section, so the sunrise ground stays with the hero and the
+          horizon rule lands where the composition ends. */}
+      <section className="border-b border-line bg-paper">
+        <ul className="shell m-0 grid list-none gap-x-8 gap-y-4 p-0 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          {trustPoints.map((p) => (
+            <li key={p.label} className="flex items-start gap-2.5">
+              <IconCheck className="mt-1 flex-none text-brand" />
+              <span>
+                <span className="block font-bold text-brand-ink">{p.label}</span>
+                <span className="block text-sm text-ink-muted">{p.sub}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* ====================================================== PFLEGE-KOMPASS */}

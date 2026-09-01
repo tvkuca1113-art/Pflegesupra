@@ -23,6 +23,7 @@ npm run dev                    # http://localhost:3000
 | `npm run typecheck` | `tsc --noEmit`. |
 | `npm run lint` | ESLint (next/core-web-vitals + next/typescript). |
 | `npm run check:contrast` | Audits every design token pair against WCAG 2.2. Fails the run on a regression. |
+| `npm run check:hero` | Renders the hero and measures text contrast against the real pixels beneath it, at three viewports. Needs the site running. |
 | `npm run qa` | Crawls a running site: headings, metadata, links, overflow at 7 widths, touch targets, keyboard, 404. |
 | `npm run verify` | typecheck + lint + contrast + build. |
 
@@ -137,24 +138,59 @@ Author CSS lives in `@layer base` / `@layer components`. **Do not write
 unlayered CSS** — it outranks every Tailwind utility and silently breaks
 `text-4xl`, `lg:hidden` and the rest. That bug shipped once and was caught by QA.
 
+Three more rules that exist because breaking them shipped a visible bug:
+
+* **`overflow-wrap: anywhere`, never `break-word`.** They look identical until a
+  long German compound sits in a flex or grid item: `break-word` still reports
+  the whole word as the element's min-content width, so the container is forced
+  wider than its parent. `anywhere` shrinks min-content too.
+* **No `&nbsp;` in headings.** Gluing "Pfaffenhofen a.d. Ilm." into one
+  22-character token pushed the headline off the right edge of a phone.
+* **`text-wrap: balance` only from `48rem` up.** Shipped Safari versions can
+  produce a balanced line wider than its container; with `overflow: hidden` on
+  an ancestor the text is then silently sliced rather than scrolled.
+
 The type scale, colours, radii and shadows are declared in `@theme`, so
 `text-4xl`, `bg-brand-deep`, `rounded-lg` are real Tailwind utilities built from
 our tokens. Avoid `text-[var(--…)]` — Tailwind reads it as a *colour*.
 
 ---
 
-## Imagery
+## Imagery, and what carries the first screen
 
-There is none, on purpose.
+There are no photographs, on purpose.
 
 The current site's own Impressum states its images are AI-generated and show no
 real people. On a care provider's website that quietly undermines the trust the
 site exists to build, so none of it was carried over, and no stock photography
-was substituted. `SunriseMark.tsx` — an abstraction of the logo's rising sun —
-carries the brand instead. It cannot mislead anyone.
+of strangers pretending to be carers was substituted.
 
-**This is a placeholder for real photographs**, not a final answer. Once the
-client has photographs of the actual team, offices and (with consent) care
+That decision was over-applied at first: the homepage became correct, fast and
+completely flat — black type on white, which reads as a document rather than as
+a business you would trust with your mother. The brand now carries the first
+screen instead:
+
+* **`HeroSunrise.tsx`** — the hero ground. Deep blue with the logo's own sun
+  (eleven rays over a half-disc) in the corner. Exactly the logo's two colours,
+  and incapable of misrepresenting anyone.
+* **`SunriseMark.tsx`** — the same geometry as a shallow band, used as the
+  header of the "Was passiert, wenn Sie anrufen" card.
+
+Only **one** of the two shows at a time. Below `lg` the card stacks under the
+hero text, so `HeroSunrise` draws the sun; from `lg` up the card moves into the
+right column and carries it instead. Two suns in one composition, one of them
+half-covered by the card, reads as a mistake rather than a motif.
+
+**Contrast on the dark hero is measured, not assumed.** A gradient plus a glow
+has a different effective background at every pixel, so `npm run check:hero`
+renders the page, hides the hero text, photographs the ground underneath it and
+checks each text colour against the *lightest* pixel it actually sits on — at
+three viewports, compositing `text-white/90` and `/75` properly. Lowest result
+is currently 6.31:1 against a 4.5:1 requirement. Re-run it after touching
+anything in `HeroSunrise`.
+
+**This is still a placeholder for real photographs**, not a final answer. Once
+the client has photographs of the actual team, offices and (with consent) care
 situations, they belong in the hero, on `/ueber-uns` and on `/karriere`.
 
 ---
