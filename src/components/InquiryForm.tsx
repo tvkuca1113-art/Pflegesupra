@@ -111,7 +111,12 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
         setFailure(
           res.status === 429
             ? 'Es wurden gerade sehr viele Anfragen gesendet. Bitte versuchen Sie es in ein paar Minuten noch einmal — oder rufen Sie uns direkt an.'
-            : 'Ihre Anfrage konnte nicht gespeichert werden. Das liegt an uns, nicht an Ihnen. Bitte rufen Sie uns an oder versuchen Sie es später erneut.',
+            : json.error === 'server_not_configured'
+              // Only reachable on a preview whose database credentials are not
+              // set yet. Say so plainly rather than implying the visitor did
+              // something wrong or that the form is broken by design.
+              ? 'Diese Vorschau ist noch nicht mit der Datenbank verbunden, deshalb kann das Formular hier nichts speichern. Bitte rufen Sie uns an.'
+              : 'Ihre Anfrage konnte nicht gespeichert werden. Das liegt an uns, nicht an Ihnen. Bitte rufen Sie uns an oder versuchen Sie es später erneut.',
         );
         setState('failed');
         track(isJob ? 'application_form_error' : 'contact_form_error', { reason: json.error ?? 'server' });
