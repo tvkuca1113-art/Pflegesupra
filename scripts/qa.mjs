@@ -21,7 +21,13 @@ const ROUTES = [
   '/einsatzgebiet/muenchen', '/einsatzgebiet/pfaffenhofen-an-der-ilm',
   '/ueber-uns', '/karriere', '/kontakt', '/impressum', '/datenschutz',
 ];
-const WIDTHS = [320, 375, 390, 430, 768, 1280, 1440];
+// 360 and 412 are the two commonest Android widths; 320 is the narrowest
+// phone still in use; the rest cover iPhone, tablet, laptop and desktop.
+const WIDTHS = [320, 360, 375, 390, 412, 430, 768, 1024, 1280, 1440];
+
+// Overflow is checked on every route, not a sample. It is cheap, and the one
+// time it was sampled the headline on the homepage was the thing that broke.
+const OVERFLOW_ROUTES = ROUTES;
 
 const failures = [];
 const warnings = [];
@@ -154,26 +160,58 @@ for (const route of ROUTES) {
 await ctx.close();
 
 // ------------------------------------------------------- responsive overflow
+//
+// Two separate failures, because they hide from each other:
+//
+//   a) DOCUMENT overflow — the page scrolls sideways. Obvious to a visitor.
+//   b) ELEMENT overflow — a box's content is wider than the box. When an
+//      ancestor has overflow:hidden this produces NO document scroll and NO
+//      visual scrollbar: the text is simply cut off mid-word. A check that
+//      only looks at document width reports a clean page while the headline
+//      is being sliced, which is exactly what happened here on iOS Safari.
 for (const width of WIDTHS) {
   const c = await browser.newContext({ viewport: { width, height: 800 }, locale: 'de-DE' });
-  for (const route of ['/', '/pflegegrade-und-kosten', '/kontakt', '/leistungen/grundpflege', '/fragen-und-antworten']) {
+  for (const route of OVERFLOW_ROUTES) {
     const p = await c.newPage();
     await p.goto(BASE + route, { waitUntil: 'load' });
     const over = await p.evaluate(() => {
       const doc = document.documentElement;
-      if (doc.scrollWidth <= window.innerWidth + 1) return null;
-      // Name the widest offending element so the failure is actionable.
-      const worst = [...document.querySelectorAll('body *')]
-        .map((el) => ({ el, r: el.getBoundingClientRect() }))
-        .filter((x) => x.r.right > window.innerWidth + 1 || x.r.left < -1)
-        .sort((a, b) => b.r.right - a.r.right)[0];
-      return {
-        scrollW: doc.scrollWidth,
-        innerW: window.innerWidth,
-        culprit: worst ? `${worst.el.tagName}.${worst.el.className.toString().slice(0, 40)}` : 'unknown',
-      };
+      const result = { doc: null, clipped: [] };
+
+      if (doc.scrollWidth > window.innerWidth + 1) {
+        const worst = [...document.querySelectorAll('body *')]
+          .map((el) => ({ el, r: el.getBoundingClientRect() }))
+          .filter((x) => x.r.right > window.innerWidth + 1 || x.r.left < -1)
+          .sort((a, b) => b.r.right - a.r.right)[0];
+        result.doc = {
+          scrollW: doc.scrollWidth,
+          innerW: window.innerWidth,
+          culprit: worst ? `${worst.el.tagName}.${worst.el.className.toString().slice(0, 40)}` : 'unknown',
+        };
+      }
+
+      // Text whose content box is narrower than its content.
+      for (const el of document.querySelectorAll('h1,h2,h3,h4,p,li,dt,dd,td,th,label,summary,figcaption,address,button,a')) {
+        if (el.clientWidth === 0) continue;
+        if (el.scrollWidth <= el.clientWidth + 1) continue;
+        const cs = getComputedStyle(el);
+        // Deliberate scroll containers and visually-hidden text are fine.
+        if (cs.overflowX === 'auto' || cs.overflowX === 'scroll') continue;
+        if (el.classList.contains('sr-only')) continue;
+        if (el.closest('[aria-hidden="true"]')) continue;
+        result.clipped.push(
+          `${el.tagName}.${el.className.toString().slice(0, 26)} ${el.scrollWidth}>${el.clientWidth} "${(el.textContent || '').trim().slice(0, 28)}"`,
+        );
+      }
+      return result;
     });
-    if (over) fail(`${route} @${width}px`, `horizontal overflow ${over.scrollW}>${over.innerW}, widest: ${over.culprit}`);
+
+    if (over.doc) {
+      fail(`${route} @${width}px`, `horizontal overflow ${over.doc.scrollW}>${over.doc.innerW}, widest: ${over.doc.culprit}`);
+    }
+    if (over.clipped.length) {
+      fail(`${route} @${width}px`, `content wider than its box (clipped, not scrollable): ${over.clipped.slice(0, 3).join(' | ')}`);
+    }
     await p.close();
   }
   await c.close();

@@ -47,13 +47,19 @@ export default function Home() {
           Answers all four questions in the first screen: who we help, what we
           do, where, and what to do next. No text over a photograph, so contrast
           is never at the mercy of an image. */}
-      <section className="relative overflow-hidden border-b border-line bg-white">
+      {/* No overflow-hidden here on purpose: it would clip an oversized
+          headline instead of letting it show as a layout error, which is
+          exactly how a Safari text-wrap bug went unnoticed once. */}
+      <section className="relative border-b border-line bg-white">
         <div className="shell grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
           <div>
             <p className="eyebrow">Ambulante Pflege zu Hause</p>
             <span className="horizont" aria-hidden="true" />
             <h1 className="text-4xl sm:text-5xl">
-              Pflege in den eigenen vier Wänden — in München und Pfaffenhofen&nbsp;a.d.&nbsp;Ilm.
+              {/* No non-breaking spaces here. They glued "Pfaffenhofen a.d. Ilm."
+                  into a single 22-character token that cannot fit a phone line,
+                  which is what pushed the headline past the screen edge. */}
+              Pflege in den eigenen vier Wänden — in München und Pfaffenhofen a.d. Ilm.
             </h1>
             <p className="measure mt-5 text-lg text-ink-muted">
               Grundpflege, ärztlich verordnete Behandlungspflege, Betreuung und Hauswirtschaft

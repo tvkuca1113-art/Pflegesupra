@@ -66,16 +66,21 @@
   /* --- Type scale --------------------------------------------------------
      Base is 18px, not 16px. The primary reader is 55+ and often reading on a
      phone in a stressful moment. Every step is a deliberate jump, so hierarchy
-     survives being skimmed. */
+     survives being skimmed.
+
+     The display sizes are fluid. A fixed 2.556rem headline is right on a
+     laptop and far too big for a German headline on a 390px phone, where
+     "Pfaffenhofen" alone eats most of the line. clamp() keeps the desktop
+     presence and gives the phone a size that actually fits. */
   --text-xs: 0.833rem;
   --text-sm: 0.944rem;
   --text-base: 1rem;
   --text-lg: 1.167rem;
   --text-xl: 1.333rem;
-  --text-2xl: 1.611rem;
-  --text-3xl: 2rem;
-  --text-4xl: 2.556rem;
-  --text-5xl: 3.222rem;
+  --text-2xl: clamp(1.4rem, 1.19rem + 0.95vw, 1.611rem);
+  --text-3xl: clamp(1.6rem, 1.29rem + 1.4vw, 2rem);
+  --text-4xl: clamp(1.85rem, 1.33rem + 2.35vw, 2.556rem);
+  --text-5xl: clamp(2.1rem, 1.35rem + 3.4vw, 3.222rem);
 
   --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -135,8 +140,20 @@
     font-weight: 700;
     letter-spacing: -0.018em;
     line-height: 1.14;
-    text-wrap: balance;
     margin: 0;
+    /* German headings need to be breakable. "Pfaffenhofen a.d. Ilm" and
+       "Behandlungspflege" will not fit a phone line otherwise. */
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* text-wrap: balance is a nicety, and Safari has shipped versions where a
+     balanced line can end up wider than its container — which an ancestor's
+     overflow:hidden then clips silently, so the text is simply cut off. It is
+     only applied from the tablet breakpoint up, where lines are short relative
+     to the available width and the risk does not arise. */
+  @media (min-width: 48rem) {
+    h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
   }
   /* Defaults, so hierarchy survives even where no size utility is applied. */
   h1 { font-size: var(--text-4xl); }
@@ -152,7 +169,13 @@
      fall back to breaking only where a word genuinely cannot fit. */
   p, li, dd, dt, td, th, figcaption, label, summary, address,
   h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
+    /* `anywhere`, not `break-word`. They look identical until a long word sits
+       inside a flex or grid item: `break-word` still reports the whole word as
+       the element's min-content width, so the container is forced wider than
+       its parent and the layout overflows. `anywhere` shrinks min-content too,
+       which is what actually keeps "Auftragsverarbeitungsverträge" inside a
+       320px screen. */
+    overflow-wrap: anywhere;
   }
   p, li, dd, figcaption {
     hyphens: auto;

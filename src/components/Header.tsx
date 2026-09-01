@@ -55,11 +55,19 @@ export default function Header() {
           on desktop. */}
       <div className="on-dark bg-brand-deep text-white">
         <div className="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-sm">
+          {/* Short on phones, full from tablet up. The long version wrapped to
+              two lines and, with the number below it, pushed the headline most
+              of a screen down before anyone had read a word. */}
           <p className="m-0">
-            Ambulante Pflege zu Hause · München &amp; Pfaffenhofen a.d.&nbsp;Ilm
+            <span className="sm:hidden">Ambulante Pflege · München &amp; Pfaffenhofen</span>
+            <span className="hidden sm:inline">
+              Ambulante Pflege zu Hause · München &amp; Pfaffenhofen a.d. Ilm
+            </span>
           </p>
-          <p className="m-0 flex items-center gap-2">
-            <span className="hidden sm:inline text-white/80">Büro {business.officeHours.from}–{business.officeHours.to} Uhr</span>
+          {/* Hidden on phones: the sticky action bar carries the number there,
+              and repeating it here only costs vertical space above the fold. */}
+          <p className="m-0 hidden items-center gap-2 sm:flex">
+            <span className="text-white/80">Büro {business.officeHours.from}–{business.officeHours.to} Uhr</span>
             <a
               href={business.phone.href}
               className="inline-flex items-center gap-2 font-bold text-white underline decoration-2 underline-offset-4"
