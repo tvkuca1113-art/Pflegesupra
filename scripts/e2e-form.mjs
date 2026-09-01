@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 
 const BASE = process.argv[2] || 'http://127.0.0.1:3111';
 const results = [];
+let contactId = null;
 const check = (name, ok, detail = '') => {
   results.push({ name, ok, detail });
   console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? ' — ' + detail : ''}`);
@@ -51,6 +52,12 @@ const b = await chromium.launch({
 {
   const c = await b.newContext({ viewport: { width: 1280, height: 900 }, locale: 'de-DE' });
   const p = await c.newPage();
+  const apiResults = [];
+  p.on('response', async (r) => {
+    if (r.url().endsWith('/api/anfrage')) {
+      try { apiResults.push({ status: r.status(), body: await r.json() }); } catch { /* no body */ }
+    }
+  });
   await p.goto(`${BASE}/kontakt`, { waitUntil: 'load' });
 
   // Submit empty: expect an error summary, focus moved to it, nothing sent.
@@ -71,9 +78,12 @@ const b = await chromium.launch({
   const emailErr = await p.textContent('[role="alert"]');
   check('Malformed e-mail is rejected', /E-Mail-Adresse sieht nicht vollständig aus/.test(emailErr));
 
-  // Correct it and submit for real.
+  // Correct it and submit for real. The wait matters: the endpoint discards
+  // anything submitted in under 2.5s as a bot, and answers "accepted" so a bot
+  // learns nothing — which means a fast test would pass on a discarded row.
   await p.getByLabel(/E-Mail-Adresse/).fill('browsertest@example.org');
   await p.getByLabel(/Ich habe die/).check();
+  await p.waitForTimeout(3000);
   await p.getByRole('button', { name: /Anfrage senden/ }).click();
 
   await p.getByRole('status').waitFor({ timeout: 15000 });
@@ -81,6 +91,12 @@ const b = await chromium.launch({
   check('Successful submit shows a confirmation', /Ihre Anfrage ist angekommen/.test(done));
   const doneFocus = await p.evaluate(() => document.activeElement?.getAttribute('role'));
   check('Focus moves to the confirmation', doneFocus === 'status', `activeElement role=${doneFocus}`);
+
+  const stored = apiResults.at(-1);
+  check('Inquiry was actually stored (non-null id returned)',
+    stored?.status === 200 && typeof stored.body?.id === 'string' && stored.body.id.length > 0,
+    `id=${stored?.body?.id ?? 'null'}`);
+  contactId = stored?.body?.id ?? null;
   await c.close();
 }
 
@@ -88,6 +104,12 @@ const b = await chromium.launch({
 {
   const c = await b.newContext({ viewport: { width: 1280, height: 900 }, locale: 'de-DE' });
   const p = await c.newPage();
+  const jobResults = [];
+  p.on('response', async (r) => {
+    if (r.url().endsWith('/api/anfrage')) {
+      try { jobResults.push({ status: r.status(), body: await r.json() }); } catch { /* no body */ }
+    }
+  });
   await p.goto(`${BASE}/karriere`, { waitUntil: 'load' });
 
   await p.getByLabel(/Nachname/).focus();
@@ -101,11 +123,16 @@ const b = await chromium.launch({
   const checked = await p.getByLabel(/Ich habe die/).isChecked();
   check('Consent box is operable with the keyboard', checked);
 
+  await p.waitForTimeout(3000);
   await p.getByRole('button', { name: /Bewerbung senden/ }).focus();
   await p.keyboard.press('Enter');
   await p.getByRole('status').waitFor({ timeout: 15000 });
   check('Keyboard-only application submits',
     /Ihre Bewerbung ist angekommen/.test(await p.textContent('[role="status"]')));
+  const storedJob = jobResults.at(-1);
+  check('Application was actually stored (non-null id returned)',
+    storedJob?.status === 200 && typeof storedJob.body?.id === 'string',
+    `id=${storedJob?.body?.id ?? 'null'}`);
   await c.close();
 }
 
@@ -131,7 +158,31 @@ const b = await chromium.launch({
   await c.close();
 }
 
+// ------------------------------------ 5. The bot traps discard, not just pass
+{
+  const c = await b.newContext({ viewport: { width: 1280, height: 900 }, locale: 'de-DE' });
+  const p = await c.newPage();
+  const fast = [];
+  p.on('response', async (r) => {
+    if (r.url().endsWith('/api/anfrage')) {
+      try { fast.push(await r.json()); } catch { /* no body */ }
+    }
+  });
+  await p.goto(`${BASE}/kontakt`, { waitUntil: 'load' });
+  await p.getByLabel(/Nachname/).fill('Schnellbot');
+  await p.getByLabel(/E-Mail-Adresse/).fill('schnellbot@example.org');
+  await p.getByLabel(/Was brauchen Sie/).fill('Sofort abgeschickt, sollte verworfen werden.');
+  await p.getByLabel(/Ich habe die/).check();
+  await p.getByRole('button', { name: /Anfrage senden/ }).click();
+  await p.getByRole('status').waitFor({ timeout: 15000 });
+  const r = fast.at(-1);
+  // Accepted on the surface, discarded underneath: id must be null.
+  check('Sub-2.5s submit is silently discarded', r?.ok === true && r?.id === null, `id=${String(r?.id)}`);
+  await c.close();
+}
+
 await b.close();
+console.log(`\nStored contact inquiry id: ${contactId ?? 'none'}`);
 const failed = results.filter((r) => !r.ok);
 console.log(`\n${results.length - failed.length}/${results.length} checks passed.`);
 process.exit(failed.length ? 1 : 0);
