@@ -26,7 +26,7 @@ export function pageMeta({ title, description, path, noindex }: PageMetaInput): 
       title,
       description,
       url,
-      images: [{ url: `${siteUrl}/logo-supra.png`, width: 420, height: 297, alt: SITE_NAME }],
+      images: [{ url: `${siteUrl}/logo-supra.png`, width: 260, height: 184, alt: SITE_NAME }],
     },
     twitter: { card: 'summary', title, description },
   };
@@ -62,8 +62,8 @@ export function organizationJsonLd() {
           '@type': 'ImageObject',
           '@id': `${siteUrl}/#logo`,
           url: `${siteUrl}/logo-supra.png`,
-          width: 420,
-          height: 297,
+          width: 260,
+          height: 184,
         },
         image: { '@id': `${siteUrl}/#logo` },
         address: {

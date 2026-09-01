@@ -78,8 +78,8 @@ export default function Header() {
             <Image
               src="/logo-supra.png"
               alt={business.legalName}
-              width={420}
-              height={297}
+              width={260}
+              height={184}
               priority
               className="h-12 w-auto sm:h-16"
             />
