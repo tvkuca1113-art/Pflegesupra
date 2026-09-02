@@ -127,11 +127,40 @@ export default function ImpressumPage() {
               schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
             </p>
 
-            <h2>Bildmaterial</h2>
+            <h2>Bildnachweis</h2>
             <p>
-              Diese Website verwendet keine Fotografien von Personen. Die verwendeten
-              grafischen Elemente wurden eigens für diese Website erstellt. Das Logo ist
-              Eigentum des Betreibers.
+              Das Titelbild auf der Startseite stammt von{' '}
+              <a
+                href="https://unsplash.com/@viajeenparacaidas"
+                className="linkish"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Thomas Griggs
+                <span className="sr-only"> (öffnet in neuem Tab)</span>
+              </a>{' '}
+              und wurde über{' '}
+              <a
+                href="https://unsplash.com/photos/two-hands-holding-each-other-with-care-mwGrAl1X514"
+                className="linkish"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Unsplash
+                <span className="sr-only"> (öffnet in neuem Tab)</span>
+              </a>{' '}
+              unter der Unsplash-Lizenz bezogen. Es wurde farblich bearbeitet.
+            </p>
+            <p>
+              <strong>Dieses Bild ist eine Stimmungsaufnahme.</strong> Es zeigt weder
+              Mitarbeiterinnen und Mitarbeiter noch Klientinnen und Klienten von{' '}
+              {business.legalName} und auch nicht deren Räumlichkeiten. Sobald eigene
+              Aufnahmen vorliegen, wird es ersetzt.
+            </p>
+            <p>
+              Die übrigen grafischen Elemente — Sonnenmotiv, Symbole und Icons — wurden
+              eigens für diese Website erstellt. Das Logo ist Eigentum des Betreibers.
+              KI-generierte Bilder werden auf dieser Website nicht verwendet.
             </p>
 
             <h2>Hosting</h2>

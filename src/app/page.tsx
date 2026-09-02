@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PflegeKompass from '@/components/PflegeKompass';
 import SunriseMark from '@/components/SunriseMark';
-import HeroSunrise from '@/components/HeroSunrise';
+import HeroBackdrop from '@/components/HeroBackdrop';
 import { CtaBand, LinkCard, SectionHead } from '@/components/Blocks';
 import { IconPhone, IconArrow, IconCheck, IconPin } from '@/components/Icons';
 import { business } from '@/content/business';
@@ -46,14 +46,18 @@ export default function Home() {
     <>
       {/* ================================================================ HERO
           Answers all four questions in the first screen: who we help, what we
-          do, where, and what to do next. No text over a photograph, so contrast
-          is never at the mercy of an image. */}
-      {/* The section is NOT overflow-hidden: that would clip an oversized
+          do, where, and what to do next.
+
+          The section is NOT overflow-hidden: that would clip an oversized
           headline instead of showing it as a layout error, which is how a
           Safari text-wrap bug went unnoticed once. Only the decorative layer
-          inside HeroSunrise clips, and it contains no text. */}
+          inside HeroBackdrop clips, and it contains no text.
+
+          Text does sit over a photograph here, so contrast is no longer a
+          property of the tokens — it is measured per pixel by
+          `npm run check:hero`. */}
       <section className="on-dark relative isolate text-white">
-        <HeroSunrise />
+        <HeroBackdrop />
         {/* Extra top padding below `lg` reserves the corner for the sun, so it
             sits above the eyebrow instead of printing across it. */}
         <div className="shell grid items-center gap-10 pb-12 pt-24 sm:pt-28 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">

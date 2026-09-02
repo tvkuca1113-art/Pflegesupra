@@ -158,42 +158,54 @@ our tokens. Avoid `text-[var(--…)]` — Tailwind reads it as a *colour*.
 
 ## Imagery, and what carries the first screen
 
-There are no photographs, on purpose.
+The hero carries a **real photograph** — two hands holding another pair of
+hands — by Thomas Griggs, licensed via Unsplash, credited in the Impressum.
 
-The current site's own Impressum states its images are AI-generated and show no
-real people. On a care provider's website that quietly undermines the trust the
-site exists to build, so none of it was carried over, and no stock photography
-of strangers pretending to be carers was substituted.
+It is used as **atmosphere only**. The Impressum states plainly that it shows
+neither Supra's staff nor its clients nor its premises, because it does not.
+That distinction is the whole point: the client's current site uses
+AI-generated images of people who do not exist and says so in its own
+Impressum, which is corrosive on a care provider's site. A real, licensed,
+honestly-labelled photograph is not the same thing as a fabricated one.
 
-That decision was over-applied at first: the homepage became correct, fast and
-completely flat — black type on white, which reads as a document rather than as
-a business you would trust with your mother. The brand now carries the first
-screen instead:
+**Replace it** with photographs of the actual team and offices as soon as they
+exist. `src/components/HeroBackdrop.tsx` is the only file to touch.
 
-* **`HeroSunrise.tsx`** — the hero ground. Deep blue with the logo's own sun
-  (eleven rays over a half-disc) in the corner. Exactly the logo's two colours,
-  and incapable of misrepresenting anyone.
-* **`SunriseMark.tsx`** — the same geometry as a shallow band, used as the
-  header of the "Was passiert, wenn Sie anrufen" card.
+### How it is built
 
-Only **one** of the two shows at a time. Below `lg` the card stacks under the
-hero text, so `HeroSunrise` draws the sun; from `lg` up the card moves into the
-right column and carries it instead. Two suns in one composition, one of them
-half-covered by the card, reads as a mistake rather than a motif.
+* **Duotone is baked into the files** (sharp: darken, then `tint()` with brand
+  chroma) rather than applied as a CSS filter — no runtime cost, and it cannot
+  fail to load separately from the image. Note `greyscale()` must NOT be used
+  before `tint()`: sharp's pipeline runs greyscale last and cancels the tint.
+* **Art direction is real.** `hero-hands-wide-*` keeps the hands right of
+  centre so the headline column stays clear on a laptop; `hero-hands-tall-*` is
+  a separate crop tight on the hands for phones, where the hero is ~1,389px
+  tall and a wide image gets sliced into an unreadable vertical sliver.
+* **One `<picture>`, media-scoped `<source>`s.** Two `<picture>` blocks in
+  `lg:hidden` / `hidden lg:block` containers were both being downloaded at every
+  breakpoint — `display:none` does not stop an image fetch. Measured: mobile
+  went from 64 KB to 46 KB, desktop 90 KB to 72 KB.
+* AVIF with WebP fallback, three widths each. The whole homepage transfers
+  **46 KB on mobile**; the current site's mobile homepage is 4,315 KB.
 
-**Contrast on the dark hero is measured, not assumed.** A gradient plus a glow
-has a different effective background at every pixel, so `npm run check:hero`
-renders the page, hides the hero text, photographs the ground underneath it and
-checks each text colour against the *lightest* pixel it actually sits on — at
-three viewports, compositing `text-white/90` and `/75` properly. Lowest result
-is currently 6.31:1 against a 4.5:1 requirement. Re-run it after touching
-anything in `HeroSunrise`.
+### Contrast over a photograph is measured, never assumed
 
-**This is still a placeholder for real photographs**, not a final answer. Once
-the client has photographs of the actual team, offices and (with consent) care
-situations, they belong in the hero, on `/ueber-uns` and on `/karriere`.
+A photograph plus a gradient has a different effective background at every
+pixel, so `npm run check:hero` renders the page, hides the hero text,
+photographs the ground underneath and checks each text colour against the
+*lightest* pixel it actually sits on — at three viewports, compositing
+`text-white/90` and `/75` properly. Lowest result is currently 5.86:1 against a
+4.5:1 requirement.
 
----
+**The overlay opacities in `HeroBackdrop.tsx` are the output of that
+measurement, not a taste judgement.** On a phone the eyebrow starts 102px into
+the hero, so there is no clean window above the text and the photograph can
+only be a texture behind type; the script decides how light it may be. Re-run
+it after touching the overlays, the crop or the duotone.
+
+`SunriseMark.tsx` — the logo's geometry as a shallow band — heads the "Was
+passiert, wenn Sie anrufen" card. Only one sun shows at a time: below `lg` the
+backdrop draws it, from `lg` up the card carries it.
 
 ## SEO
 
