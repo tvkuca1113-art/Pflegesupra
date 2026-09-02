@@ -178,9 +178,12 @@ exist. `src/components/HeroBackdrop.tsx` is the only file to touch.
   fail to load separately from the image. Note `greyscale()` must NOT be used
   before `tint()`: sharp's pipeline runs greyscale last and cancels the tint.
 * **Art direction is real.** `hero-hands-wide-*` keeps the hands right of
-  centre so the headline column stays clear on a laptop; `hero-hands-tall-*` is
-  a separate crop tight on the hands for phones, where the hero is ~1,389px
-  tall and a wide image gets sliced into an unreadable vertical sliver.
+  centre so the headline column stays clear on a laptop. `hero-hands-tall-*`
+  is a TRUE PORTRAIT crop for phones — the first attempt used a landscape
+  crop, which `object-cover` then scaled to fill a 1,285px-tall box,
+  showing only about 17% of its width: a vertical slice of background
+  bokeh that read as a smudge rather than as hands. If you re-crop, match
+  the source aspect to the container's, or the photograph disappears.
 * **One `<picture>`, media-scoped `<source>`s.** Two `<picture>` blocks in
   `lg:hidden` / `hidden lg:block` containers were both being downloaded at every
   breakpoint — `display:none` does not stop an image fetch. Measured: mobile
@@ -195,7 +198,9 @@ pixel, so `npm run check:hero` renders the page, hides the hero text,
 photographs the ground underneath and checks each text colour against the
 *lightest* pixel it actually sits on — at three viewports, compositing
 `text-white/90` and `/75` properly. Lowest result is currently 5.86:1 against a
-4.5:1 requirement.
+4.5:1 requirement, and the overlay was tuned upward from a first pass that
+measured 4.21:1 on the hours note — that line is now `text-white/85`
+rather than `/75`, which is better for this audience anyway.
 
 **The overlay opacities in `HeroBackdrop.tsx` are the output of that
 measurement, not a taste judgement.** On a phone the eyebrow starts 102px into

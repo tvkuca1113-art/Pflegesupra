@@ -58,30 +58,31 @@ export default function Home() {
           `npm run check:hero`. */}
       <section className="on-dark relative isolate text-white">
         <HeroBackdrop />
-        {/* Extra top padding below `lg` reserves the corner for the sun, so it
-            sits above the eyebrow instead of printing across it. */}
-        <div className="shell grid items-center gap-10 pb-12 pt-24 sm:pt-28 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
+        {/* No reserved corner any more: the photograph carries the first
+            screen, and the sun graphic that used to sit here was being sliced
+            in half by the sticky header. */}
+        <div className="shell grid items-center gap-10 pb-12 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
           <div>
             {/* On the dark ground the eyebrow uses the sun's light tint rather
                 than --color-ink-accent, which is a dark orange built for white. */}
             <p className="eyebrow text-sun-soft">Ambulante Pflege zu Hause</p>
             <span className="horizont" aria-hidden="true" />
+            {/* 55 characters, not 74. The longer version ran to four lines at
+                display size on a phone and pushed everything below it off the
+                screen. No non-breaking spaces: they glued "Pfaffenhofen a.d.
+                Ilm." into one unbreakable 22-character token. */}
             <h1 className="text-4xl text-white sm:text-5xl">
-              {/* No non-breaking spaces here. They glued "Pfaffenhofen a.d. Ilm."
-                  into a single 22-character token that cannot fit a phone line,
-                  which is what pushed the headline past the screen edge. */}
-              Pflege in den eigenen vier Wänden — in München und Pfaffenhofen a.d. Ilm.
+              Pflege zu Hause in München und Pfaffenhofen a.d. Ilm.
             </h1>
             {/* One sentence, not two. The billing point moved to the trust row
                 below, where it is a scannable fact instead of the tail of a
                 seven-line paragraph on a phone. */}
-            <p className="measure mt-5 text-lg text-white/90">
-              Grundpflege, ärztlich verordnete Behandlungspflege, Betreuung und
-              Hauswirtschaft — geplant nach dem, was eine Aufgabe wirklich dauert,
-              nicht nach der Minutenliste.
+            <p className="measure mt-4 text-lg text-white/90">
+              Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft — in den
+              eigenen vier Wänden, geplant nach dem, was eine Aufgabe wirklich dauert.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a href={business.phone.href} className="btn btn--onDark text-lg">
                 <IconPhone />
                 {business.phone.display}
@@ -90,7 +91,7 @@ export default function Home() {
                 Rückruf anfordern <IconArrow />
               </Link>
             </div>
-            <p className="mt-3 text-sm text-white/75">
+            <p className="mt-3 text-sm text-white/85">
               Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
               Ein Erstgespräch kostet Sie nichts.
             </p>
