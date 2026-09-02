@@ -80,7 +80,7 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-line bg-page/95 backdrop-blur">
         <div className="shell flex items-center justify-between gap-4 py-3">
           <Link href="/" className="flex-none" aria-label={`${business.legalName} — zur Startseite`}>
             <Image
@@ -141,7 +141,7 @@ export default function Header() {
           id="mobilmenue"
           ref={panelRef}
           hidden={!open}
-          className="max-h-[calc(100dvh-8rem)] overflow-y-auto border-t border-line bg-white lg:hidden"
+          className="max-h-[calc(100dvh-8rem)] overflow-y-auto border-t border-line bg-surface lg:hidden"
         >
           <nav aria-label="Hauptnavigation (mobil)" className="shell py-4">
             <ul className="m-0 list-none p-0">

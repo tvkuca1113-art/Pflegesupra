@@ -3,24 +3,37 @@
 /* ==========================================================================
    SUPRA DESIGN SYSTEM — "Die klare Auskunft"
    --------------------------------------------------------------------------
-   The whole system comes out of the logo: deep blue script over an orange
-   rising sun. Two rules govern every colour decision below.
+   Four rules govern everything below. The first two come from the logo, the
+   third from the audience, the fourth from measurement.
 
-   1. BLUE CARRIES STRUCTURE AND ACTION.
-      #003399 on white = 10.86:1 contrast. It is the only colour allowed to
-      fill a button or set body-size text, because it is the only brand colour
-      that clears WCAG AA everywhere.
+   1. THE PAGE IS PAPER, NOT SCREEN-WHITE.
+      The ground is #FBF8F3. Pure white is demoted to a *surface* — the colour
+      a card or a form lifts to, so lifting means something. This single
+      decision does more than any other to keep the site from reading as a
+      framework default, because a framework default is always #FFF.
 
-   2. ORANGE MARKS, IT NEVER SPEAKS.
-      #FF6600 on white = 2.94:1 — below AA for text and below 3:1 for UI
-      contrast. So brand orange is used ONLY as a graphic mark of at least
-      4px (the "Horizont" rule, list markers, the active-nav underline) where
-      no contrast minimum applies, never for text and never as a button fill
-      with white on top. Where orange must carry words, --ink-accent
-      (#A83B00, 6.38:1 on white) is used instead.
+   2. BLUE CARRIES STRUCTURE AND ACTION; ORANGE MARKS AND DOES NOT SPEAK.
+      #003399 on paper = 10.25:1. It is the only brand colour that clears AA
+      everywhere, so it fills buttons and sets links. #FF6600 on paper is
+      2.77:1, so on light ground it is only ever a graphic mark of at least
+      4px, never a word and never a button fill. Where orange must carry
+      words on light ground, --ink-accent (#A83B00, 6.02:1) does it.
 
-   That single constraint is why this site does not look like the usual
-   orange-button care template — and it is also why it is readable.
+      One earned exception, measured rather than assumed: on the night ground
+      (#191C24) brand orange reaches 5.80:1. There, and only there, it is
+      allowed to set text.
+
+   3. TWO VOICES, NOT ONE.
+      Headlines are set in Source Serif 4, body and interface in Libre
+      Franklin. A care service is not a SaaS product, and an all-sans page in
+      a blue-grey palette is the house style of every template on the market.
+      The serif is what makes the difference legible in half a second, before
+      a single word has been read.
+
+   4. NOTHING IS DECORATION.
+      The Horizont rule, the frame offsets, the rules above section titles:
+      each appears in one role and nowhere else. A motif used everywhere is
+      wallpaper.
    ========================================================================== */
 
 @font-face {
@@ -50,6 +63,40 @@
    size-adjust closes the width gap; the ascent and descent overrides are
    divided by that same adjustment so the line box lands where Libre
    Franklin's does. The swap now changes the shapes and nothing else. */
+/* --- The display voice ---------------------------------------------------
+   Source Serif 4, instanced at optical size 36 (these are headline sizes) and
+   subset to the same German character set as the body face. 21 KB for the
+   400-700 weight range.
+
+   Two faces means two chances to shift the layout when they swap, so this one
+   gets the same treatment as the body font: preloaded in the document head,
+   and paired with a metrics-matched fallback below. */
+@font-face {
+  font-family: 'Source Serif';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/source-serif-de.woff2') format('woff2');
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00AB, U+00AD, U+00B0, U+00B7,
+    U+00BB, U+00C4, U+00D6, U+00D7, U+00DC, U+00DF, U+00E0, U+00E4, U+00E7-00EA,
+    U+00F1, U+00F6, U+00FC, U+2013-2014, U+2018-201E, U+2026, U+2212, U+20AC;
+}
+
+/* Measured the same way as the sans fallback: Source Serif renders the
+   lowercase alphabet 7.00% wider than the serif fallback at the same pixel
+   size (1277.80px vs 1194.19px at 100px, in-browser). Its own metrics are
+   1000 units per em with an ascent of 1036 and a descent of 335, and the
+   overrides are divided by the size adjustment so the line box lands where
+   the real face's does. */
+@font-face {
+  font-family: 'Source Serif Fallback';
+  src: local('Georgia'), local('Times New Roman'), local('Times');
+  size-adjust: 107%;
+  ascent-override: 96.82%;
+  descent-override: 31.31%;
+  line-gap-override: 0%;
+}
+
 @font-face {
   font-family: 'Libre Franklin Fallback';
   src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
@@ -61,23 +108,34 @@
 
 @theme {
   /* --- Brand, sampled from the client's logo file ----------------------- */
-  --color-brand: #003399;         /* 10.86:1 on white */
-  --color-brand-deep: #002270;    /* headers, footer ground */
+  --color-brand: #003399;         /* 10.25:1 on paper */
+  --color-brand-deep: #002270;
   --color-brand-ink: #001a52;     /* headings */
-  --color-sun: #ff6600;           /* graphic mark only, never text */
+  --color-sun: #ff6600;           /* graphic mark on light; may set text on night */
   --color-sun-soft: #ffd9b8;
-  --color-ink-accent: #a83b00;    /* 6.38:1 on white — the only orange that may speak */
+  --color-ink-accent: #a83b00;    /* 6.02:1 on paper — the orange that may speak */
 
-  /* --- Surfaces ---------------------------------------------------------- */
-  --color-page: #ffffff;
-  --color-paper: #f5f6f9;         /* section alternation */
-  --color-paper-warm: #fdf7f1;    /* the one warm surface, sun-adjacent */
-  --color-line: #d3d8e4;
-  --color-line-strong: #7b86a3;  /* 3.63:1 on white, 3.36:1 on paper — clears WCAG 1.4.11 */
+  /* --- Grounds -----------------------------------------------------------
+     Three light grounds and one dark. `page` is the default paper, `paper`
+     the deeper band that separates sections without a border, and `surface`
+     is white — reserved for things that lift off the page (forms, the
+     Kompass, the result cards). Reserving white is the point: if everything
+     is white, nothing is raised. */
+  --color-page: #fbf8f3;
+  --color-paper: #f1eade;
+  /* Retained as an alias of --paper. The old system had two warm greys;
+     the new one has one, and nothing gains from a second. */
+  --color-paper-warm: #f6f0e6;
+  --color-surface: #ffffff;
+  --color-night: #191c24;         /* white 17.03:1, brand orange 5.80:1 */
+  --color-night-soft: #232733;
+
+  --color-line: #ded5c7;
+  --color-line-strong: #8a8074;   /* 3.66:1 on page, 3.24:1 on paper — WCAG 1.4.11 */
 
   /* --- Text -------------------------------------------------------------- */
-  --color-ink: #16181d;           /* 16.6:1 on white */
-  --color-ink-muted: #4b5364;     /* 7.6:1 on white — still AA for body */
+  --color-ink: #1b1815;           /* 16.68:1 on paper */
+  --color-ink-muted: #56504a;     /* 7.50:1 on paper */
 
   /* --- Feedback ---------------------------------------------------------- */
   --color-ok: #14603a;
@@ -103,17 +161,26 @@
   --text-3xl: clamp(1.6rem, 1.29rem + 1.4vw, 2rem);
   --text-4xl: clamp(1.85rem, 1.33rem + 2.35vw, 2.556rem);
   --text-5xl: clamp(2.1rem, 1.35rem + 3.4vw, 3.222rem);
+  /* One step beyond the old scale, for the single headline that opens the
+     site. Nothing else is allowed to use it. */
+  --text-6xl: clamp(2.35rem, 1.32rem + 4.6vw, 3.9rem);
 
   --font-sans: 'Libre Franklin', 'Libre Franklin Fallback', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Source Serif', 'Source Serif Fallback', Georgia, 'Times New Roman', serif;
 
-  /* --- Rhythm ------------------------------------------------------------ */
+  /* --- Rhythm ------------------------------------------------------------
+     Radii stay small on purpose. The pill-shaped, heavily rounded card is the
+     single most recognisable tell of a generated layout; 3-8px reads as
+     printed matter instead. */
   --radius-sm: 3px;
   --radius-md: 5px;
   --radius-lg: 8px;
 
-  --shadow-raised: 0 1px 2px rgb(0 26 82 / 0.07), 0 4px 14px rgb(0 26 82 / 0.06);
-  --shadow-lifted: 0 2px 4px rgb(0 26 82 / 0.09), 0 12px 32px rgb(0 26 82 / 0.11);
+  /* Shadows are warm, because the ground is warm. A blue-black shadow on
+     paper looks like a screenshot pasted onto the page. */
+  --shadow-raised: 0 1px 2px rgb(60 44 24 / 0.07), 0 4px 14px rgb(60 44 24 / 0.07);
+  --shadow-lifted: 0 2px 4px rgb(60 44 24 / 0.09), 0 14px 36px rgb(60 44 24 / 0.12);
 }
 
 /* Author styles live in Tailwind's cascade layers. Unlayered CSS outranks
@@ -157,6 +224,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* h1 and h2 are the display voice. h3 and below stay in the sans, because
+     below about 1.3rem a text serif starts to fight the interface rather than
+     lead it — and h3 is usually a label on a card, not a headline. */
   h1, h2, h3, h4, h5, h6 {
     color: var(--color-brand-ink);
     font-weight: 700;
@@ -179,6 +249,15 @@
   @media (min-width: 48rem) {
     h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
   }
+  h1, h2, .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    /* The serif carries its own colour weight; the tight tracking that suits
+       a grotesk headline makes this one look cramped. */
+    letter-spacing: -0.011em;
+    line-height: 1.1;
+  }
+
   /* Defaults, so hierarchy survives even where no size utility is applied. */
   h1 { font-size: var(--text-4xl); }
   h2 { font-size: var(--text-3xl); }
@@ -240,12 +319,85 @@
   .section { padding-block: clamp(3rem, 7vw, 5.5rem); }
   .section--tight { padding-block: clamp(2.25rem, 5vw, 3.5rem); }
   .section--paper { background: var(--color-paper); }
-  .section--warm { background: var(--color-paper-warm); }
+  /* Retained so older markup does not lose its ground. The system now has
+     one warm band, not two. */
+  .section--warm { background: var(--color-paper); }
+
+  /* The dark band. Once per page at most, and on the home page it holds the
+     Kompass — so arriving at it reads as a change of gear rather than as
+     another striped section. On this ground the brand orange measures 5.80:1
+     and is finally allowed to set a word. */
+  .section--night {
+    background: var(--color-night);
+    color: #fff;
+  }
+  .section--night h1, .section--night h2, .section--night h3 { color: #fff; }
+
+  /* ==========================================================================
+     PHOTOGRAPHY
+     --------------------------------------------------------------------------
+     Photographs are framed, not floated. The frame is a hairline in the ink
+     colour offset from the image by a few pixels — a printed-plate reference,
+     one motif, used only on photographs. No rounded corners, no drop shadow:
+     both are what a card does, and a photograph is not a card.
+     ========================================================================== */
+  .frame { position: relative; display: block; }
+  .frame > img { display: block; width: 100%; height: auto; }
+  .frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* A very light inner edge, so a pale photograph still has a boundary
+       against pale paper. Inset rather than outset, so it never adds to the
+       element's box and never shifts the layout. */
+    box-shadow: inset 0 0 0 1px rgb(27 24 21 / 0.14);
+    pointer-events: none;
+  }
+  /* The offset plate: the frame's rule sits a little outside the image on one
+     corner. Purely optical, purely decorative, and therefore aria-hidden and
+     pointer-events:none by construction. */
+  .frame--plate::before {
+    content: '';
+    position: absolute;
+    inset: 0.7rem -0.7rem -0.7rem 0.7rem;
+    border: 1px solid var(--color-line-strong);
+    z-index: -1;
+  }
+  @media (max-width: 40rem) { .frame--plate::before { display: none; } }
+
+  figure.figure { margin: 0; }
+  .figure figcaption {
+    margin-top: 0.7rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+    max-width: 42ch;
+  }
+
+  /* ==========================================================================
+     EDITORIAL MARKS
+     ========================================================================== */
+  /* The big figure — used for statutory amounts and step numbers, where the
+     number IS the content. Tabular so a column of them aligns. */
+  .figure-xl {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
 
   /* --- The Horizont ------------------------------------------------------
-     The single motif carried through the whole site: a flat orange line with
-     the light of the logo's sun rising off it. It appears above section titles
-     and nowhere else, so it stays a signature instead of decoration. */
+     The single motif carried through the whole site: the flat orange line the
+     logo's sun rises from. It appears above section titles and nowhere else,
+     so it stays a signature instead of decoration.
+
+     It used to carry a radial glow above the rule, and the glow is gone. Two
+     measured reasons, not a change of taste. On the night ground it lifted the
+     pixels behind the eyebrow to a warm brown and dropped brand orange from
+     5.80:1 to 4.60:1 — a pass by one tenth, which is not a margin. And on the
+     warm paper the halo stopped reading as light at all and started reading as
+     a smudge, because a soft orange gradient needs a white ground to look like
+     glow. The mark is stronger as a plain rule. */
   .horizont {
     display: block;
     width: 3.5rem;
@@ -255,20 +407,6 @@
     background: var(--color-sun);
     position: relative;
   }
-  .horizont::after {
-    content: '';
-    position: absolute;
-    inset-inline-start: 0;
-    bottom: 100%;
-    width: 3.5rem;
-    height: 1.75rem;
-    background: radial-gradient(
-      ellipse 1.75rem 1.75rem at 50% 100%,
-      color-mix(in srgb, var(--color-sun) 26%, transparent),
-      transparent 70%
-    );
-  }
-
   .eyebrow {
     font-size: var(--text-sm);
     font-weight: 700;
@@ -276,36 +414,6 @@
     text-transform: uppercase;
     color: var(--color-ink-accent);
     margin: 0 0 0.4rem;
-  }
-
-  /* ==========================================================================
-     HERO BACKDROP (laptop and up)
-     --------------------------------------------------------------------------
-     Declared as a CSS background inside a media query, not as an <img> in a
-     `hidden lg:block` container. Measured: an image inside a display:none
-     element is still downloaded, so the phone was fetching the 1,200px desktop
-     crop it never shows. A background-image inside @media is only requested
-     when the query matches.
-     ========================================================================== */
-  .hero-backdrop-image { background: none; }
-  @media (min-width: 64rem) {
-    .hero-backdrop-image {
-      background-image: image-set(
-        url('/img/hero-hands-wide-1800.avif') type('image/avif'),
-        url('/img/hero-hands-wide-1800.webp') type('image/webp')
-      );
-      background-size: cover;
-      background-position: 64% 46%;
-      background-repeat: no-repeat;
-    }
-  }
-  @media (min-width: 100rem) {
-    .hero-backdrop-image {
-      background-image: image-set(
-        url('/img/hero-hands-wide-2400.avif') type('image/avif'),
-        url('/img/hero-hands-wide-2400.webp') type('image/webp')
-      );
-    }
   }
 
   /* ==========================================================================

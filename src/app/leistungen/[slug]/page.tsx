@@ -48,13 +48,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           do I qualify, what do I actually get. Answered before the prose. */}
       <section className="section--tight border-b border-line">
         <dl className="shell m-0 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
-          <div className="bg-white p-5">
+          <div className="bg-surface p-5">
             <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
               Wer bezahlt
             </dt>
             <dd className="m-0 mt-1.5 text-lg">{s.payer}</dd>
           </div>
-          <div className="bg-white p-5">
+          <div className="bg-surface p-5">
             <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
               Voraussetzung
             </dt>

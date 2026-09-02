@@ -10,10 +10,11 @@ const ratio = (a,b) => { const [x,y]=[L(a),L(b)].sort((m,n)=>n-m); return (x+0.0
 const C = {
   brand:'#003399', brandDeep:'#002270', brandInk:'#001a52',
   sun:'#ff6600', sunSoft:'#ffd9b8', inkAccent:'#a83b00',
-  page:'#ffffff', paper:'#f5f6f9', paperWarm:'#fdf7f1',
-  ink:'#16181d', inkMuted:'#4b5364',
+  page:'#fbf8f3', paper:'#f1eade', paperWarm:'#f6f0e6', surface:'#ffffff',
+  night:'#191c24', nightSoft:'#232733',
+  ink:'#1b1815', inkMuted:'#56504a',
   ok:'#14603a', okBg:'#e7f4ec', err:'#a3131f', errBg:'#fdeceb',
-  line:'#d3d8e4', lineStrong:'#7b86a3', white:'#ffffff',
+  line:'#ded5c7', lineStrong:'#8a8074', white:'#ffffff',
 };
 
 // [label, fg, bg, minimum required]
@@ -22,25 +23,33 @@ const checks = [
   ['body ink on page',            C.ink,       C.page,      4.5],
   ['body ink on paper',           C.ink,       C.paper,     4.5],
   ['body ink on warm paper',      C.ink,       C.paperWarm, 4.5],
+  ['body ink on surface',         C.ink,       C.surface,   4.5],
   ['muted ink on page',           C.inkMuted,  C.page,      4.5],
   ['muted ink on paper',          C.inkMuted,  C.paper,     4.5],
+  ['muted ink on surface',        C.inkMuted,  C.surface,   4.5],
   ['heading on page',             C.brandInk,  C.page,      4.5],
   ['heading on paper',            C.brandInk,  C.paper,     4.5],
   ['link/brand on page',          C.brand,     C.page,      4.5],
   ['link/brand on paper',         C.brand,     C.paper,     4.5],
+  ['link/brand on surface',       C.brand,     C.surface,   4.5],
   ['eyebrow accent on page',      C.inkAccent, C.page,      4.5],
-  ['eyebrow accent on warm',      C.inkAccent, C.paperWarm, 4.5],
+  ['eyebrow accent on paper',     C.inkAccent, C.paper,     4.5],
   ['primary btn text',            C.white,     C.brand,     4.5],
   ['primary btn hover text',      C.white,     C.brandDeep, 4.5],
   ['onDark btn text',             C.brandDeep, C.white,     4.5],
   ['onDark btn hover text',       C.brandDeep, C.sunSoft,   4.5],
   ['text on deep blue ground',    C.white,     C.brandDeep, 4.5],
   ['text on brand ground',        C.white,     C.brand,     4.5],
+  // The night ground, and the one place brand orange is allowed to set text.
+  ['text on night ground',        C.white,     C.night,     4.5],
+  ['muted text on night ground',  '#d8d3cb',   C.night,     4.5],
+  ['BRAND ORANGE as text on night', C.sun,     C.night,     4.5],
   ['success text',                C.ok,        C.okBg,      4.5],
   ['error text',                  C.err,       C.errBg,     4.5],
   ['error text on page',          C.err,       C.page,      4.5],
   ['input border on page',        C.lineStrong,C.page,      3.0],
   ['input border on paper',       C.lineStrong,C.paper,     3.0],
+  ['input border on surface',     C.lineStrong,C.surface,   3.0],
   ['focus ring on page',          C.brand,     C.page,      3.0],
   ['focus ring on brand ground',  C.white,     C.brand,     3.0],
 ];
@@ -49,6 +58,7 @@ const checks = [
 const graphicOnly = [
   ['sun marker on page (graphic only, ≥4px)', C.sun, C.page],
   ['sun marker on paper (graphic only, ≥4px)', C.sun, C.paper],
+  ['hairline on page (decoration only)', C.line, C.page],
 ];
 
 let fail = 0;

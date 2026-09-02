@@ -97,7 +97,7 @@ export default function UeberUnsPage() {
           />
           <ul className="m-0 grid list-none gap-6 p-0 lg:grid-cols-3">
             {honesty.map((h) => (
-              <li key={h} className="border-l-4 border-line-strong bg-white p-5 text-ink-muted">
+              <li key={h} className="border-l-4 border-line-strong bg-surface p-5 text-ink-muted">
                 {h}
               </li>
             ))}

@@ -52,7 +52,7 @@ export default function ConsentBanner({ analyticsConfigured }: { analyticsConfig
       role="dialog"
       aria-modal="false"
       aria-labelledby="consent-titel"
-      className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-sun bg-white shadow-[0_-8px_40px_rgb(0_26_82/0.18)]"
+      className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-sun bg-surface shadow-[0_-8px_40px_rgb(0_26_82/0.18)]"
     >
       <div className="shell py-5">
         <h2 id="consent-titel" className="text-xl">

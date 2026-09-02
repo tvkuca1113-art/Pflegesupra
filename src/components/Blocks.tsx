@@ -116,7 +116,11 @@ export function LinkCard({
   meta?: string;
 }) {
   return (
-    <li className="group relative flex flex-col border-t-4 border-line bg-white pt-4 transition-colors hover:border-sun">
+    // No fill and no shadow: on warm paper a white box reads as a card that
+    // has floated loose, and the anti-template rule this system is built on is
+    // that a card must mean "this lifts off the page". These do not lift; they
+    // are entries in a list, separated by a rule.
+    <li className="group relative flex flex-col border-t-2 border-line-strong pt-4 transition-colors hover:border-sun">
       <h3 className="text-xl">
         <Link href={href} className="no-underline after:absolute after:inset-0 after:content-['']">
           {title}

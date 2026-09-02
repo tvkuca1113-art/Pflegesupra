@@ -25,6 +25,7 @@ npm run dev                    # http://localhost:3000
 | `npm run check:contrast` | Audits every design token pair against WCAG 2.2. Fails the run on a regression. |
 | `npm run check:hero` | Renders the hero and measures text contrast against the real pixels beneath it, at three viewports. Needs the site running. |
 | `npm run qa` | Crawls a running site: headings, metadata, links, overflow at 7 widths, touch targets, keyboard, 404. |
+| `npm run images` | Rebuilds the whole photographic set from Unsplash sources: crops to focal points, applies the warm treatment, writes AVIF + WebP at three widths. |
 | `npm run check:vitals` | Measures LCP, CLS, FCP and blocking time on five routes under Slow 4G + 4× CPU. Needs the site running. |
 | `npm run check:analytics` | Asserts that the delegated click tracking still fires the conversion events. Needs a build made with `NEXT_PUBLIC_GA_ID` set. |
 | `npm run verify` | typecheck + lint + contrast + build. |
@@ -156,6 +157,31 @@ Three more rules that exist because breaking them shipped a visible bug:
   produce a balanced line wider than its container; with `overflow: hidden` on
   an ancestor the text is then silently sliced rather than scrolled.
 
+### The two rules added in the redesign
+
+* **The page is paper, not screen-white.** The ground is `#FBF8F3`; pure white
+  is demoted to a *surface* — what a form or the Kompass lifts to. Reserving
+  white is the point: if everything is white, nothing is raised. This single
+  token does more than any other to keep the site from reading as a framework
+  default, because a framework default is always `#FFF`.
+* **Two voices.** Headlines are set in Source Serif 4 (self-hosted, instanced at
+  optical size 36, subset to the same German character set, 21 KB); body and
+  interface stay in Libre Franklin. A care service is not a SaaS product, and an
+  all-sans page in a blue-grey palette is the house style of every template on
+  the market. `h1` and `h2` take the serif; `h3` and below stay sans, because
+  below about 1.3rem a text serif fights the interface rather than leads it.
+
+Both fonts are preloaded and both have metrics-matched fallbacks, measured the
+same way (`size-adjust: 107%` for the serif, from 1277.80px vs 1194.19px on the
+lowercase alphabet at 100px). Adding a second face did not move CLS off zero.
+
+**Brand orange earned one exception.** On light ground `#FF6600` is 2.77:1 and
+stays a graphic mark. On the night ground `#191C24` it measures 5.80:1 and is
+allowed to set text — the only place it may. Getting that measured figure to
+match reality also cost the Horizont its glow: the halo lifted the pixels behind
+the eyebrow to a warm brown and dropped the real reading to 4.60:1, a pass by
+one tenth. A tenth is not a margin.
+
 The type scale, colours, radii and shadows are declared in `@theme`, so
 `text-4xl`, `bg-brand-deep`, `rounded-lg` are real Tailwind utilities built from
 our tokens. Avoid `text-[var(--…)]` — Tailwind reads it as a *colour*.
@@ -164,48 +190,59 @@ our tokens. Avoid `text-[var(--…)]` — Tailwind reads it as a *colour*.
 
 ## Imagery, and what carries the first screen
 
-The hero carries a **real photograph** — two hands holding another pair of
-hands — by Thomas Griggs, licensed via Unsplash, credited in the Impressum.
+Every photograph on the site comes from **one body of work**: Jon Pountney's
+documentary series for Age Cymru, the national charity for older people in
+Wales, licensed via Unsplash and credited in the Impressum. One photographer,
+one commission, one register — which is the difference between a site that has
+pictures and a site that has photography. `scripts/build-images.mjs` holds the
+source ids, the crops, the focal points and the treatment; `npm run images`
+rebuilds the whole set.
 
-It is used as **atmosphere only**. The Impressum states plainly that it shows
-neither Supra's staff nor its clients nor its premises, because it does not.
-That distinction is the whole point: the client's current site uses
-AI-generated images of people who do not exist and says so in its own
-Impressum, which is corrosive on a care provider's site. A real, licensed,
-honestly-labelled photograph is not the same thing as a fabricated one.
+They are **symbolic images and are labelled as such**, under every photograph
+and in the Impressum: they show neither Supra's staff nor its clients nor its
+premises. That distinction is the whole point. The site being replaced used
+AI-generated images of people who do not exist and had to say so in its own
+Impressum — corrosive on a care provider's site, where the only question the
+visitor is really asking is whether these people can be trusted in their
+mother's flat. **Replace them with photographs of the real team as soon as they
+exist**; `src/content/photos.ts` and the build script are the only files to
+touch.
 
-**Replace it** with photographs of the actual team and offices as soon as they
-exist. `src/components/HeroBackdrop.tsx` is the only file to touch.
+### The hero: an opaque panel, not a scrim
 
-### Where the photograph sits, and why the scrim is what it is
+The opening photograph is the ground, and the copy sits on an **opaque paper
+panel over it**. That is not a style choice — it is the resolution of a fight
+this page lost four times.
 
-The photograph is the hero's **background**, behind the text, on every
-breakpoint. Getting it to read there took three wrong turns worth recording:
+Text laid directly on a photograph has to be defended with a scrim, and a scrim
+dark enough for WCAG 1.4.3 is dark enough to bury the faces that were the reason
+for using a photograph. Measured repeatedly: every scrim that passed contrast
+turned the image into a smudge. Earlier notes in this file recorded the best
+compromise available at the time — a crop matched to its container, a bright
+treatment, a backdrop bounded to the text block, 5.19:1 at its worst point —
+and it was still a compromise.
 
-1. A landscape crop scaled by `object-cover` into a 1,285px-tall box showed
-   about 17% of its width — a slice of background bokeh. **Match the crop's
-   aspect to its container.**
-2. Darkening the image *and* putting a heavy scrim on top left nothing to see.
-   The image files now use the BRIGHT treatment; the scrim alone does the
-   contrast work.
-3. The backdrop covered the whole hero `<section>` — but the "Was passiert"
-   card lives in that section too and stacks underneath on a phone, forcing the
-   background into a ~0.28 aspect. `HeroPhotoBackdrop` is therefore bounded to
-   the **text block**, full-bleed via `left-1/2 -translate-x-1/2 w-screen`, so
-   the ratio is about 0.7 and a real crop fills it. The card below sits on solid
-   brand ink.
+An opaque panel removes the trade-off instead of tuning it. The photograph is
+shown at full strength with nothing over the faces; the copy has 16.68:1 against
+real paper; the picture is still the first thing on screen. On a phone the panel
+is pulled up over the photograph's lower edge so the overlap is visible rather
+than merely structural, and the photograph's height is capped at `44vh` — a
+full-width square on a 390px screen is 390px tall and pushed both buttons past
+the fold.
 
-There is a floor here that no amount of tuning removes: on a phone the hero
-text covers the hero, so the photograph must sit under a scrim. The scrim is as
-light as the measurement allows and no lighter — currently 5.19:1 at its worst
-point against a 4.5:1 requirement.
+The one rule that survived unchanged: **an `<img>` inside a `display:none`
+container is still downloaded.** The two hero crops are therefore served from
+one `<picture>` with media-scoped `<source>` elements, never from two `<img>`
+tags in `hidden`/`lg:block` wrappers.
 
 ### Other decisions worth keeping
 
-* **Duotone is baked into the files** (sharp: adjust levels, then `tint()` with
-  brand chroma) rather than applied as a CSS filter — no runtime cost, and it
-  cannot fail to load separately from the image. Note `greyscale()` must NOT be
-  used before `tint()`: sharp's pipeline runs greyscale last and cancels it.
+* **The treatment is baked into the files** rather than applied as a CSS
+  filter — no runtime cost, and it cannot fail to load separately from the
+  image. It is a warm wash composited in `soft-light`, and specifically **not**
+  sharp's `tint()`: tint replaces an image's chroma outright while keeping its
+  luminance, so it does not warm a photograph, it turns it into a monotone. The
+  first build of this set came out sepia.
 * **Match the crop's aspect to its container.** An early landscape crop was
   scaled by `object-cover` to fill a 1,285px-tall box, showing about 17% of its
   width — a slice of background bokeh. If you re-crop, check the aspect first.

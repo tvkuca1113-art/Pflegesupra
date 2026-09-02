@@ -50,14 +50,14 @@ export default function ImpressumPage() {
               ].map(([k, v]) => (
                 <div key={k} className="contents">
                   <dt className="bg-paper p-3 font-bold text-brand-ink">{k}</dt>
-                  <dd className="m-0 bg-white p-3">{v}</dd>
+                  <dd className="m-0 bg-surface p-3">{v}</dd>
                 </div>
               ))}
               <div className="contents">
                 <dt className="bg-paper p-3 font-bold text-brand-ink">
                   Umsatzsteuer-IdNr.
                 </dt>
-                <dd className="m-0 bg-white p-3 text-err">
+                <dd className="m-0 bg-surface p-3 text-err">
                   zu bestätigen — falls vorhanden, hier eintragen (§27a UStG)
                 </dd>
               </div>
@@ -65,7 +65,7 @@ export default function ImpressumPage() {
                 <dt className="bg-paper p-3 font-bold text-brand-ink">
                   Zuständige Aufsichtsbehörde
                 </dt>
-                <dd className="m-0 bg-white p-3 text-err">
+                <dd className="m-0 bg-surface p-3 text-err">
                   zu bestätigen — die konkrete Behörde ist mit vollständigem Namen und
                   Anschrift zu benennen
                 </dd>
@@ -74,7 +74,7 @@ export default function ImpressumPage() {
                 <dt className="bg-paper p-3 font-bold text-brand-ink">
                   Berufsbezeichnung &amp; berufsrechtliche Regelungen
                 </dt>
-                <dd className="m-0 bg-white p-3 text-err">
+                <dd className="m-0 bg-surface p-3 text-err">
                   zu bestätigen — Berufsbezeichnung, verleihender Staat und Fundstelle der
                   berufsrechtlichen Regelungen
                 </dd>
@@ -129,19 +129,21 @@ export default function ImpressumPage() {
 
             <h2>Bildnachweis</h2>
             <p>
-              Das Titelbild auf der Startseite stammt von{' '}
+              Sämtliche Fotografien auf dieser Website stammen aus einer
+              dokumentarischen Serie von{' '}
               <a
-                href="https://unsplash.com/@viajeenparacaidas"
+                href="https://unsplash.com/@agecymru"
                 className="linkish"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Thomas Griggs
+                Jon Pountney für Age Cymru
                 <span className="sr-only"> (öffnet in neuem Tab)</span>
-              </a>{' '}
-              und wurde über{' '}
+              </a>
+              , der nationalen Organisation für ältere Menschen in Wales, und wurden
+              über{' '}
               <a
-                href="https://unsplash.com/photos/two-hands-holding-each-other-with-care-mwGrAl1X514"
+                href="https://unsplash.com/"
                 className="linkish"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -149,13 +151,15 @@ export default function ImpressumPage() {
                 Unsplash
                 <span className="sr-only"> (öffnet in neuem Tab)</span>
               </a>{' '}
-              unter der Unsplash-Lizenz bezogen. Es wurde farblich bearbeitet.
+              unter der Unsplash-Lizenz bezogen. Sie wurden einheitlich farblich
+              bearbeitet und beschnitten. Eine Nennung ist von der Lizenz nicht
+              gefordert; sie erfolgt trotzdem.
             </p>
             <p>
-              <strong>Dieses Bild ist eine Stimmungsaufnahme.</strong> Es zeigt weder
+              <strong>Alle Bilder sind Symbolbilder.</strong> Sie zeigen weder
               Mitarbeiterinnen und Mitarbeiter noch Klientinnen und Klienten von{' '}
               {business.legalName} und auch nicht deren Räumlichkeiten. Sobald eigene
-              Aufnahmen vorliegen, wird es ersetzt.
+              Aufnahmen vorliegen, werden sie ersetzt.
             </p>
             <p>
               Die übrigen grafischen Elemente — Sonnenmotiv, Symbole und Icons — wurden

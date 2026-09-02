@@ -1,14 +1,15 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import PflegeKompass from '@/components/PflegeKompass';
-import SunriseMark from '@/components/SunriseMark';
-import HeroBackdrop from '@/components/HeroBackdrop';
-import HeroPhotoBackdrop from '@/components/HeroPhotoBackdrop';
-import { CtaBand, LinkCard, SectionHead } from '@/components/Blocks';
+import HeroPhoto from '@/components/HeroPhoto';
+import Photo from '@/components/Photo';
+import { CtaBand, SectionHead } from '@/components/Blocks';
 import { IconPhone, IconArrow, IconCheck, IconPin } from '@/components/Icons';
 import { business } from '@/content/business';
 import { services } from '@/content/services';
 import { areas } from '@/content/areas';
+import { klartext, KLARTEXT_SOURCE, einsatz } from '@/content/klartext';
+import { PHOTO_CREDIT } from '@/content/photos';
 import { pageMeta } from '@/lib/seo';
 
 export const metadata: Metadata = pageMeta({
@@ -28,13 +29,6 @@ const trustPoints = [
   { label: 'Keine Vorleistung', sub: 'Gesetzlich Versicherte zahlen nichts vor' },
 ];
 
-/** The hero card. Short on purpose — the full version lives on /ablauf. */
-const firstSteps = [
-  { n: 1, t: 'Zehn Minuten am Telefon', b: 'Wir klären, was gebraucht wird und ob wir Ihre Adresse anfahren können.' },
-  { n: 2, t: 'Kostenloses Erstgespräch', b: 'Bei Ihnen zu Hause, unverbindlich — dort, wo die Pflege später stattfindet.' },
-  { n: 3, t: 'Kosten schriftlich', b: 'Was die Kasse trägt und was gegebenenfalls privat bliebe, vor der Unterschrift.' },
-];
-
 const steps = [
   { n: 1, t: 'Sie rufen an', b: 'Ein Gespräch, in dem wir zuhören statt zu verkaufen. Wir klären, was gebraucht wird und ob wir Ihre Adresse anfahren können.' },
   { n: 2, t: 'Wir kommen vorbei', b: 'Kostenloses Erstgespräch bei Ihnen zu Hause. Wir sehen die Wohnung, die Situation und die Menschen — das geht am Telefon nicht.' },
@@ -46,94 +40,80 @@ export default function Home() {
   return (
     <>
       {/* ================================================================ HERO
-          Answers all four questions in the first screen: who we help, what we
-          do, where, and what to do next.
+          The photograph is the ground and the copy sits on an opaque paper
+          panel over it. That arrangement is not a style choice — it is the
+          resolution of a fight this page lost four times.
 
-          The section is NOT overflow-hidden: that would clip an oversized
-          headline instead of showing it as a layout error, which is how a
-          Safari text-wrap bug went unnoticed once. Only the decorative layer
-          inside HeroBackdrop clips, and it contains no text.
+          Text laid directly over a photograph has to be defended with a scrim,
+          and a scrim dark enough for WCAG 1.4.3 is dark enough to bury the
+          faces that were the reason for using a photograph at all. Measured
+          repeatedly: every scrim that passed contrast made the image a smudge.
 
-          Text does sit over a photograph here, so contrast is no longer a
-          property of the tokens — it is measured per pixel by
-          `npm run check:hero`. */}
-      <section className="on-dark relative isolate bg-brand-ink text-white">
-        <HeroBackdrop />
-        <div className="shell grid items-center gap-10 pb-12 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
-          <div className="relative">
-            {/* On phones the photograph sits behind THIS block only — see
-                HeroPhotoBackdrop for why bounding it to the text matters. */}
-            <HeroPhotoBackdrop />
-            {/* On the dark ground the eyebrow uses the sun's light tint rather
-                than --color-ink-accent, which is a dark orange built for white. */}
-            <p className="eyebrow text-sun-soft">Ambulante Pflege zu Hause</p>
-            <span className="horizont" aria-hidden="true" />
-            {/* 55 characters, not 74. The longer version ran to four lines at
-                display size on a phone and pushed everything below it off the
-                screen. No non-breaking spaces: they glued "Pfaffenhofen a.d.
-                Ilm." into one unbreakable 22-character token. */}
-            <h1 className="text-4xl text-white sm:text-5xl">
-              Pflege zu Hause in München und Pfaffenhofen a.d. Ilm.
-            </h1>
-            {/* Kept to two lines on a phone. Every line here pushes the call
-                button further below the fold, and "in den eigenen vier Wänden"
-                was already said by "zu Hause" in the headline. */}
-            <p className="measure mt-4 text-lg text-white/90">
-              Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft — geplant
-              nach dem, was eine Aufgabe wirklich dauert.
-            </p>
+          An opaque panel ends the trade-off. The photograph is shown at full
+          strength with nothing over the faces, the copy has 16.68:1 against
+          real paper, and the picture is still the first thing on screen. On a
+          phone the panel is pulled up over the photograph's lower edge, so the
+          overlap is visible rather than merely structural.
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href={business.phone.href} className="btn btn--onDark text-lg">
-                <IconPhone />
-                {business.phone.display}
-              </a>
-              <Link href="/kontakt" className="btn btn--ghostDark">
-                Rückruf anfordern <IconArrow />
-              </Link>
-            </div>
-            <p className="mt-3 text-sm text-white/85">
-              Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
-              Ein Erstgespräch kostet Sie nichts.
-            </p>
-          </div>
+          Section is NOT overflow-hidden: clipping would hide an oversized
+          headline instead of exposing it, which is how a Safari text-wrap bug
+          went unnoticed here once. */}
+      <section className="relative isolate bg-page">
+        {/* The phone height is capped in viewport units rather than left to
+            the crop's own aspect. A full-width square on a 390px screen is
+            390px tall, which pushed the headline and both buttons past the
+            fold — the photograph would have been the whole first screen and
+            the call button would have been a scroll away. 44vh keeps both
+            faces and still leaves room to act. */}
+        <div className="h-[44vh] min-h-[15rem] max-h-[24rem] overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:max-h-none lg:w-[54%]">
+          <HeroPhoto />
+        </div>
 
-          {/* Right column answers the question the hero raises but does not
-              settle: "what am I actually committing to if I call?" A decorative
-              image here would occupy the same space and answer nothing. */}
-          <aside className="overflow-hidden rounded-lg border-2 border-line bg-white shadow-raised">
-            <SunriseMark className="block w-full" />
-            <div className="p-6">
-              <h2 className="text-xl">Was passiert, wenn Sie anrufen</h2>
-              <ol className="m-0 mt-4 list-none space-y-4 p-0">
-                {firstSteps.map((s) => (
-                  <li key={s.t} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-sm bg-brand text-sm font-bold tabular-nums text-white"
-                    >
-                      {s.n}
-                    </span>
-                    <span>
-                      <span className="block font-bold text-brand-ink">{s.t}</span>
-                      <span className="block text-sm text-ink-muted">{s.b}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-              <p className="mt-5 border-t border-line pt-4 text-sm text-ink-muted">
-                Sie unterschreiben nichts, bevor Sie schriftlich wissen, was es kostet.
+        <div className="shell relative">
+          <div className="lg:pr-[52%]">
+            <div className="-mt-12 border-t-4 border-sun bg-page px-5 pb-10 pt-6 sm:-mt-20 sm:px-8 sm:pb-12 sm:pt-9 lg:mt-0 lg:border-0 lg:px-0 lg:py-20 xl:py-24">
+              <p className="eyebrow">Ambulanter Pflegedienst</p>
+              {/* No non-breaking spaces anywhere in this headline: they glued
+                  "Pfaffenhofen a.d. Ilm." into one unbreakable 22-character
+                  token that clipped on a 320px screen. */}
+              {/* Sized down a step on phones. At --text-5xl this 52-character
+                  German string set four lines and buried the buttons; the
+                  display size only earns its keep where the line can hold
+                  more than three words. */}
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl">
+                Pflege zu Hause in München und Pfaffenhofen a.d. Ilm.
+              </h1>
+              {/* The lead does the work the research says it has to do. The
+                  fear families arrive with is not bad care — it is not
+                  knowing. So the first sentence on the site is about knowing. */}
+              <p className="measure mt-4 text-lg text-ink sm:mt-5 sm:text-xl">
+                Sie wissen vorher, wer kommt, wann er kommt und was es kostet.
+                Das ist seltener, als es sein sollte.
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <a href={business.phone.href} className="btn btn--primary text-lg">
+                  <IconPhone />
+                  {business.phone.display}
+                </a>
+                <Link href="/kontakt" className="btn btn--secondary">
+                  Rückruf anfordern <IconArrow />
+                </Link>
+              </div>
+              <p className="mt-4 text-sm text-ink-muted">
+                Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
+                Ein Erstgespräch kostet Sie nichts.
               </p>
             </div>
-          </aside>
+          </div>
         </div>
       </section>
 
       {/* Trust row — only claims the client already publishes about itself.
-          Its own section, so the sunrise ground stays with the hero and the
-          horizon rule lands where the composition ends. */}
-      <section className="border-b border-line bg-paper">
-        <ul className="shell m-0 grid list-none gap-x-8 gap-y-4 p-0 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          A rule-separated row rather than four boxes: these are four short
+          facts, and four boxes would say they are four features. */}
+      <section className="border-y border-line bg-paper">
+        <ul className="shell m-0 grid list-none gap-x-10 gap-y-4 p-0 py-6 sm:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map((p) => (
             <li key={p.label} className="flex items-start gap-2.5">
               <IconCheck className="mt-1 flex-none text-brand" />
@@ -146,73 +126,162 @@ export default function Home() {
         </ul>
       </section>
 
-      {/* ====================================================== PFLEGE-KOMPASS */}
-      <section className="section section--warm">
+      {/* ============================================================ KLARTEXT
+          The differentiating section, and the one that came straight out of
+          the research rather than out of a brief.
+
+          Every fear listed here is a documented, recurring complaint about the
+          sector. Naming them costs nothing and is the only thing on the page a
+          competitor would not dare to copy — which is exactly why it earns the
+          space a stock-photo "Über uns" block would otherwise take. */}
+      <section className="section">
+        <div className="shell grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div>
+            <SectionHead
+              eyebrow="Klartext"
+              title="Wovor Angehörige Angst haben — und was wir dagegen tun."
+              intro="Diese vier Sätze stammen nicht von uns. Es sind die Beschwerden, die Verbraucherschützer über ambulante Dienste am häufigsten hören. Wir schreiben sie hier hin, weil man ein Misstrauen nicht auflöst, indem man es übergeht."
+            />
+            <dl className="m-0">
+              {klartext.map((k) => (
+                <div key={k.fear} className="border-t border-line py-6 first:border-t-0 first:pt-0">
+                  <dt className="text-lg font-bold text-brand-ink">
+                    {/* The quotation marks matter: this is reported speech,
+                        not the client's own claim. */}
+                    „{k.fear}“
+                  </dt>
+                  <dd className="m-0 mt-2.5 flex items-start gap-3 text-ink-muted">
+                    <IconCheck className="mt-1 flex-none text-brand" />
+                    <span>{k.answer}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-7 text-sm text-ink-muted">
+              Quelle der Beschwerdelage:{' '}
+              <a href={KLARTEXT_SOURCE.href} className="linkish" rel="noopener noreferrer" target="_blank">
+                {KLARTEXT_SOURCE.label}
+                <span className="sr-only"> (öffnet in neuem Tab)</span>
+              </a>
+            </p>
+          </div>
+
+          <figure className="figure m-0 self-start lg:sticky lg:top-28">
+            <div className="frame frame--plate">
+              <Photo
+                name="beratung"
+                widths={[600, 900, 1400]}
+                ratio={3 / 2}
+                sizes="(min-width: 64rem) 34vw, 100vw"
+                alt="Zwei ältere Frauen sitzen an einem Tisch bei Kaffee und sprechen miteinander."
+              />
+            </div>
+            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* ====================================================== PFLEGE-KOMPASS
+          On the night ground. The site has exactly two dark bands and this is
+          the first, so arriving here reads as a change of gear rather than as
+          another striped section. */}
+      <section className="section section--night on-dark">
         <div className="shell">
-          <SectionHead
-            eyebrow="Orientierung in drei Fragen"
-            title="Was steht uns eigentlich zu?"
-            intro="Die Frage, mit der fast jede Familie anruft — und auf die die meisten Pflegeseiten mit vier Absätzen Gesetzestext antworten. Hier bekommen Sie die Zahl."
-          />
+          <div className="mb-9 max-w-[46rem]">
+            <p className="eyebrow text-sun">Orientierung in drei Fragen</p>
+            <span className="horizont" aria-hidden="true" />
+            <h2 className="text-4xl">Was steht uns eigentlich zu?</h2>
+            <p className="mt-4 text-lg text-white/85">
+              Die Frage, mit der fast jede Familie anruft — und auf die die meisten
+              Pflegeseiten mit vier Absätzen Gesetzestext antworten. Hier bekommen Sie
+              die Zahl, mit den Beträgen, die ab 2026 gelten.
+            </p>
+          </div>
           <div className="mx-auto max-w-[52rem]">
             <PflegeKompass />
           </div>
         </div>
       </section>
 
-      {/* ============================================================= SERVICES */}
+      {/* ================================================================ EINSATZ
+          What half an hour actually contains. Competitors answer this with a
+          catalogue of nouns; a timed sequence is a different kind of
+          information, and it is the only way to show a claim about planning by
+          real duration rather than by the minute list. */}
       <section className="section">
+        <div className="shell grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+          <figure className="figure m-0 self-start lg:sticky lg:top-28">
+            <div className="frame frame--plate">
+              <Photo
+                name="betreuung"
+                widths={[600, 900, 1400]}
+                ratio={3 / 2}
+                sizes="(min-width: 64rem) 30vw, 100vw"
+                alt="Eine ältere Frau strickt in ihrem Sessel und blickt zu jemandem auf, der neben ihr sitzt."
+              />
+            </div>
+            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
+          </figure>
+
+          <div>
+            <SectionHead
+              eyebrow="Ein Einsatz"
+              title="Was in einer halben Stunde tatsächlich passiert."
+              intro="Ein typischer Morgeneinsatz. Keine Zusage über die Dauer — wie lange es wirklich braucht, hängt an dem Menschen, nicht an der Uhr. Genau deshalb steht die Uhr hier trotzdem."
+            />
+            <ol className="m-0 list-none p-0">
+              {einsatz.map((e) => (
+                <li key={e.at} className="grid grid-cols-[4.5rem_1fr] gap-x-4 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[6rem_1fr] sm:gap-x-6">
+                  <span className="figure-xl pt-0.5 text-lg text-ink-accent sm:text-xl">{e.at}</span>
+                  <span>
+                    <span className="block font-bold text-brand-ink">{e.title}</span>
+                    <span className="mt-1.5 block text-ink-muted">{e.body}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================= SERVICES
+          A rule-separated editorial list, not a card grid. The old version
+          rendered five near-identical boxes; five boxes say "five products",
+          and these are not products — they are five different legal
+          entitlements with five different payers, which is the actual
+          information a visitor needs. */}
+      <section className="section section--paper">
         <div className="shell">
           <SectionHead
             eyebrow="Leistungen"
             title="Was wir zu Hause übernehmen"
             intro="Jede Leistung hat ihren eigenen Kostenträger und ihre eigenen Voraussetzungen. Auf den Detailseiten steht, wer zahlt und ab welchem Pflegegrad."
           />
-          <ul className="m-0 grid list-none gap-x-8 gap-y-9 p-0 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="m-0 list-none border-t border-line-strong p-0">
             {services.map((s) => (
-              <LinkCard
-                key={s.slug}
-                href={`/leistungen/${s.slug}`}
-                title={s.name}
-                body={s.promise}
-                meta={s.payer}
-              />
+              <li key={s.slug} className="group relative border-b border-line">
+                <Link
+                  href={`/leistungen/${s.slug}`}
+                  className="grid items-baseline gap-x-8 gap-y-1 py-6 no-underline sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_auto]"
+                >
+                  <h3 className="text-xl text-brand-ink transition-colors group-hover:text-brand">
+                    {s.name}
+                  </h3>
+                  <span className="block text-ink-muted">
+                    {s.promise}
+                    <span className="mt-1 block text-sm">{s.payer}</span>
+                  </span>
+                  <IconArrow className="hidden flex-none self-center text-brand transition-transform group-hover:translate-x-1 sm:block" />
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* ================================================================ ABLAUF */}
-      <section className="section section--paper">
-        <div className="shell">
-          <SectionHead
-            eyebrow="Ablauf"
-            title="Vom ersten Anruf bis zum ersten Einsatz"
-            intro="Vier Schritte. Sie gehen keinen davon allein, und Sie unterschreiben nichts, bevor Sie wissen, was es kostet."
-          />
-          <ol className="m-0 grid list-none gap-x-8 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
-              <li key={s.n} className="border-t-4 border-sun pt-4">
-                <span className="block text-3xl font-bold tabular-nums text-brand">
-                  {String(s.n).padStart(2, '0')}
-                </span>
-                <h3 className="mt-1 text-xl">{s.t}</h3>
-                <p className="mt-2 text-ink-muted">{s.b}</p>
-              </li>
-            ))}
-          </ol>
-          <Link href="/ablauf" className="btn btn--secondary mt-9">
-            Ablauf im Detail <IconArrow />
-          </Link>
-        </div>
-      </section>
-
-      {/* =============================================================== HALTUNG
-          The client's real differentiator, in their own substance: they refuse
-          to plan by the minute list. Rewritten to be concrete instead of
-          slogan-shaped. */}
+      {/* =============================================================== HALTUNG */}
       <section className="section">
-        <div className="shell grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <div className="shell grid items-center gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <div>
             <SectionHead
               eyebrow="Weshalb Supra"
@@ -241,33 +310,59 @@ export default function Home() {
             </Link>
           </div>
 
-          <figure className="m-0 self-start border-l-4 border-sun bg-paper-warm p-7">
-            <blockquote className="m-0 text-2xl font-bold leading-snug text-brand-ink">
-              „Krankenpflege ist eine Kunst, die wie jede andere vor allen Dingen eine
-              Reihe angeborener Eigenschaften und Anlagen bedingt, ohne die auch die beste
-              technische Schulung keinen Wert hat.“
-            </blockquote>
-            <figcaption className="mt-4 text-ink-muted">
-              — Agnes Karll, Begründerin der deutschen Krankenpflegeorganisation.
-              Das Zitat steht seit der Gründung über der Arbeit dieses Dienstes.
-            </figcaption>
+          <figure className="figure m-0">
+            <div className="frame frame--plate">
+              <Photo
+                name="haltung"
+                widths={[480, 720, 1000]}
+                ratio={4 / 5}
+                sizes="(min-width: 64rem) 32vw, 100vw"
+                alt="Ein älterer Mann mit Brille sitzt am Fenster und blickt nach oben, während er spricht."
+              />
+            </div>
+            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
           </figure>
         </div>
       </section>
 
-      {/* =========================================================== EINSATZGEBIET */}
+      {/* ================================================================ ABLAUF */}
       <section className="section section--paper">
+        <div className="shell">
+          <SectionHead
+            eyebrow="Ablauf"
+            title="Vom ersten Anruf bis zum ersten Einsatz"
+            intro="Vier Schritte. Sie gehen keinen davon allein, und Sie unterschreiben nichts, bevor Sie wissen, was es kostet."
+          />
+          <ol className="m-0 grid list-none gap-x-10 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((s) => (
+              <li key={s.n} className="border-t-2 border-line-strong pt-4">
+                <span className="figure-xl block text-4xl text-brand">
+                  {String(s.n).padStart(2, '0')}
+                </span>
+                <h3 className="mt-2 text-xl">{s.t}</h3>
+                <p className="mt-2 text-ink-muted">{s.b}</p>
+              </li>
+            ))}
+          </ol>
+          <Link href="/ablauf" className="btn btn--secondary mt-10">
+            Ablauf im Detail <IconArrow />
+          </Link>
+        </div>
+      </section>
+
+      {/* =========================================================== EINSATZGEBIET */}
+      <section className="section">
         <div className="shell">
           <SectionHead
             eyebrow="Einsatzgebiet"
             title="Wo wir hinkommen"
             intro="Zwei Standorte, zwei sehr unterschiedliche Gebiete — in der Stadt entscheidet der Verkehr, auf dem Land die Entfernung. Sagen Sie uns Ihre Adresse, dann bekommen Sie eine klare Antwort."
           />
-          <ul className="m-0 grid list-none gap-x-8 gap-y-9 p-0 sm:grid-cols-2">
+          <ul className="m-0 grid list-none gap-x-10 gap-y-8 p-0 sm:grid-cols-2">
             {areas.map((a) => {
               const loc = business.locations.find((l) => l.slug === a.slug)!;
               return (
-                <li key={a.slug} className="group relative border-t-4 border-line bg-white pt-4 transition-colors hover:border-sun">
+                <li key={a.slug} className="group relative border-t-2 border-line-strong pt-5 transition-colors hover:border-sun">
                   <h3 className="text-xl">
                     <Link href={`/einsatzgebiet/${a.slug}`} className="no-underline after:absolute after:inset-0 after:content-['']">
                       Pflege in {a.city}
@@ -289,13 +384,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================================================================ KARRIERE */}
-      <section className="section">
-        <div className="shell grid items-center gap-8 rounded-lg border-2 border-brand p-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:p-10">
+      {/* ================================================================ KARRIERE
+          What the research says nurses actually weigh when they change jobs:
+          control over the roster first, pay second, being taken seriously
+          third. So the roster is the headline, not "werden Sie Teil unseres
+          Teams". */}
+      <section className="section section--paper">
+        <div className="shell grid items-center gap-8 border-2 border-brand bg-page p-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:p-12">
           <div>
             <p className="eyebrow">Für Pflegekräfte</p>
             <span className="horizont" aria-hidden="true" />
-            <h2 className="max-w-[24ch] text-3xl">
+            <h2 className="max-w-[26ch] text-3xl">
               Sie sind Pflegekraft und haben genug von der Minutenliste?
             </h2>
             <p className="measure mt-4 text-lg text-ink-muted">

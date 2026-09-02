@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import PflegeKompass from '@/components/PflegeKompass';
 import { PageHeader, CtaBand, Breadcrumbs, SectionHead, Source } from '@/components/Blocks';
+import BudgetChart from '@/components/BudgetChart';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { grades, extraBenefits, euro, BENEFIT_SOURCE } from '@/content/pflege';
 
@@ -31,9 +32,28 @@ export default function KostenPage() {
         Bundesgesundheitsministeriums."
       />
 
-      <section className="section section--warm">
+      <section className="section">
         <div className="shell mx-auto max-w-[52rem]">
           <PflegeKompass />
+        </div>
+      </section>
+
+      {/* The same figures as a picture, before the same figures as a table.
+          The chart answers "is a higher Pflegegrad worth applying for", which
+          is a question about differences and reads as a length; the table
+          answers "what exactly do I get", which is a question about values and
+          reads as a number. Both, in that order, because the first question is
+          the one people arrive with. */}
+      <section className="section section--paper">
+        <div className="shell">
+          <SectionHead
+            eyebrow="Auf einen Blick"
+            title="Was ein Pflegegrad im Monat wert ist"
+            intro="Der Unterschied zwischen zwei Pflegegraden ist der Grund, aus dem sich ein Höherstufungsantrag lohnen kann — zwischen Pflegegrad 3 und 4 sind es 362 € im Monat."
+          />
+          <div className="max-w-[52rem]">
+            <BudgetChart />
+          </div>
         </div>
       </section>
 
@@ -131,7 +151,7 @@ export default function KostenPage() {
             />
             <dl className="m-0 grid gap-px overflow-hidden rounded-md border border-line bg-line">
               {extraBenefits.map((b) => (
-                <div key={b.label} className="flex items-baseline justify-between gap-4 bg-white p-4">
+                <div key={b.label} className="flex items-baseline justify-between gap-4 bg-surface p-4">
                   <dt>
                     <span className="block font-bold text-brand-ink">{b.label}</span>
                     {b.note ? (

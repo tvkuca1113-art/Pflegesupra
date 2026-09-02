@@ -147,6 +147,8 @@ hashes for throttling, stated retention. That is a description, not legal advice
 | Rate limiting verified | **PASS** | 4th submission from one address inside an hour returns HTTP 429 | — |
 | Legal content | **BLOCKED** | Drafted, red-flagged | §4.3 |
 | Production deployment | **BLOCKED** | — | §4.1 |
+| Research-led content | **PASS** | The Klartext section, the Einsatz timeline and the recruiting headline each answer a documented, sourced finding rather than a brief — see §7 | Forums and consumer reporting only; closed groups were not accessible |
+| Photography | **PASS** | Five frames from one documentary commission, credited in the Impressum, labelled as symbolic under every image | Real photographs of the team are still the biggest upgrade — §6 |
 | Core Web Vitals (lab) | **PASS** | `node scripts/vitals.mjs` — CLS 0 on every route, LCP 1.28 s worst case, FCP 0.82 s worst case, under Slow 4G + 4× CPU | Total Blocking Time on the home page is over budget; see §6 |
 | Lighthouse score | **NOT RUN** | — | Lighthouse is not installed and installing it was not authorised; the metrics above were measured directly instead. See §6 |
 | Search Console | **BLOCKED** | — | Client access |
@@ -237,3 +239,41 @@ two BLOCKED items stand between this and going live.**
 Then review at 30, 60 and 90 days: inquiries by source, phone clicks, which FAQ
 questions get opened, and where the Pflege-Kompass is abandoned — that last one
 tells you which step of the funnel is confusing.
+
+---
+
+## 7. What the redesign is based on
+
+The visual and editorial direction was not chosen by taste. It came out of
+reading what families and nurses actually say about this sector, in public
+sources, and then letting the findings decide what goes on the page.
+
+**Sources read.** The Verbraucherzentrale's standing collection of consumer
+reports on ambulante Pflegedienste; the family-carer forums and guidance
+services (Pflegeboard, Pflegenetz, angehoerige-pflegen.de, Pflegewegweiser NRW);
+reporting on which care calculators are actually used; journalism and industry
+writing on what performs in German care content on TikTok and Instagram; and
+sector reporting on what nurses weigh when they change employer.
+
+**Honest limits.** Facebook groups and TikTok are behind logins and were not
+crawlable; what is recorded below about social platforms comes from journalism
+and industry reporting about them, not from reading the platforms directly. One
+forum thread returned HTTP 503 and was not read. Nothing here is a survey, and
+no number is claimed.
+
+**What the findings changed.**
+
+| Finding | Where it went |
+|---|---|
+| The complaints that recur are billing for services never rendered, costs never stated up front, nobody reachable, and constant staff changes — and people stay silent because they fear losing the care arrangement | The **Klartext** section: the four fears quoted in the visitor's own words, each answered with a checkable commitment, with the source named on the page |
+| Guilt is the dominant private emotion; ~70% of family carers report severe strain | The hero lead is about *knowing*, not about quality — "Sie wissen vorher, wer kommt, wann er kommt und was es kostet" — because the fear people arrive with is not bad care, it is not knowing |
+| The most-used tools in this space are free, anonymous, registration-free calculators | Confirmed the Pflege-Kompass, and gave it the site's one dark band so it reads as the centrepiece it is |
+| Nobody outside the profession knows what a visit physically contains | The **Ein Einsatz** timeline — a timed sequence rather than a catalogue of nouns, and the only way to *show* the claim about planning by real duration |
+| What nurses weigh when changing jobs: roster control first, then pay, then being taken seriously | The recruiting headline leads on the roster, not on "werden Sie Teil unseres Teams" |
+| What travels in care content: real faces, real rooms, day-in-the-life, honesty about the system's problems — not marketing gloss | The photographic direction: one documentary commission, minimal treatment, labelled as symbolic |
+
+**What was deliberately not done with the research.** No claim about how many
+people feel any of this. No invented testimonial in the voice of a family. No
+"9 von 10 Angehörigen" statistic. The Klartext section quotes a documented
+complaint pattern and says where it comes from; it does not assert that Supra's
+own clients said any of it.

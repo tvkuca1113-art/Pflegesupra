@@ -85,7 +85,7 @@ export default function PflegeKompass() {
   const stepLabels = ['Pflegegrad', 'Bedarf', 'Ort', 'Ergebnis'];
 
   return (
-    <div className="overflow-hidden rounded-lg border-2 border-brand bg-white shadow-lifted">
+    <div className="overflow-hidden rounded-lg border-2 border-brand bg-surface shadow-lifted">
       <div className="on-dark bg-brand px-5 py-4 text-white sm:px-7">
         <p className="m-0 text-sm font-bold uppercase tracking-[0.09em] text-sun-soft">
           Pflege-Kompass
@@ -279,7 +279,7 @@ export default function PflegeKompass() {
                       s: gradData.jahresbetrag ? 'pro Kalenderjahr, §39 SGB XI' : 'ab Pflegegrad 2',
                     },
                   ].map((x) => (
-                    <div key={x.t} className="bg-white p-4">
+                    <div key={x.t} className="bg-surface p-4">
                       <dt className="text-sm font-bold text-ink-muted">{x.t}</dt>
                       <dd className="m-0 text-2xl font-bold tabular-nums text-brand-ink">{x.v}</dd>
                       <p className="m-0 text-xs text-ink-muted">{x.s}</p>

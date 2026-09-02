@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import InquiryForm from '@/components/InquiryForm';
 import { PageHeader, Breadcrumbs, SectionHead } from '@/components/Blocks';
 import { IconCheck, IconAlert } from '@/components/Icons';
+import Photo from '@/components/Photo';
+import { PHOTO_CREDIT } from '@/content/photos';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { business } from '@/content/business';
 
@@ -49,6 +51,31 @@ export default function KarrierePage() {
         title="Pflege, bei der die eingeplante Zeit auch die echte Zeit ist"
         intro="Wenn Sie den Beruf gelernt haben, um Menschen zu versorgen, und ihn ausüben, um eine Liste abzuarbeiten, dann liegt das nicht an Ihnen. Es liegt an der Planung."
       />
+
+      {/* One photograph on this page, and it is deliberately not a picture of
+          staff in uniform. The argument the page makes to a nurse is that the
+          planned time is the real time; the thing that time is FOR is the
+          person you visit. A posed team shot would illustrate the employer.
+          This illustrates the offer. */}
+      <section className="section--tight">
+        <div className="shell">
+          {/* Held to 44rem. At the full shell width a 3:2 frame became the
+              page's second hero and shouted down the argument it is meant to
+              support; a supporting image has to be scaled like one. */}
+          <figure className="figure m-0 max-w-[44rem]">
+            <div className="frame frame--plate">
+              <Photo
+                name="karriere"
+                widths={[600, 900]}
+                ratio={3 / 2}
+                sizes="(min-width: 46rem) 44rem, 100vw"
+                alt="Eine ältere Frau mit weißem Haar steht lächelnd auf einem Hof zwischen Steinhäusern."
+              />
+            </div>
+            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
+          </figure>
+        </div>
+      </section>
 
       <section className="section">
         <div className="shell grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">

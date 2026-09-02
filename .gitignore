@@ -6,3 +6,6 @@ out/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# Cached Unsplash originals for scripts/build-images.mjs. Re-downloaded on demand.
+.image-cache/

@@ -1,9 +1,17 @@
 /**
- * Samples the real rendered hero background under each piece of hero text and
- * checks the text colour against the WORST (lightest) pixel it sits on.
+ * Samples the real rendered background under every piece of text on a dark or
+ * photographic ground, and checks the text colour against the WORST (lightest)
+ * pixel it actually sits on.
  *
- * A gradient plus a glow cannot be reasoned about from token values alone —
- * the effective background differs per pixel. This measures it.
+ * A gradient, a photograph or a glow cannot be reasoned about from token
+ * values alone — the effective background differs per pixel. This measures it.
+ *
+ * It used to look only at the hero. When the hero was rebuilt so that its copy
+ * sits on an opaque paper panel instead of over the photograph, the selector
+ * stopped matching anything and the script passed with nothing measured — a
+ * green light that meant "found no work", not "found no faults". So it now
+ * scans every `.on-dark` region on the page AND FAILS IF IT FINDS NONE. A
+ * check that cannot fail is not a check.
  *
  * Usage: node scripts/hero-contrast.mjs [baseUrl]
  */
@@ -22,6 +30,7 @@ const browser = await chromium.launch({
 });
 
 let failures = 0;
+let measured = 0;
 
 for (const [w, h, label] of [[390, 844, 'mobile'], [768, 900, 'tablet'], [1440, 900, 'desktop']]) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, locale: 'de-DE' });
@@ -31,8 +40,11 @@ for (const [w, h, label] of [[390, 844, 'mobile'], [768, 900, 'tablet'], [1440, 
 
   // Hide the text itself so we photograph only the ground beneath it.
   const targets = await page.evaluate(() => {
-    const hero = document.querySelector('section.on-dark');
-    if (!hero) return [];
+    // Every region that puts light text on a dark or photographic ground.
+    // Nested matches are dropped so a region is not measured twice.
+    const all = [...document.querySelectorAll('.on-dark')];
+    const regions = all.filter((el) => !all.some((o) => o !== el && o.contains(el)));
+    if (!regions.length) return [];
 
     // Fixed overlays (the sticky call bar) sit above the hero and would be
     // photographed as if they were its background. Content scrolling under a
@@ -42,12 +54,15 @@ for (const [w, h, label] of [[390, 844, 'mobile'], [768, 900, 'tablet'], [1440, 
     });
 
     const out = [];
-    const texts = [...hero.querySelectorAll('p, h1, h2, li, span')].filter((el) => {
+    const texts = regions.flatMap((r) => [...r.querySelectorAll('p, h1, h2, h3, li, span, a')]).filter((el) => {
       // Only elements that render text directly on the hero ground.
       const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
       if (!own) return false;
       if (el.closest('.btn')) return false;      // buttons carry their own ground
-      if (el.closest('aside')) return false;     // the white card is a surface of its own
+      if (el.closest('aside')) return false;     // a light card is a surface of its own
+      // The Kompass renders its own white panel inside the night band; its
+      // text is measured by the token audit, not against this ground.
+      if (el.closest('[data-light-surface]')) return false;
       if (getComputedStyle(el).visibility === 'hidden') return false;
       const r = el.getBoundingClientRect();
       return r.width > 4 && r.height > 4;
@@ -79,8 +94,21 @@ for (const [w, h, label] of [[390, 844, 'mobile'], [768, 900, 'tablet'], [1440, 
     return out;
   });
 
+  if (!targets.length) {
+    console.log(`FAIL  ${label.padEnd(7)} no text found on any dark ground — the selector has gone stale`);
+    failures++;
+    await ctx.close();
+    continue;
+  }
+
   const shot = `/tmp/hero-ground-${label}.png`;
-  await page.screenshot({ path: shot });
+  // fullPage, not the viewport. getBoundingClientRect is viewport-relative,
+  // and the page has not been scrolled, so its coordinates coincide with the
+  // full-page image's. Screenshotting only the viewport meant every region
+  // below the fold — the night band, the closing call to action, the whole
+  // footer — fell outside the image, found no pixels, and was skipped without
+  // a word. Silence read as a pass.
+  await page.screenshot({ path: shot, fullPage: true });
   const png = PNG.sync.read(fs.readFileSync(shot));
 
   for (const t of targets) {
@@ -114,6 +142,7 @@ for (const [w, h, label] of [[390, 844, 'mobile'], [768, 900, 'tablet'], [1440, 
     const eff = fg.map((c, i) => Math.round(c * alpha + worst[i] * (1 - alpha)));
     const r = ratio(eff, worst);
     const ok = r >= 4.5;
+    measured++;
     if (!ok) failures++;
     console.log(`${ok ? 'PASS' : 'FAIL'}  ${label.padEnd(7)} ${t.name.padEnd(24)} ${r.toFixed(2)}:1  text rgb(${eff}) on lightest ground rgb(${worst})`);
   }
@@ -121,5 +150,5 @@ for (const [w, h, label] of [[390, 844, 'mobile'], [768, 900, 'tablet'], [1440, 
 }
 
 await browser.close();
-console.log(failures ? `\n${failures} FAILURE(S)` : '\nAll hero text clears 4.5:1 against the lightest pixel it sits on.');
+console.log(failures ? `\n${failures} FAILURE(S)` : `\nAll ${measured} text runs on a dark ground clear 4.5:1 against the lightest pixel beneath them.`);
 process.exit(failures ? 1 : 0);
