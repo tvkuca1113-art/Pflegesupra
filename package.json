@@ -11,7 +11,9 @@
     "check:contrast": "node scripts/contrast.mjs",
     "qa": "node scripts/qa.mjs",
     "verify": "npm run typecheck && npm run lint && npm run check:contrast && npm run build",
-    "check:hero": "node scripts/hero-contrast.mjs"
+    "check:hero": "node scripts/hero-contrast.mjs",
+    "check:vitals": "node scripts/vitals.mjs",
+    "check:analytics": "node scripts/analytics-check.mjs"
   },
   "dependencies": {
     "next": "^15.5.25",

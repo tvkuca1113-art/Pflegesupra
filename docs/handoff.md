@@ -147,7 +147,8 @@ hashes for throttling, stated retention. That is a description, not legal advice
 | Rate limiting verified | **PASS** | 4th submission from one address inside an hour returns HTTP 429 | — |
 | Legal content | **BLOCKED** | Drafted, red-flagged | §4.3 |
 | Production deployment | **BLOCKED** | — | §4.1 |
-| Lighthouse / Core Web Vitals | **NOT RUN** | — | Needs the public URL; see §6 |
+| Core Web Vitals (lab) | **PASS** | `node scripts/vitals.mjs` — CLS 0 on every route, LCP 1.28 s worst case, FCP 0.82 s worst case, under Slow 4G + 4× CPU | Total Blocking Time on the home page is over budget; see §6 |
+| Lighthouse score | **NOT RUN** | — | Lighthouse is not installed and installing it was not authorised; the metrics above were measured directly instead. See §6 |
 | Search Console | **BLOCKED** | — | Client access |
 
 **One critical FAIL would make this not production-ready. There is none — but
@@ -157,11 +158,51 @@ two BLOCKED items stand between this and going live.**
 
 ## 6. Not done, and honestly so
 
-* **Lighthouse and Core Web Vitals were not measured.** They must be measured on
-  a real production deployment, not a local build, and §4.1 blocks that. The
-  inputs are good — 33 KB pages, static HTML, one self-hosted font, no
-  third-party requests, an SVG hero with no layout shift — but *good inputs are
-  not a score*, and no number is claimed here.
+* **No Lighthouse score is claimed.** Lighthouse itself is not installed here
+  and installing it was not authorised, so `scripts/vitals.mjs` measures the
+  same field metrics directly through the browser's own PerformanceObserver,
+  under Lighthouse's mobile emulation profile (Slow 4G, 1.6 Mbit/s, 150 ms RTT,
+  4× CPU slowdown). Two honest caveats: it runs against a local production
+  build, so TTFB is optimistic — the Vercel edge is not in the path; and CPU
+  throttling is relative to *this* machine, so the blocking-time figures are a
+  comparison between routes, not a Lighthouse score.
+
+  Measured, on the current build:
+
+  | | worst route | budget |
+  |---|---|---|
+  | CLS | **0** (0.0095 on `/kontakt`) | ≤ 0.1 |
+  | LCP | **1.28 s** (`/`) | ≤ 2.5 s |
+  | FCP | **0.82 s** (`/pflegegrade-und-kosten`) | ≤ 1.8 s |
+  | TBT | **233 ms** (`/`, median of 5) | ≤ 200 ms |
+
+  The first measurement was not this. It found **CLS 0.3076 on the home page**
+  — three times the threshold — and 0.1284 on `/karriere`. The cause was the
+  web font: the browser only discovered it after the stylesheet had parsed and
+  text had been laid out, fetched it at 1.25 s, and the swap changed the
+  header's height by 23 px, pushing every page down with it. Preloading the
+  font and giving the fallback matched metrics (`size-adjust: 107.63%`, derived
+  from a measured 1369.90 px vs 1272.80 px lowercase alphabet at 100 px) took
+  every route to zero. **The QA harness had never checked layout shift.** It
+  does now, in `scripts/vitals.mjs`.
+
+  Blocking time on the home page remains over budget by roughly 15 %. About
+  170 ms of it is React hydrating the shell — header, mobile bar, consent
+  banner — and is the framework's floor, not this page's code; the rest is the
+  Pflege-Kompass. Moving the footer and the contact block back to the server
+  (see below) took ~20 ms off it. Going further means shipping less framework
+  JavaScript, which is a structural decision, not a tuning one, and it is not
+  made unilaterally here.
+* **Analytics no longer uses per-element handlers.** The footer and the contact
+  block were client components purely so three links each could report a click,
+  which cost every page in the site a hydration pass. They are server
+  components now; the links carry `data-track` attributes and one delegated
+  listener on the document turns those into the same events, still governed by
+  the same whitelist and PII filter. `scripts/analytics-check.mjs` asserts the
+  events, the parameter whitelist and the failure behaviour, because an
+  indirection like this is exactly the kind that breaks silently — the phone
+  still rings, and the client simply loses the ability to tell which page
+  produced the call.
 * **No screen-reader test.** Automated checks and manual keyboard testing were
   done; NVDA/VoiceOver was not available. Recommended before launch.
 * **No real photography.** Deliberate: the old site's images are AI-generated

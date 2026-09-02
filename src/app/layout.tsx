@@ -35,6 +35,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="de">
+      <head>
+        {/* Every line on this site is set in one 20 KB subset. Left to
+            discovery, the browser only asks for it after the stylesheet has
+            parsed and text has been laid out — measured at 1.25 s on Slow 4G,
+            half a second after first paint. Preloading moves the request into
+            the initial scan of the document, so the face is usually in place
+            before anything is painted. */}
+        <link
+          rel="preload"
+          href="/fonts/libre-franklin-de.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="flex min-h-dvh flex-col">
         <JsonLd data={organizationJsonLd()} />
         <Header />

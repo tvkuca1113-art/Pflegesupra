@@ -37,6 +37,28 @@
     U+00F1, U+00F6, U+00FC, U+2013-2014, U+2018-201E, U+2026, U+2212, U+20AC;
 }
 
+/* The metrics-matched stand-in.
+
+   Measured, not assumed: Libre Franklin sets its unitsPerEm at 1000 with an
+   ascent of 966 and a descent of 246, and renders the lowercase alphabet
+   7.63% wider than Arial at the same pixel size (1369.90px vs 1272.80px at
+   100px, measured in-browser). Without these overrides the swap from the
+   fallback to the real face changed the header's height by 23px and moved
+   every page down the document with it — a measured CLS of 0.3076 on the
+   home page, three times Google's "good" threshold.
+
+   size-adjust closes the width gap; the ascent and descent overrides are
+   divided by that same adjustment so the line box lands where Libre
+   Franklin's does. The swap now changes the shapes and nothing else. */
+@font-face {
+  font-family: 'Libre Franklin Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 107.63%;
+  ascent-override: 89.75%;
+  descent-override: 22.86%;
+  line-gap-override: 0%;
+}
+
 @theme {
   /* --- Brand, sampled from the client's logo file ----------------------- */
   --color-brand: #003399;         /* 10.86:1 on white */
@@ -82,7 +104,7 @@
   --text-4xl: clamp(1.85rem, 1.33rem + 2.35vw, 2.556rem);
   --text-5xl: clamp(2.1rem, 1.35rem + 3.4vw, 3.222rem);
 
-  --font-sans: 'Libre Franklin', ui-sans-serif, system-ui, -apple-system,
+  --font-sans: 'Libre Franklin', 'Libre Franklin Fallback', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   /* --- Rhythm ------------------------------------------------------------ */

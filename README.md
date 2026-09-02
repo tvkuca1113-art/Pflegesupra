@@ -25,11 +25,17 @@ npm run dev                    # http://localhost:3000
 | `npm run check:contrast` | Audits every design token pair against WCAG 2.2. Fails the run on a regression. |
 | `npm run check:hero` | Renders the hero and measures text contrast against the real pixels beneath it, at three viewports. Needs the site running. |
 | `npm run qa` | Crawls a running site: headings, metadata, links, overflow at 7 widths, touch targets, keyboard, 404. |
+| `npm run check:vitals` | Measures LCP, CLS, FCP and blocking time on five routes under Slow 4G + 4× CPU. Needs the site running. |
+| `npm run check:analytics` | Asserts that the delegated click tracking still fires the conversion events. Needs a build made with `NEXT_PUBLIC_GA_ID` set. |
 | `npm run verify` | typecheck + lint + contrast + build. |
 
-`npm run qa` and `node scripts/e2e-form.mjs` need the site running
-(`npm run build && npm start`, then pass the base URL, default
-`http://127.0.0.1:3111`).
+`npm run qa`, `npm run check:hero`, `npm run check:vitals` and
+`node scripts/e2e-form.mjs` need the site running (`npm run build && npm start`,
+then pass the base URL, default `http://127.0.0.1:3111`).
+
+`npm run check:analytics` additionally needs the build to have been made with a
+measurement ID — `NEXT_PUBLIC_GA_ID=G-TEST0000 npm run build` — because without
+one the consent banner never appears and every event stays queued by design.
 
 ## Environment variables
 

@@ -1,10 +1,8 @@
-'use client';
-
 import Link from 'next/link';
 import { business } from '@/content/business';
 import { footerNav } from '@/content/nav';
 import { IconPhone, IconMail, IconWhatsapp, IconPin, IconClock } from './Icons';
-import { track } from '@/lib/analytics';
+import { trackAttrs } from '@/lib/analytics';
 
 export default function Footer() {
   return (
@@ -20,7 +18,7 @@ export default function Footer() {
                 <a
                   href={business.phone.href}
                   className="inline-flex items-center gap-2.5 text-lg font-bold text-white underline decoration-2 underline-offset-4"
-                  onClick={() => track('phone_click', { placement: 'footer' })}
+                  {...trackAttrs('phone_click', { placement: 'footer' })}
                 >
                   <IconPhone />
                   {business.phone.display}
@@ -30,7 +28,7 @@ export default function Footer() {
                 <a
                   href={`mailto:${business.email}`}
                   className="inline-flex items-center gap-2.5 text-white underline decoration-2 underline-offset-4"
-                  onClick={() => track('email_click', { placement: 'footer' })}
+                  {...trackAttrs('email_click', { placement: 'footer' })}
                 >
                   <IconMail />
                   {business.email}
@@ -42,7 +40,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2.5 text-white underline decoration-2 underline-offset-4"
                   rel="noopener noreferrer"
                   target="_blank"
-                  onClick={() => track('whatsapp_click', { placement: 'footer' })}
+                  {...trackAttrs('whatsapp_click', { placement: 'footer' })}
                 >
                   <IconWhatsapp />
                   Über WhatsApp schreiben

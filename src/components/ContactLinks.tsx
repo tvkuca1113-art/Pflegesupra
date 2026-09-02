@@ -1,8 +1,6 @@
-'use client';
-
 import { business } from '@/content/business';
 import { IconPhone, IconMail, IconWhatsapp } from './Icons';
-import { track } from '@/lib/analytics';
+import { trackAttrs } from '@/lib/analytics';
 
 /** The three direct channels, each tracked so we learn which one people use. */
 export default function ContactLinks() {
@@ -11,7 +9,7 @@ export default function ContactLinks() {
       <a
         href={business.phone.href}
         className="btn btn--primary text-lg"
-        onClick={() => track('phone_click', { placement: 'kontakt_aside' })}
+        {...trackAttrs('phone_click', { placement: 'kontakt_aside' })}
       >
         <IconPhone />
         {business.phone.display}
@@ -21,7 +19,7 @@ export default function ContactLinks() {
         className="btn btn--secondary"
         rel="noopener noreferrer"
         target="_blank"
-        onClick={() => track('whatsapp_click', { placement: 'kontakt_aside' })}
+        {...trackAttrs('whatsapp_click', { placement: 'kontakt_aside' })}
       >
         <IconWhatsapp />
         Über WhatsApp schreiben
@@ -30,7 +28,7 @@ export default function ContactLinks() {
       <a
         href={`mailto:${business.email}`}
         className="btn btn--secondary"
-        onClick={() => track('email_click', { placement: 'kontakt_aside' })}
+        {...trackAttrs('email_click', { placement: 'kontakt_aside' })}
       >
         <IconMail />
         {business.email}

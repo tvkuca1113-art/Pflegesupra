@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { setAnalyticsConsent, track } from '@/lib/analytics';
+import { initClickTracking, setAnalyticsConsent, track } from '@/lib/analytics';
 
 const KEY = 'supra_consent_v1';
 type Choice = 'all' | 'necessary';
@@ -25,6 +25,11 @@ export default function ConsentBanner({ analyticsConfigured }: { analyticsConfig
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // This component is the analytics bootstrap for the whole site, so the
+    // delegated click listener is installed here — before the consent check,
+    // because events raised without consent are queued and dropped, never
+    // sent. That is the same guarantee the old per-link handlers gave.
+    initClickTracking();
     if (!analyticsConfigured) return;
     let stored: string | null = null;
     try { stored = localStorage.getItem(KEY); } catch { /* storage blocked — ask again */ }
