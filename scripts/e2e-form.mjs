@@ -8,6 +8,13 @@ import { chromium } from 'playwright';
 const BASE = process.argv[2] || 'http://127.0.0.1:3111';
 const results = [];
 let contactId = null;
+
+// A fresh address per run. The endpoint allows three submissions per address
+// per hour, so a fixed test address makes the suite fail on its second run in
+// an hour — which looks like a broken form and is actually the rate limiter
+// doing its job.
+const RUN = Date.now().toString(36);
+const mail = (who) => `${who}-${RUN}@example.org`;
 const check = (name, ok, detail = '') => {
   results.push({ name, ok, detail });
   console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? ' — ' + detail : ''}`);
@@ -81,7 +88,7 @@ const b = await chromium.launch({
   // Correct it and submit for real. The wait matters: the endpoint discards
   // anything submitted in under 2.5s as a bot, and answers "accepted" so a bot
   // learns nothing — which means a fast test would pass on a discarded row.
-  await p.getByLabel(/E-Mail-Adresse/).fill('browsertest@example.org');
+  await p.getByLabel(/E-Mail-Adresse/).fill(mail('browsertest'));
   await p.getByLabel(/Ich habe die/).check();
   await p.waitForTimeout(3000);
   await p.getByRole('button', { name: /Anfrage senden/ }).click();
@@ -115,7 +122,7 @@ const b = await chromium.launch({
   await p.getByLabel(/Nachname/).focus();
   await p.keyboard.type('Tastaturtest');
   await p.keyboard.press('Tab'); // -> e-mail
-  await p.keyboard.type('tastatur@example.org');
+  await p.keyboard.type(mail('tastatur'));
   await p.getByLabel(/Ihre Nachricht/).focus();
   await p.keyboard.type('Bewerbung über Tastatur eingegeben, automatisierter Test.');
   await p.getByLabel(/Ich habe die/).focus();
@@ -170,7 +177,7 @@ const b = await chromium.launch({
   });
   await p.goto(`${BASE}/kontakt`, { waitUntil: 'load' });
   await p.getByLabel(/Nachname/).fill('Schnellbot');
-  await p.getByLabel(/E-Mail-Adresse/).fill('schnellbot@example.org');
+  await p.getByLabel(/E-Mail-Adresse/).fill(mail('schnellbot'));
   await p.getByLabel(/Was brauchen Sie/).fill('Sofort abgeschickt, sollte verworfen werden.');
   await p.getByLabel(/Ich habe die/).check();
   await p.getByRole('button', { name: /Anfrage senden/ }).click();

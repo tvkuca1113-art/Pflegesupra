@@ -171,24 +171,28 @@ honestly-labelled photograph is not the same thing as a fabricated one.
 **Replace it** with photographs of the actual team and offices as soon as they
 exist. `src/components/HeroBackdrop.tsx` is the only file to touch.
 
-### The photograph and the text are never in the same place
+### Where the photograph sits, and why the scrim is what it is
 
-This was the hard-won bit. Two attempts put the photograph *behind* the mobile
-hero text and tuned the overlay for contrast. Both passed the contrast check
-and both still read as a blue smudge, because the mobile hero's text covers the
-whole section: any opacity dark enough for white type is dark enough to destroy
-the image. There is no setting that satisfies both — they are the same pixels.
+The photograph is the hero's **background**, behind the text, on every
+breakpoint. Getting it to read there took three wrong turns worth recording:
 
-So they are separated:
+1. A landscape crop scaled by `object-cover` into a 1,285px-tall box showed
+   about 17% of its width — a slice of background bokeh. **Match the crop's
+   aspect to its container.**
+2. Darkening the image *and* putting a heavy scrim on top left nothing to see.
+   The image files now use the BRIGHT treatment; the scrim alone does the
+   contrast work.
+3. The backdrop covered the whole hero `<section>` — but the "Was passiert"
+   card lives in that section too and stacks underneath on a phone, forcing the
+   background into a ~0.28 aspect. `HeroPhotoBackdrop` is therefore bounded to
+   the **text block**, full-bleed via `left-1/2 -translate-x-1/2 w-screen`, so
+   the ratio is about 0.7 and a real crop fills it. The card below sits on solid
+   brand ink.
 
-* **Phones and tablets — `HeroPhotoBand.tsx`.** The photograph is a band *in
-  the flow*, above the text, carrying no type. It therefore needs no darkening,
-  only a light blue cast to stay in the palette. The message sits below it on
-  solid brand ink, where contrast is not a question. A visitor sees the logo,
-  then a pair of hands, then the offer.
-* **Laptop and up — `HeroBackdrop.tsx`.** There is a free right-hand column
-  beside the headline, so the photograph goes back to being a full-bleed
-  backdrop and still reads.
+There is a floor here that no amount of tuning removes: on a phone the hero
+text covers the hero, so the photograph must sit under a scrim. The scrim is as
+light as the measurement allows and no lighter — currently 5.19:1 at its worst
+point against a 4.5:1 requirement.
 
 ### Other decisions worth keeping
 

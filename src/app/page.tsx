@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import PflegeKompass from '@/components/PflegeKompass';
 import SunriseMark from '@/components/SunriseMark';
 import HeroBackdrop from '@/components/HeroBackdrop';
-import HeroPhotoBand from '@/components/HeroPhotoBand';
+import HeroPhotoBackdrop from '@/components/HeroPhotoBackdrop';
 import { CtaBand, LinkCard, SectionHead } from '@/components/Blocks';
 import { IconPhone, IconArrow, IconCheck, IconPin } from '@/components/Icons';
 import { business } from '@/content/business';
@@ -59,11 +59,11 @@ export default function Home() {
           `npm run check:hero`. */}
       <section className="on-dark relative isolate bg-brand-ink text-white">
         <HeroBackdrop />
-        <HeroPhotoBand />
-        {/* On phones the text sits on solid brand ink below the photo band,
-            so contrast here is not a compromise with an image. */}
         <div className="shell grid items-center gap-10 pb-12 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
-          <div>
+          <div className="relative">
+            {/* On phones the photograph sits behind THIS block only — see
+                HeroPhotoBackdrop for why bounding it to the text matters. */}
+            <HeroPhotoBackdrop />
             {/* On the dark ground the eyebrow uses the sun's light tint rather
                 than --color-ink-accent, which is a dark orange built for white. */}
             <p className="eyebrow text-sun-soft">Ambulante Pflege zu Hause</p>
