@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import PflegeKompass from '@/components/PflegeKompass';
 import SunriseMark from '@/components/SunriseMark';
 import HeroBackdrop from '@/components/HeroBackdrop';
+import HeroPhotoBand from '@/components/HeroPhotoBand';
 import { CtaBand, LinkCard, SectionHead } from '@/components/Blocks';
 import { IconPhone, IconArrow, IconCheck, IconPin } from '@/components/Icons';
 import { business } from '@/content/business';
@@ -56,11 +57,11 @@ export default function Home() {
           Text does sit over a photograph here, so contrast is no longer a
           property of the tokens — it is measured per pixel by
           `npm run check:hero`. */}
-      <section className="on-dark relative isolate text-white">
+      <section className="on-dark relative isolate bg-brand-ink text-white">
         <HeroBackdrop />
-        {/* No reserved corner any more: the photograph carries the first
-            screen, and the sun graphic that used to sit here was being sliced
-            in half by the sticky header. */}
+        <HeroPhotoBand />
+        {/* On phones the text sits on solid brand ink below the photo band,
+            so contrast here is not a compromise with an image. */}
         <div className="shell grid items-center gap-10 pb-12 pt-10 sm:pt-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-16">
           <div>
             {/* On the dark ground the eyebrow uses the sun's light tint rather
@@ -74,12 +75,12 @@ export default function Home() {
             <h1 className="text-4xl text-white sm:text-5xl">
               Pflege zu Hause in München und Pfaffenhofen a.d. Ilm.
             </h1>
-            {/* One sentence, not two. The billing point moved to the trust row
-                below, where it is a scannable fact instead of the tail of a
-                seven-line paragraph on a phone. */}
+            {/* Kept to two lines on a phone. Every line here pushes the call
+                button further below the fold, and "in den eigenen vier Wänden"
+                was already said by "zu Hause" in the headline. */}
             <p className="measure mt-4 text-lg text-white/90">
-              Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft — in den
-              eigenen vier Wänden, geplant nach dem, was eine Aufgabe wirklich dauert.
+              Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft — geplant
+              nach dem, was eine Aufgabe wirklich dauert.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">

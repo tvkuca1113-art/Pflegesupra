@@ -141,10 +141,12 @@
     letter-spacing: -0.018em;
     line-height: 1.14;
     margin: 0;
-    /* German headings need to be breakable. "Pfaffenhofen a.d. Ilm" and
-       "Behandlungspflege" will not fit a phone line otherwise. */
-    hyphens: auto;
-    -webkit-hyphens: auto;
+    /* Headings do NOT hyphenate: "Mün-chen" split across two lines in a
+       display headline looks like a fault. `overflow-wrap: anywhere` below is
+       the backstop for a word that genuinely cannot fit; body copy still
+       hyphenates, where it helps rather than hurts. */
+    hyphens: manual;
+    -webkit-hyphens: manual;
   }
 
   /* text-wrap: balance is a nicety, and Safari has shipped versions where a
@@ -252,6 +254,36 @@
     text-transform: uppercase;
     color: var(--color-ink-accent);
     margin: 0 0 0.4rem;
+  }
+
+  /* ==========================================================================
+     HERO BACKDROP (laptop and up)
+     --------------------------------------------------------------------------
+     Declared as a CSS background inside a media query, not as an <img> in a
+     `hidden lg:block` container. Measured: an image inside a display:none
+     element is still downloaded, so the phone was fetching the 1,200px desktop
+     crop it never shows. A background-image inside @media is only requested
+     when the query matches.
+     ========================================================================== */
+  .hero-backdrop-image { background: none; }
+  @media (min-width: 64rem) {
+    .hero-backdrop-image {
+      background-image: image-set(
+        url('/img/hero-hands-wide-1800.avif') type('image/avif'),
+        url('/img/hero-hands-wide-1800.webp') type('image/webp')
+      );
+      background-size: cover;
+      background-position: 64% 46%;
+      background-repeat: no-repeat;
+    }
+  }
+  @media (min-width: 100rem) {
+    .hero-backdrop-image {
+      background-image: image-set(
+        url('/img/hero-hands-wide-2400.avif') type('image/avif'),
+        url('/img/hero-hands-wide-2400.webp') type('image/webp')
+      );
+    }
   }
 
   /* ==========================================================================

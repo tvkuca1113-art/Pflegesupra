@@ -171,42 +171,56 @@ honestly-labelled photograph is not the same thing as a fabricated one.
 **Replace it** with photographs of the actual team and offices as soon as they
 exist. `src/components/HeroBackdrop.tsx` is the only file to touch.
 
-### How it is built
+### The photograph and the text are never in the same place
 
-* **Duotone is baked into the files** (sharp: darken, then `tint()` with brand
-  chroma) rather than applied as a CSS filter — no runtime cost, and it cannot
-  fail to load separately from the image. Note `greyscale()` must NOT be used
-  before `tint()`: sharp's pipeline runs greyscale last and cancels the tint.
-* **Art direction is real.** `hero-hands-wide-*` keeps the hands right of
-  centre so the headline column stays clear on a laptop. `hero-hands-tall-*`
-  is a TRUE PORTRAIT crop for phones — the first attempt used a landscape
-  crop, which `object-cover` then scaled to fill a 1,285px-tall box,
-  showing only about 17% of its width: a vertical slice of background
-  bokeh that read as a smudge rather than as hands. If you re-crop, match
-  the source aspect to the container's, or the photograph disappears.
-* **One `<picture>`, media-scoped `<source>`s.** Two `<picture>` blocks in
-  `lg:hidden` / `hidden lg:block` containers were both being downloaded at every
-  breakpoint — `display:none` does not stop an image fetch. Measured: mobile
-  went from 64 KB to 46 KB, desktop 90 KB to 72 KB.
-* AVIF with WebP fallback, three widths each. The whole homepage transfers
-  **46 KB on mobile**; the current site's mobile homepage is 4,315 KB.
+This was the hard-won bit. Two attempts put the photograph *behind* the mobile
+hero text and tuned the overlay for contrast. Both passed the contrast check
+and both still read as a blue smudge, because the mobile hero's text covers the
+whole section: any opacity dark enough for white type is dark enough to destroy
+the image. There is no setting that satisfies both — they are the same pixels.
 
-### Contrast over a photograph is measured, never assumed
+So they are separated:
 
-A photograph plus a gradient has a different effective background at every
-pixel, so `npm run check:hero` renders the page, hides the hero text,
-photographs the ground underneath and checks each text colour against the
-*lightest* pixel it actually sits on — at three viewports, compositing
-`text-white/90` and `/75` properly. Lowest result is currently 5.86:1 against a
-4.5:1 requirement, and the overlay was tuned upward from a first pass that
-measured 4.21:1 on the hours note — that line is now `text-white/85`
-rather than `/75`, which is better for this audience anyway.
+* **Phones and tablets — `HeroPhotoBand.tsx`.** The photograph is a band *in
+  the flow*, above the text, carrying no type. It therefore needs no darkening,
+  only a light blue cast to stay in the palette. The message sits below it on
+  solid brand ink, where contrast is not a question. A visitor sees the logo,
+  then a pair of hands, then the offer.
+* **Laptop and up — `HeroBackdrop.tsx`.** There is a free right-hand column
+  beside the headline, so the photograph goes back to being a full-bleed
+  backdrop and still reads.
+
+### Other decisions worth keeping
+
+* **Duotone is baked into the files** (sharp: adjust levels, then `tint()` with
+  brand chroma) rather than applied as a CSS filter — no runtime cost, and it
+  cannot fail to load separately from the image. Note `greyscale()` must NOT be
+  used before `tint()`: sharp's pipeline runs greyscale last and cancels it.
+* **Match the crop's aspect to its container.** An early landscape crop was
+  scaled by `object-cover` to fill a 1,285px-tall box, showing about 17% of its
+  width — a slice of background bokeh. If you re-crop, check the aspect first.
+* **Each image is fetched only at its own breakpoint, and this needs care.**
+  An `<img>` inside a `display:none` container **is still downloaded**. Measured
+  twice, costing ~20 KB each time. The desktop backdrop is therefore a CSS
+  `background-image` declared inside `@media (min-width: 64rem)` — a background
+  in a non-matching media query is never requested. The band's `<source>`s are
+  media-scoped and its `<img>` fallback is a 1×1 transparent GIF, so desktop
+  does not pull the phone crop either.
+* AVIF with WebP fallback. The homepage transfers **47 KB on mobile**, 72 KB on
+  desktop; the current site's mobile homepage is 4,315 KB.
+* **Headings do not hyphenate.** `hyphens: auto` split the headline as
+  "Mün-chen", which reads as a fault. Body copy still hyphenates, where German
+  compounds need it; `overflow-wrap: anywhere` remains the backstop.
+
+### Contrast is measured, never assumed
+
+`npm run check:hero` renders the page, hides the hero text, photographs the
+ground underneath and checks each text colour against the *lightest* pixel it
+actually sits on, at three viewports, compositing `text-white/85` properly.
 
 **The overlay opacities in `HeroBackdrop.tsx` are the output of that
-measurement, not a taste judgement.** On a phone the eyebrow starts 102px into
-the hero, so there is no clean window above the text and the photograph can
-only be a texture behind type; the script decides how light it may be. Re-run
-it after touching the overlays, the crop or the duotone.
+measurement.** One pass lightened them until the hours note measured 4.21:1 —
+that line moved to `text-white/85` rather than darkening the image again.
 
 `SunriseMark.tsx` — the logo's geometry as a shallow band — heads the "Was
 passiert, wenn Sie anrufen" card. Only one sun shows at a time: below `lg` the
