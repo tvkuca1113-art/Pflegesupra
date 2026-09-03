@@ -147,6 +147,7 @@ hashes for throttling, stated retention. That is a description, not legal advice
 | Rate limiting verified | **PASS** | 4th submission from one address inside an hour returns HTTP 429 | — |
 | Legal content | **BLOCKED** | Drafted, red-flagged | §4.3 |
 | Production deployment | **BLOCKED** | — | §4.1 |
+| Link previews (Open Graph) | **BLOCKED** | Card generated at 1200×630 and served correctly | `og:image` resolves against `NEXT_PUBLIC_SITE_URL`, which is unset — so it currently points at supra-pd.de, where the file does not yet exist. Every share of the preview URL shows a broken image until §4.1 is done. |
 | Responsive tables | **PASS** | The benefits table restacks below 48rem — measured scrollWidth 348 = clientWidth 348 at 390px, no horizontal scroll | Roles are written out because `display:block` strips implicit table roles |
 | Research-led content | **PASS** | The Klartext section, the Einsatz timeline and the recruiting headline each answer a documented, sourced finding rather than a brief — see §7 | Forums and consumer reporting only; closed groups were not accessible |
 | Photography | **PASS** | Five frames from one documentary commission, credited in the Impressum, labelled as symbolic under every image | Real photographs of the team are still the biggest upgrade — §6 |
