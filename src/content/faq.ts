@@ -103,8 +103,8 @@ export const faq: FaqItem[] = [
     category: 'Über uns',
     question: 'Kommt immer dieselbe Pflegekraft?',
     answer: [
-      'Wir planen so, dass Sie es mit möglichst wenigen, festen Gesichtern zu tun haben — das ist der Punkt, an dem ambulante Pflege für die meisten Menschen steht oder fällt.',
-      'Eine Garantie auf eine einzige Person kann kein Pflegedienst ehrlich geben: Es gibt Urlaub, Krankheit und Schichtwechsel. Was wir zusagen können, ist, dass jede Person, die zu Ihnen kommt, Ihre Situation kennt, bevor sie klingelt.',
+      'Wir planen mit festen Bezugspersonen — wenige Gesichter statt jeden Tag ein neues. Für die meisten Familien steht und fällt ambulante Pflege genau an diesem Punkt.',
+      'Eine Garantie auf eine einzige Person kann kein Pflegedienst geben: Es gibt Urlaub, Krankheit und Schichtwechsel. Zwei Dinge sagen wir Ihnen aber zu. Sie erfahren vorher, wenn jemand anderes kommt. Und wer kommt, hat Ihre Pflegeplanung gelesen, bevor er klingelt.',
     ],
   },
   {

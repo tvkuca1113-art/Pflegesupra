@@ -1,19 +1,18 @@
 /**
  * Photographic credits and the shot list.
  *
- * WHAT IS HERE NOW. Two sources, both under the Unsplash Licence: Dominik
- * Lange's photograph of his wife walking with her grandmother, which opens the
- * home page, and Jon Pountney's documentary series for Age Cymru — the
- * national charity for older people in Wales — which supplies every other
- * placement.
+ * WHAT IS HERE NOW. Two sources, both under the Unsplash Licence: Jon
+ * Pountney's documentary series for Age Cymru — the national charity for older
+ * people in Wales — which carries the home page and the service pages, and one
+ * photograph by Dominik Lange on /ueber-uns.
  *
- * It was one source until the hero was replaced, twice. A single commission is
- * the more coherent story and it was worth holding for as long as it held, but
- * the frame it gave the home page was a tight close-up of two heads with no
- * room in it, and the frame that replaced that one was an honest photograph of
- * a cluttered front room. A hero has to establish a place AND be beautiful;
- * neither of those is optional and neither is a substitute for the other.
- * Coherence that costs the opening photograph is not coherence worth keeping.
+ * The opening frame took four attempts, and the three failures are the useful
+ * part. A close-up of two heads showed no place. An honest photograph of a
+ * cluttered front room showed a place and was not beautiful. A field at golden
+ * hour was beautiful and contradicted the headline above it — you cannot
+ * promise "Pflege zu Hause" over a meadow. A hero has to establish a place, be
+ * beautiful, AND agree with the sentence next to it; none of the three is
+ * optional and none substitutes for the others.
  *
  * WHAT IS NOT HERE, AND WHY. The art direction this site was briefed to hit —
  * a caregiver and client in a modern German apartment with negative space on
@@ -44,16 +43,16 @@ export const PHOTO_CREDIT = {
   /** Named in /impressum. One entry per library the set draws on. */
   sources: [
     {
-      label: 'Dominik Lange',
-      note: 'dokumentarische Aufnahme, veröffentlicht über Unsplash',
-      href: 'https://unsplash.com/@the_real_napster',
-      used: 'Startseite, Kopfbild',
-    },
-    {
       label: 'Jon Pountney für Age Cymru',
       note: 'nationale Organisation für ältere Menschen in Wales',
       href: 'https://unsplash.com/@agecymru',
-      used: 'übrige Seiten',
+      used: 'Startseite und Leistungen',
+    },
+    {
+      label: 'Dominik Lange',
+      note: 'dokumentarische Aufnahme, veröffentlicht über Unsplash',
+      href: 'https://unsplash.com/@the_real_napster',
+      used: 'Über uns',
     },
   ],
   licence: 'Unsplash Licence',

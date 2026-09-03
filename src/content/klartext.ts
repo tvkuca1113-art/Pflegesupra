@@ -47,30 +47,30 @@ export const klartext: Klartext[] = [
   {
     fear: 'Wer kommt zu uns nach Hause?',
     answer:
-      'Wir achten auf möglichst verlässliche Bezugspersonen und stimmen Änderungen '
-      + 'transparent mit Ihnen ab. Jede Pflegekraft, die zu Ihnen kommt, kennt Ihre '
-      + 'Situation aus der Pflegeplanung.',
+      'Sie erfahren vorher, wer kommt. Wir planen feste Bezugspersonen ein und sagen '
+      + 'Ihnen Bescheid, wenn sich das ändert — nicht erst an der Wohnungstür. Jede '
+      + 'Pflegekraft liest Ihre Pflegeplanung, bevor sie das erste Mal klingelt.',
   },
   {
     fear: 'Was wird eigentlich abgerechnet?',
     answer:
-      'Wir erklären Ihnen nachvollziehbar, welche Leistungen vereinbart wurden und '
-      + 'welche Kosten über Pflege- oder Krankenkasse abgerechnet werden können. Den '
-      + 'Leistungsnachweis unterschreiben Sie nach dem Einsatz, nicht vorher.',
+      'Vor dem ersten Einsatz bekommen Sie schriftlich, welche Leistungen vereinbart '
+      + 'sind, was Pflege- oder Krankenkasse davon trägt und was übrig bleibt. Den '
+      + 'Leistungsnachweis unterschreiben Sie nach dem Einsatz — nie vorher.',
   },
   {
     fear: 'An wen wenden wir uns bei Fragen?',
     answer:
-      'Sie wissen, an wen Sie sich bei organisatorischen Fragen zur Versorgung wenden '
-      + 'können. Während der Bürozeiten erreichen Sie jemanden, der Ihre Versorgung '
-      + 'kennt.',
+      'An das Büro Ihres Standorts, München oder Pfaffenhofen. Dort sitzt jemand, der '
+      + 'Ihre Versorgung kennt und nicht erst nachlesen muss. Sie bekommen die direkte '
+      + 'Nummer, keine Warteschleife.',
   },
   {
     fear: 'Wie passt die Pflege in unseren Alltag?',
     answer:
-      'Einsatzzeiten und benötigte Unterstützung werden anhand Ihrer individuellen '
-      + 'Versorgungssituation besprochen — beim kostenlosen Hausbesuch, dort, wo die '
-      + 'Pflege später stattfindet.',
+      'Das entscheiden wir nicht am Telefon. Beim kostenlosen Hausbesuch sehen wir die '
+      + 'Wohnung, den Tagesablauf und wer in der Familie schon hilft. Daraus werden '
+      + 'Einsatzzeiten, die zu Ihrem Tag passen — nicht umgekehrt.',
   },
 ];
 

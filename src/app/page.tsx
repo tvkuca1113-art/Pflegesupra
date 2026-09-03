@@ -14,24 +14,24 @@ import { trackAttrs } from '@/lib/analytics';
 export const metadata: Metadata = pageMeta({
   title: 'Ambulanter Pflegedienst München & Pfaffenhofen a.d. Ilm',
   description:
-    'Ambulante Pflege zu Hause in München und Pfaffenhofen a.d. Ilm. Grundpflege, '
-    + 'Behandlungspflege, Betreuung und Hauswirtschaft — direkt mit der Kasse abgerechnet. '
-    + 'Beratung: 089 189 39 716.',
+    'Ambulanter Pflegedienst für München und Pfaffenhofen a.d. Ilm: Grundpflege, '
+    + 'Behandlungspflege, Betreuung und Hauswirtschaft, direkt mit der Kasse abgerechnet. '
+    + 'Kostenloses Erstgespräch bei Ihnen zu Hause — 089 189 39 716.',
   path: '/',
 });
 
 /** Facts, each traceable to the client's own published information. */
 const trustPoints = [
-  { label: 'Zugelassen nach SGB XI', sub: 'Pflege- und Behandlungspflege abrechenbar' },
+  { label: 'Zugelassen nach SGB XI', sub: 'Wir rechnen direkt mit Ihrer Kasse ab' },
   { label: 'Seit 2022 eigenständig', sub: 'Gegründet aus Erfahrung in Klinik und ambulanter Pflege' },
   { label: 'Zwei Standorte', sub: 'München Sendling und Pfaffenhofen a.d. Ilm' },
-  { label: 'Keine Vorleistung', sub: 'Gesetzlich Versicherte zahlen nichts vor' },
+  { label: 'Keine Vorkasse', sub: 'Gesetzlich Versicherte zahlen nichts im Voraus' },
 ];
 
 const steps = [
   { n: 1, t: 'Sie rufen an', b: 'Ein Gespräch, in dem wir zuhören statt zu verkaufen. Wir klären, was gebraucht wird und ob wir Ihre Adresse anfahren können.' },
   { n: 2, t: 'Wir kommen vorbei', b: 'Kostenloses Erstgespräch bei Ihnen zu Hause. Wir sehen die Wohnung, die Situation und die Menschen — das geht am Telefon nicht.' },
-  { n: 3, t: 'Wir klären die Kasse', b: 'Wir sagen Ihnen, welche Leistungen Ihr Pflegegrad abdeckt, was die Verordnung enthalten muss und was privat bliebe. Schriftlich, vorher.' },
+  { n: 3, t: 'Wir klären die Kasse', b: 'Wir sagen Ihnen, welche Leistungen Ihr Pflegegrad abdeckt, was die Verordnung enthalten muss und was privat bleibt. Schriftlich, vorher.' },
   { n: 4, t: 'Die Pflege beginnt', b: 'Besuchszeiten stimmen wir mit Ihnen ab, damit Sie wissen, womit Sie rechnen können. Jede Pflegekraft kennt Ihre Situation, bevor sie klingelt.' },
 ];
 
@@ -95,7 +95,7 @@ export default function Home() {
                   it gains. Page content clears the bar via the footer's bottom
                   padding, so nothing is ever permanently hidden behind it. */}
               <h1 className="text-3xl sm:text-5xl xl:text-6xl">
-                Pflege zu Hause, auf die Sie sich verlassen können.
+                Pflege zu Hause, bei der Sie wissen, wer klingelt.
               </h1>
               {/* Says WHAT before it says why. The previous lead opened on the
                   differentiator and closed with "Das ist seltener, als es sein
@@ -125,9 +125,9 @@ export default function Home() {
                   it forty lines further down — and it was worth two lines on a
                   phone. The other two clauses are untouched. */}
               <p className="measure mt-3 text-base leading-relaxed text-ink sm:mt-5 sm:text-lg xl:text-xl">
-                Ambulante Pflege, Behandlungspflege und Betreuung in München und
-                Pfaffenhofen. Wir klären mit Ihnen, welche Unterstützung nötig ist und
-                welche Kosten übernommen werden.
+                Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft in München
+                und Pfaffenhofen. Wir kommen kostenlos zu Ihnen nach Hause und sagen
+                Ihnen vorher, was die Kasse übernimmt — und was nicht.
               </p>
 
               {/* One primary action, and it is the consultation rather than the
@@ -208,7 +208,7 @@ export default function Home() {
             <SectionHead
               eyebrow="Klartext"
               title="Vier Fragen, die fast jede Familie stellt"
-              intro="Vier Dinge, die in der ambulanten Pflege den Unterschied machen — und wie sie bei uns geregelt sind. Konkret genug, dass Sie es später überprüfen können."
+              intro="Es sind fast immer dieselben vier. Hier stehen unsere Antworten so konkret, dass Sie im dritten Monat nachprüfen können, ob wir uns daran halten."
             />
             <dl className="m-0">
               {klartext.map((k) => (
@@ -237,7 +237,7 @@ export default function Home() {
             ratio={3 / 2}
             plate
             sizes="(min-width: 64rem) 34vw, 100vw"
-            alt="Zwei ältere Frauen sitzen an einem Tisch bei Kaffee und sprechen miteinander."
+            alt="Eine Pflegekraft in blauer Arbeitskleidung und eine ältere Frau lachen miteinander in einem Wohnraum."
           />
         </div>
       </section>
@@ -337,7 +337,7 @@ export default function Home() {
           <div>
             <SectionHead
               eyebrow="Weshalb Supra"
-              title="Pflege lässt sich nicht immer auf Minuten reduzieren."
+              title="Pflege lässt sich nicht auf Minuten reduzieren."
             />
             {/* Rewritten to describe how Supra plans, not how anyone else
                 does. The previous version opened on "In vielen Diensten steht
@@ -345,21 +345,21 @@ export default function Home() {
                 the business cannot evidence and does not need to make. */}
             <div className="prose text-ink-muted">
               <p>
-                Jede Versorgungssituation ist unterschiedlich. Deshalb betrachten wir
-                nicht nur einzelne Tätigkeiten, sondern den tatsächlichen
-                Unterstützungsbedarf im Alltag: die Wohnung, die Tagesstruktur und die
-                Menschen, die schon jetzt helfen.
+                Duschen dauert an einem guten Tag zehn Minuten und an einem schlechten
+                fünfundzwanzig. Wer nur die Tätigkeit plant, plant an der Hälfte der
+                Wirklichkeit vorbei — an der Wohnung, am Tagesablauf und an den
+                Angehörigen, die schon jetzt einspringen.
               </p>
               <p>
-                Welche Leistungen möglich sind und wie viel Zeit dafür eingeplant werden
-                kann, besprechen wir vorher mit Ihnen. Wenn eine Tour das nicht hergibt,
-                sagen wir das — das ist der Grundsatz, mit dem dieser Dienst 2022
-                gegründet wurde.
+                Deshalb besprechen wir vorher, welche Leistungen möglich sind und wie
+                viel Zeit dafür eingeplant ist. Und wenn eine Tour das nicht hergibt,
+                sagen wir das, statt es Ihnen zu verkaufen. Mit diesem Grundsatz wurde
+                dieser Dienst 2022 gegründet.
               </p>
               <p>
-                Dazu gehört auch, nicht alles zu übernehmen, nur weil es schneller geht.
-                Wir schauen, was jemand noch selbst kann, und unterstützen so, dass es
-                erhalten bleibt.
+                Dazu gehört, nicht alles abzunehmen, nur weil es schneller ginge. Was
+                jemand noch selbst kann, macht er selbst — das dauert länger und ist
+                genau der Grund, warum dafür Zeit eingeplant wird.
               </p>
             </div>
             <Link href="/ueber-uns" className="btn btn--secondary mt-7">

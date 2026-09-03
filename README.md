@@ -218,35 +218,35 @@ recurring cast a commissioned shoot would give.
 
 | Position | Sitting | Crop | Why this one |
 |---|---|---|---|
-| Home, hero | Evening walk: a woman pushing her grandmother across an open field | 0.95:1 / 1.36:1 | The emotional entry point, and the only eager image on the site |
-| Home, Klartext | Two women talking over coffee | 3:2 | The section is about being told things straight; the picture is a conversation |
+| Home, hero | An older woman talking over coffee at a bright table | 0.95:1 / 1.36:1 | The emotional entry point, and the exact thing the button under it offers |
+| Home, Klartext | Care worker and client laughing together | 3:2 | The section asks who comes into the flat; this is the one frame showing both |
 | Home, Haltung | Kitchen, carer with two clients | 4:5 | "Wir planen nach Erfahrung" — a carer taking time, seen |
 | Leistungen | Same kitchen | 16:9 | A home kitchen, not a ward: the page is about care at home |
-| Über uns | Care worker + older woman, wide | 3:2 | The people who do the work, on the page about who does the work |
+| Über uns | Evening walk across an open field | 3:2 | Illustrates taking time, which is what the page argues |
 | Karriere | Same care worker, alone and tight | 4:5 | Shows the work, to somebody deciding whether to do it |
 
-**The hero has been replaced twice, and the two rejections were about
-different things.** The first frame was a tight close-up of two heads: warm,
-but with no window, no wall and no furniture — nothing that said where the care
-was happening. That is a good portrait and a poor hero, and no amount of
-re-cropping fixes it; it moved to the careers page. The second put a place in
-the frame and failed on beauty instead: an ordinary front room photographed
-honestly, with heavy floral curtains, a busy patterned armchair and a large
-brown lamp in the crop, in a green-and-red palette that fought the warm paper
-and navy of the page. The client's word was "katastrofa". **A hero has to
-establish a place AND be beautiful, and "documentary" is not a defence against
-clutter.**
+**The hero took four attempts, and the three failures are the useful part.**
+(1) A tight close-up of two heads: no window, no wall, no furniture — nothing
+that said where the care was happening. A hero has to establish a place; that
+frame is now the careers portrait, where tight is right. (2) An ordinary front
+room photographed honestly, with floral curtains, a busy armchair and a brown
+lamp in the crop, in a palette that fought the page. A hero also has to be
+beautiful, and "documentary" is not a defence against clutter. (3) A field at
+golden hour: beautiful, calm, and contradicting the sentence beside it — **you
+cannot promise "Pflege zu Hause" over a picture of a meadow.** That frame was
+good in the wrong slot and now sits on /ueber-uns, illustrating an argument
+about taking time, which is what it actually shows.
 
-The frame there now is calm: evening light across an open field, two figures, a
-clean horizon, nothing else to tidy. It is a real care relationship rather than
-a staged one — the photographer's note records it as his wife with her
-grandmother, who is over ninety, has severe dementia and lives with the family.
-Nobody faces the camera, which for a Symbolbild is a feature. The trade-off,
-stated rather than hidden: it shows Begleitung outdoors, not care inside a
-flat, while the headline above it says "Pflege zu Hause". Accompanying someone
-outside is a real Betreuungsleistung, so it does not misrepresent the service,
-but it does not illustrate the headline literally either. **This is the first
-slot to fill when the client's own photographs exist.**
+The frame there now is indoors, bright and uncluttered, and it shows the thing
+the button underneath it offers: a free first conversation at the client's own
+table, an older woman doing most of the talking. **A hero has to establish a
+place, be beautiful, AND agree with the sentence next to it.** None of the
+three is optional and none substitutes for the others.
+
+Searched and rejected on the way, so nobody repeats it: Pexels and Pixabay are
+unreachable from this environment (Cloudflare), Openverse's German care results
+are low-resolution signage or press photography, and the Wikimedia
+"Pflegedienst" set turned out to be a competitor's building and its signboard.
 
 Two things came out of that swap and are worth carrying forward. The desktop
 hero panel **has no fixed aspect** — it is 54% of the viewport wide and as tall

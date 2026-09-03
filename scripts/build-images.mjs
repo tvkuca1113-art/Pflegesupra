@@ -103,62 +103,66 @@ const HERO_Q = { avif: 40, webp: 66, sharpen: false };
  */
 const SOURCES = [
   {
-    /* THE OPENING PHOTOGRAPH — third frame in this slot, and the reason for
-       each replacement is worth keeping, because they were different reasons.
+    /* THE OPENING PHOTOGRAPH — fourth frame in this slot. The three before it
+       each failed a different test, and writing them down is cheaper than
+       failing them again.
 
-       The first was a tight close-up of two heads. It had no window, no wall,
-       no furniture: nothing that told a visitor where the care was happening.
-       A hero has to establish a place, so it moved to the careers page, where
-       a tight portrait is exactly right.
+       (1) A tight close-up of two heads. No window, no wall, no furniture:
+           nothing that told a visitor where this was happening. A hero has to
+           establish a place. It is now the careers portrait, where tight is
+           right.
+       (2) An ordinary front room, photographed honestly — floral curtains, a
+           busy armchair, a brown lamp in the crop, in a palette that fought
+           the page. A hero also has to be beautiful; "documentary" is not a
+           defence against clutter.
+       (3) An evening walk across a field. Beautiful and calm, and wrong for
+           the headline above it: you cannot promise "Pflege zu Hause" over a
+           picture of a meadow. That frame is a good picture in the wrong slot
+           and now sits on /ueber-uns.
 
-       The second put a place in the frame and lost on a different test. It was
-       an ordinary front room photographed honestly — heavy floral curtains, a
-       busy patterned armchair, a large brown lamp filling the right of the
-       crop. Truthful, warm, and visually cluttered, in a green-and-red palette
-       that fought the warm paper and navy of this site. The client's word for
-       it was "katastrofa". They were right: a hero has to be beautiful, and
-       "documentary" is not a defence against clutter.
+       This one is indoors, bright and uncluttered, and it is the only frame in
+       the reachable free libraries that is all three at once. It also happens
+       to show the exact thing the button underneath it offers: a free first
+       conversation at the client's own table, an older woman doing most of the
+       talking. Someone is listening to her in her own home, and she does not
+       look like a patient. That is the proposition.
 
-       This one is calm. Evening light across an open field, two figures, a
-       clean horizon, and nothing else in the frame — no props to tidy, no
-       palette to fight. It is also a real care relationship rather than a
-       staged one: the photographer's note records it as his wife with her
-       grandmother, who is over ninety, has severe dementia and lives with the
-       family. Nobody faces the camera, which for a Symbolbild is a feature.
-
-       The honest trade-off, stated rather than hidden: this is Begleitung
-       outdoors, not care inside a flat, and the headline above it says "Pflege
-       zu Hause". Accompanying someone outside is a real Betreuungsleistung, so
-       it does not misrepresent the service — but it does not illustrate the
-       headline literally either. The alternative was another cluttered
-       interior. When the client's own photographs exist, this is the first
-       slot to fill. */
+       Searched and rejected on the way here, so nobody repeats it: Pexels and
+       Pixabay are unreachable from this environment (Cloudflare), Openverse's
+       German care results are low-resolution signage or press photography, and
+       the Wikimedia "Pflegedienst" set is a competitor's building. */
+    key: 'beratung',
+    id: 'wLXJ1Q-_S88',
+    credit: 'Jon Pountney für Age Cymru',
+    url: 'https://images.unsplash.com/photo-1685608625845-184d982f3f69?fm=jpg&q=92&w=3000',
+    crops: [
+      /* 0.95:1 — very slightly taller than square — from the laptop breakpoint
+         up, and a compromise rather than a match, which is worth being explicit
+         about. The desktop panel has NO fixed aspect: it is 54% of the viewport
+         wide and as tall as the copy beside it, so it MEASURES 553x809 (0.68)
+         at 1024px, 778x844 (0.92) at 1440px and 1037x844 (1.23) at 1920px.
+         0.95 sits in the middle of where the traffic is. An earlier version was
+         6:5 — the aspect the panel had before the hero copy was retuned, and
+         nobody re-measured: at 1440 it threw away 23% of the frame's width. */
+      { name: 'hero-wide', ratio: 0.95, widths: [900, 1300, 1800], focus: { x: 0.60, y: 0.46 }, q: HERO_Q },
+      /* 1.36:1 on phones — MEASURED from the box. The phone hero container is
+         `h-[34vh] max-h-[20rem]` at full width: 360x265, 390x287 and 430x317 on
+         the three handset sizes, 1.36:1 every time. Match the crop to the box. */
+      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.58, y: 0.44 }, q: HERO_Q },
+    ],
+  },
+  {
+    /* The evening walk. It was the hero for one deployment and it is a better
+       picture than that slot deserved of it — the problem was never the
+       photograph, it was the promise printed next to it. Here it illustrates
+       an argument about taking time rather than a claim about where the care
+       happens, which is what it actually shows. */
     key: 'begleitung',
     id: 'VUOiQW4OeLI',
     credit: 'Dominik Lange',
     url: 'https://images.unsplash.com/photo-1543333995-a78aea2eee50?fm=jpg&q=92&w=3000',
     crops: [
-      /* 0.95:1 — very slightly taller than square — from the laptop breakpoint
-         up, and this one is a compromise rather than a match, which is worth
-         being explicit about.
-
-         The desktop panel has no fixed aspect: it is 54% of the viewport wide
-         and as tall as the copy beside it, so it MEASURES 553x809 (0.68) at
-         1024px, 778x844 (0.92) at 1440px and 1037x844 (1.23) at 1920px. No
-         single crop fits all of that. 0.95 sits in the middle of where the
-         traffic is: at 1440 it loses 3% of its width to object-cover, at 1366
-         about 8%, and at the two ends it gives up roughly a quarter of one
-         dimension.
-
-         An earlier version of this crop was 6:5. That is the aspect the panel
-         had before the hero copy was retuned, and nobody re-measured: at 1440
-         it silently threw away 23% of the frame's width. Measure the box. */
-      { name: 'hero-wide', ratio: 0.95, widths: [900, 1300, 1800], focus: { x: 0.30, y: 0.55 }, q: HERO_Q },
-      /* 1.36:1 on phones — MEASURED from the box, not chosen by eye. The phone
-         hero container is `h-[34vh] max-h-[20rem]` at full width, which comes
-         out 360x265, 390x287 and 430x317 on the three handset sizes: 1.36:1
-         every time. Match the crop to the box. Every time. */
-      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.34, y: 0.55 }, q: HERO_Q },
+      { name: 'ueber-uns', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.42, y: 0.55 }, q: { sharpen: false } },
     ],
   },
   {
@@ -173,23 +177,13 @@ const SOURCES = [
          careers page. A close-up with no room in it is a weak hero and a strong
          portrait; the mistake was asking one frame to be both. */
       { name: 'pflegekraft', ratio: 4 / 5, widths: [480, 720, 1000], focus: { x: 0.27, y: 0.44 } },
-      /* And the same frame wide, for /ueber-uns.
-
-         That slot used to be filled by a separate sitting — two women talking
-         over coffee — which was cut from this script as a canteen scene and
-         then went on serving the page anyway, because the generated files were
-         still committed and nothing re-ran the script. A crop the build cannot
-         reproduce is a crop that does not exist; it only looked like it did.
-         So the slot is filled from a sitting that is actually here. */
-      { name: 'ueber-uns', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.42 } },
+      /* And the same frame wide, for the home page's "Vier Fragen". The
+         section asks who comes into the flat and who you talk to; this is the
+         only frame in the set that shows a care worker and a client together
+         in one picture, so it belongs under that question rather than under
+         anything else. */
+      { name: 'beratung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.42 } },
     ],
-  },
-  {
-    key: 'beratung',
-    id: 'wLXJ1Q-_S88',
-    credit: 'Jon Pountney für Age Cymru',
-    url: 'https://images.unsplash.com/photo-1685608625845-184d982f3f69?fm=jpg&q=92&w=2400',
-    crops: [{ name: 'beratung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.56, y: 0.45 } }],
   },
   {
     key: 'kueche',

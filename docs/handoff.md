@@ -150,8 +150,8 @@ hashes for throttling, stated retention. That is a description, not legal advice
 | Link previews (Open Graph) | **BLOCKED** | Card generated at 1200×630 and served correctly | `og:image` resolves against `NEXT_PUBLIC_SITE_URL`, which is unset — so it currently points at supra-pd.de, where the file does not yet exist. Every share of the preview URL shows a broken image until §4.1 is done. |
 | Responsive tables | **PASS** | The benefits table restacks below 48rem — measured scrollWidth 348 = clientWidth 348 at 390px, no horizontal scroll | Roles are written out because `display:block` strips implicit table roles |
 | Research-led content | **PASS** | The Klartext section, the Einsatz timeline and the recruiting headline each answer a documented, sourced finding rather than a brief — see §7 | Forums and consumer reporting only; closed groups were not accessible |
-| Photography | **PASS** | Seven crops from two documentary sources — Dominik Lange for the opening frame, Jon Pountney/Age Cymru for the rest — each credited in the Impressum and labelled as symbolic | Real photographs of the team are still the biggest upgrade — §6 |
-| Core Web Vitals (lab) | **PASS** | `node scripts/vitals.mjs` — CLS 0 on every route, LCP 1.76 s worst case (1.03 s on `/`), FCP 1.07 s worst case, under Slow 4G + 4× CPU | Total Blocking Time hovers around the 200 ms budget on the JavaScript-heavy routes; see §6 |
+| Photography | **PASS** | Seven crops from two documentary sources — Jon Pountney/Age Cymru for the home and service pages, Dominik Lange on /ueber-uns — each credited in the Impressum and labelled as symbolic | Real photographs of the team are still the biggest upgrade — §6 |
+| Core Web Vitals (lab) | **PASS** | `node scripts/vitals.mjs` — CLS 0 on every route, LCP 1.80 s worst case (0.90 s on `/`), FCP 0.90 s worst case, under Slow 4G + 4× CPU | Total Blocking Time hovers around the 200 ms budget on the JavaScript-heavy routes; see §6 |
 | Lighthouse score | **NOT RUN** | — | Lighthouse is not installed and installing it was not authorised; the metrics above were measured directly instead. See §6 |
 | Search Console | **BLOCKED** | — | Client access |
 
@@ -210,8 +210,8 @@ gains.
   | | worst route | budget |
   |---|---|---|
   | CLS | **0** (0.0085 on `/kontakt`) | ≤ 0.1 |
-  | LCP | **1.76 s** (`/karriere`; 1.03 s on `/`) | ≤ 2.5 s |
-  | FCP | **1.07 s** (`/pflegegrade-und-kosten`) | ≤ 1.8 s |
+  | LCP | **1.80 s** (`/karriere`; 0.90 s on `/`) | ≤ 2.5 s |
+  | FCP | **0.90 s** (`/pflegegrade-und-kosten`) | ≤ 1.8 s |
   | TBT | **~240 ms** (worst route, single runs) | ≤ 200 ms |
 
   The first measurement was not this. It found **CLS 0.3076 on the home page**
@@ -232,7 +232,7 @@ gains.
   quality (AVIF 40 rather than 52), and skips the set's default unsharp mask,
   which on a grainy backlit frame amplified sky noise into the encoder — 100 KB
   vs 59 KB in AVIF at 1800px, and visibly *cleaner* without it. The phone crop
-  is now 15 KB and LCP on the home page **1.03 s**, better than before the
+  is now 17 KB and LCP on the home page **0.90 s**, better than before the
   photograph was ever replaced. The quality number was chosen by comparing 34,
   40 and 52 side by side at 1:1, not by taste. One thing tried and removed:
   raising the encoder's `effort` to 9, on the reasoning that a build-time

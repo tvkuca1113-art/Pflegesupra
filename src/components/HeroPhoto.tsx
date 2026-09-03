@@ -11,12 +11,13 @@ const DESK = '(min-width: 64rem)';
  * breakpoint up, which is a deliberate compromise because that panel has no
  * fixed aspect at all. `scripts/build-images.mjs` carries the measurements.
  *
- * The frame itself has been replaced twice, for two different reasons. The
- * first was a tight close-up of two heads with no room in it — a fine portrait
- * and a poor hero, because a hero has to establish a place. The second put a
- * place in the frame and was visually cluttered, in a palette that fought the
- * page. A hero has to do both. `scripts/build-images.mjs` carries the full
- * note, including the honest trade-off this frame makes.
+ * The frame itself has been replaced three times, and each rejection was
+ * about something different: no place in the picture, then a cluttered place,
+ * then a beautiful place that contradicted the promise printed next to it —
+ * you cannot say "Pflege zu Hause" over a meadow. This one is indoors, bright
+ * and uncluttered, and it shows the thing the button underneath it offers: a
+ * free first conversation at the client's own table.
+ * `scripts/build-images.mjs` carries the full note.
  *
  * They are served from ONE <picture> with media-scoped <source> elements
  * rather than two <img> tags in `hidden`/`lg:block` wrappers, because an <img>
@@ -43,7 +44,7 @@ export default function HeroPhoto() {
         // not say "Pflegerin" or "Klient", because we cannot know that about
         // people in a licensed photograph — and this site does not assert
         // things it cannot know.
-        alt={`Eine jüngere Frau schiebt eine ältere Frau im Rollstuhl über eine Wiese; Abendlicht, offener Horizont. ${PHOTO_CREDIT.short}`}
+        alt={`Eine ältere Frau sitzt mit einer Tasse Kaffee an einem hellen Tisch und spricht mit einer zweiten Person, die ihr zuhört. ${PHOTO_CREDIT.short}`}
         width={1040}
         height={765}
         fetchPriority="high"
