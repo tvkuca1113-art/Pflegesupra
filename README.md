@@ -210,21 +210,40 @@ touch.
 
 ### Where each photograph sits, and why
 
-Six placements from **three sittings**, and the small number is the point. An
-earlier version had seven unrelated scenes and read as a scatter of stock; a
-commissioned shoot gives a site one recurring cast, and using one sitting at
-several crops is the nearest a licensed set gets to that.
+Six placements from **four sittings**, at seven crops, and the small number is
+the point. An
+earlier version had seven unrelated scenes and read as a scatter of stock;
+using one sitting at several crops is the nearest a licensed set gets to the
+recurring cast a commissioned shoot would give.
 
 | Position | Sitting | Crop | Why this one |
 |---|---|---|---|
-| Home, hero | Care worker + older woman, living room | 6:5 / 1:1 | The emotional entry point, and the only eager image on the site |
+| Home, hero | Home visit: two people with a photo album by the window | 0.95:1 / 1.36:1 | The emotional entry point, and the only eager image on the site |
 | Home, Klartext | Two women talking over coffee | 3:2 | The section is about being told things straight; the picture is a conversation |
 | Home, Haltung | Kitchen, carer with two clients | 4:5 | "Wir planen nach Erfahrung" — a carer taking time, seen |
 | Leistungen | Same kitchen | 16:9 | A home kitchen, not a ward: the page is about care at home |
-| Über uns | Second frame of the coffee conversation | 3:2 | Different frame, different page, different crop |
-| Karriere | Same care worker as the hero, alone | 4:5 | Shows the work, to somebody deciding whether to do it |
+| Über uns | Care worker + older woman, wide | 3:2 | The people who do the work, on the page about who does the work |
+| Karriere | Same care worker, alone and tight | 4:5 | Shows the work, to somebody deciding whether to do it |
 
-**Five frames were rejected, and the reasons are worth keeping.** Two were cut
+**The hero was replaced after the client rejected it twice, and the second
+rejection was about the photograph, not the crop.** The frame that had been
+there was a tight close-up of two heads: warm, but with no window, no wall and
+no furniture in it — nothing that said where the care was happening. That is a
+good portrait and a poor hero, and no amount of re-cropping fixes it. The
+frame now in that slot is a whole room in daylight. Keeping every image inside
+a single commission had been the tidier story; it was not worth an opening
+photograph that does not open anything, so the set now draws on two charity
+libraries in the same documentary register rather than one.
+
+Two things came out of that swap and are worth carrying forward. The desktop
+hero panel **has no fixed aspect** — it is 54% of the viewport wide and as tall
+as the copy beside it, measuring 0.68:1 at 1024px and 1.23:1 at 1920px — so its
+crop is an explicit compromise at 0.95:1 rather than a match, and the first
+attempt at 6:5 silently threw away 23% of the frame at 1440px. And the hero,
+alone in the set, gets its own encoder settings, because it is the only eager
+image and therefore the only one whose bytes are the LCP.
+
+**Six frames were rejected, and the reasons are worth keeping.** Two were cut
 before shipping: one showed a day-centre lounge (institutional, on a site whose
 whole proposition is that the client stays at home), the other carried another
 organisation's logo on a cap. Three more were cut after shipping, against a
@@ -232,7 +251,8 @@ harder test — *does the picture show a care relationship?* An older man at a
 window and a woman knitting in her chair are dignified photographs of older
 people and say nothing about this business; the brief for a home-care site is
 not "elderly lifestyle". A woman with a cup in a hall with others behind her
-read as group care.
+read as group care. The sixth was the opening frame itself, on the test above
+all the others: a hero has to establish a place, and that one established none.
 
 They were removed rather than replaced because no better licensed frame was
 reachable at the time. Two sections lost their picture and did not get one
@@ -240,11 +260,20 @@ back: a timeline and a step list, both of which are better without. **Fewer,
 correct pictures beat more, wrong ones**, and a section with no photograph is
 not a defect.
 
+One of those removals left a trap worth naming. When a sitting was cut from
+`scripts/build-images.mjs`, its generated files stayed committed in
+`public/img` and `/ueber-uns` went on serving a picture the art direction had
+already rejected — invisibly, because the page worked. **A crop the build
+cannot reproduce is a crop that does not exist**, and the only reason it
+surfaced is that the QA harness reads the console: deleting the orphaned files
+turned it into a 404 and a failing run. If a sitting goes, its placements go
+with it or get refilled in the same commit.
+
 ### What only a real shoot can fix
 
 The instruction behind this set was "one coherent premium brand photoshoot,
 consistent cast, consistent interiors". That is a description of a commission,
-not of a stock library, and it should be said plainly: three sittings at six
+not of a stock library, and it should be said plainly: four sittings at seven
 crops is the closest approximation available, not the thing itself. A day with
 a photographer in the client's actual working conditions would replace every
 image here and is the single largest remaining upgrade to the site's

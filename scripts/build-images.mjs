@@ -3,12 +3,13 @@
  *
  * ART DIRECTION — why these photographs and not others.
  *
- * Every image on this site comes from one body of work: Jon Pountney's
- * documentary series for Age Cymru, the national charity for older people in
- * Wales ("This Is Older"). One photographer, one commission, one register.
- * That is the difference between a site that has pictures and a site that has
- * photography: the faces are real, the rooms are real, nobody is holding a
- * clipboard and smiling at nothing.
+ * Two documentary sources, both charities photographing older people in their
+ * own lives: the Centre for Ageing Better's image library, which supplies the
+ * opening photograph, and Jon Pountney's series for Age Cymru, which supplies
+ * the rest. Not one commission any more, and the honest reason is that the one
+ * commission did not contain a usable hero. What matters for coherence is the
+ * register, and both are the same register: real people, real rooms, nobody
+ * holding a clipboard and smiling at nothing.
  *
  * It also matters for this client specifically. The site being replaced used
  * AI-generated images of people who do not exist — a fact its own Impressum
@@ -40,8 +41,8 @@
  * photograph is not a defect. Two of the sections that lost one are a timeline
  * and a step list, which are better without.
  *
- * Licensing: Unsplash Licence. Attribution is not required by the licence but
- * is given anyway, in /impressum.
+ * Licensing: Unsplash Licence for both sources. Attribution is not required by
+ * the licence but is given anyway, in /impressum, for each source separately.
  *
  * Usage: node scripts/build-images.mjs
  */
@@ -53,44 +54,109 @@ import { execFileSync } from 'node:child_process';
 const OUT = path.join(process.cwd(), 'public/img');
 const TMP = path.join(process.cwd(), '.image-cache');
 
+/* The hero is encoded harder than the rest of the set, and it is worth saying
+   why rather than leaving a magic number.
+
+   Every other image on this site is lazy: its bytes arrive after the page is
+   usable and cost nothing that a visitor perceives. The hero is the one eager
+   image and therefore *is* the Largest Contentful Paint on the home page. When
+   the opening frame was replaced, LCP on the throttled mobile profile went from
+   1.28 s to 2.05 s — not because the new picture is worse but because it is a
+   whole room in daylight, with foliage and patterned fabric, where the old one
+   was a soft close-up. Detail costs bytes.
+
+   Measured at 1040px on the phone crop: quality 52 gives 67 KB, quality 40
+   gives 41 KB, quality 34 gives 32 KB. Compared side by side at 1:1, 34 is
+   already hard to separate from 52 on skin and spectacle frames; 40 is not
+   separable at all, and it is the number here. That took LCP back to 1.34 s.
+
+   The `effort` knob is deliberately NOT touched, and that is a correction: the
+   first version of this raised it to 9 on the reasoning that a build-time
+   encode may as well work harder. Measured on the 1300px desktop crop, effort
+   6 gives 65 KB in 25 s, effort 7 gives 66 KB in 33 s and effort 9 gives 65 KB
+   in 82 s. It buys nothing and triples the build. Quality was doing all the
+   work; effort was doing none.
+
+   The other crops stay at the set default: spending anything extra on an image
+   nobody waits for buys nothing either. */
+const HERO_Q = { avif: 40, webp: 66 };
+
 /**
  * source  — the Unsplash photo id, so any of these can be traced back.
  * url     — the direct image URL at a size large enough for every crop below.
  * crops   — name, aspect ratio, widths, and the focal point as a fraction of
  *           the source. The focal point is the whole game: `cover` cropping
  *           with a default centre put a face half outside the frame twice.
+ *           `q` optionally overrides the encoder quality for one crop; only
+ *           the hero uses it, because only the hero is eager and therefore the
+ *           only image whose bytes land in the LCP. See HERO_Q above.
  */
 const SOURCES = [
+  {
+    /* THE OPENING PHOTOGRAPH.
+       Centre for Ageing Better's image library rather than Age Cymru, and the
+       reason is worth recording. The frame that used to sit here was a tight
+       two-head close-up: warm, but with no room in it — no window, no wall, no
+       furniture, nothing that said where this was happening. At hero size it
+       read as a fragment of a photograph rather than a photograph, and the
+       client rejected it outright, twice.
+
+       This one is a whole scene. A real front room, daylight through the
+       window, two people in an unposed exchange over a photo album, and enough
+       air around them to crop at two very different aspects. It says the one
+       thing the hero of an ambulatory service has to say: this happens in your
+       home, not in an institution. Nobody looks at the camera, nobody is in
+       uniform, there is no equipment and no logo. */
+    key: 'hausbesuch',
+    id: 'rQJ3xo-0WYE',
+    credit: 'Centre for Ageing Better',
+    url: 'https://images.unsplash.com/photo-1702648156180-25d8be9c9527?fm=jpg&q=92&w=2400',
+    crops: [
+      /* 0.95:1 — very slightly taller than square — from the laptop breakpoint
+         up, and this one is a compromise rather than a match, which is worth
+         being explicit about.
+
+         The desktop panel has no fixed aspect: it is 54% of the viewport wide
+         and as tall as the copy beside it, so it MEASURES 553x809 (0.68) at
+         1024px, 778x844 (0.92) at 1440px and 1037x844 (1.23) at 1920px. No
+         single crop fits all of that. 0.95 sits in the middle of where the
+         traffic is: at 1440 it loses 3% of its width to object-cover, at 1366
+         about 8%, and at the two ends it gives up roughly a quarter of one
+         dimension — which the framing below is chosen to survive, both faces
+         well inside the centre.
+
+         The first version of this crop was 6:5. That is the aspect the panel
+         had before the hero copy was retuned, and nobody re-measured: at 1440
+         it silently threw away 23% of the frame's width. Measure the box. */
+      { name: 'hero-wide', ratio: 0.95, widths: [900, 1300, 1800], focus: { x: 0.56, y: 0.48 }, q: HERO_Q },
+      /* 1.36:1 on phones — MEASURED from the box, not chosen by eye. The phone
+         hero container is `h-[34vh] max-h-[20rem]` at full width, which comes
+         out 360x265, 390x287 and 430x317 on the three handset sizes: 1.36:1
+         every time. Match the crop to the box. Every time. */
+      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.55, y: 0.5 }, q: HERO_Q },
+    ],
+  },
   {
     key: 'pflegerin',
     id: 'dMhB7w99ju8',
     credit: 'Jon Pountney für Age Cymru',
     url: 'https://images.unsplash.com/photo-1765896387387-0538bc9f997e?fm=jpg&q=92&w=2400',
     crops: [
-      /* 6:5, not 16:10. From the laptop breakpoint the picture fills a panel
-         that is 54% of the viewport wide and as tall as the hero copy — about
-         777x760 at 1440px, so very nearly square. A 16:10 crop dropped into
-         that box lost a third of its width to object-cover and cut the second
-         face off at the frame edge. Match the crop to the container, again. */
-      { name: 'hero-wide', ratio: 6 / 5, widths: [900, 1300, 1800], focus: { x: 0.5, y: 0.44 } },
-      /* 1.36:1 on phones — MEASURED from the box, not chosen by eye.
-         The phone hero container is `h-[34vh] max-h-[20rem]` at full width,
-         which comes out 360x265, 390x287 and 430x317 on the three handset
-         sizes: 1.36:1 every time. The square crop that used to sit here got
-         scaled up 36% by object-cover and sliced top and bottom, which is why
-         the mobile hero read as a tight zoomed close-up with the second face
-         falling off the right edge — while the desktop crop looked fine.
-
-         Third time on this project that a picture "looked wrong" and the cause
-         was the crop's aspect not matching its container's. Match the crop to
-         the box. Every time. */
-      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.5, y: 0.46 } },
-      /* The caregiver alone, tight, for the careers page. Same frame as the
-         hero — which is the point rather than a compromise. A commissioned
-         shoot gives a site one recurring cast; using one sitting at three
-         different crops is the nearest a licensed set gets to that, and it
-         reads as far more coherent than five unrelated scenes did. */
+      /* This sitting used to supply the hero as well. It no longer does — see
+         the note on `hausbesuch` above — and what is left is the crop it was
+         always best at: the caregiver alone, tight, in working clothes, for the
+         careers page. A close-up with no room in it is a weak hero and a strong
+         portrait; the mistake was asking one frame to be both. */
       { name: 'pflegekraft', ratio: 4 / 5, widths: [480, 720, 1000], focus: { x: 0.27, y: 0.44 } },
+      /* And the same frame wide, for /ueber-uns.
+
+         That slot used to be filled by a separate sitting — two women talking
+         over coffee — which was cut from this script as a canteen scene and
+         then went on serving the page anyway, because the generated files were
+         still committed and nothing re-ran the script. A crop the build cannot
+         reproduce is a crop that does not exist; it only looked like it did.
+         So the slot is filled from a sitting that is actually here. */
+      { name: 'ueber-uns', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.42 } },
     ],
   },
   {
@@ -172,8 +238,8 @@ for (const s of SOURCES) {
       for (const fmt of ['avif', 'webp']) {
         const out = path.join(OUT, `${c.name}-${w}.${fmt}`);
         await (fmt === 'avif'
-          ? treated.clone().avif({ quality: 52, effort: 6 })
-          : treated.clone().webp({ quality: 74 })
+          ? treated.clone().avif({ quality: c.q?.avif ?? 52, effort: 6 })
+          : treated.clone().webp({ quality: c.q?.webp ?? 74 })
         ).toFile(out);
         rows.push([`${c.name}-${w}.${fmt}`, (fs.statSync(out).size / 1024).toFixed(0) + ' KB', s.credit]);
       }
@@ -188,7 +254,7 @@ for (const s of SOURCES) {
    rewritten — the title comes from the page's own metadata. */
 {
   const src = fetchSource(SOURCES[0]);
-  const base = await crop(src, 1200 / 630, { x: 0.5, y: 0.42 });
+  const base = await crop(src, 1200 / 630, { x: 0.56, y: 0.5 });
   const out = path.join(process.cwd(), 'public/og-default.jpg');
   await base
     .resize(1200, 630, { fit: 'cover' })

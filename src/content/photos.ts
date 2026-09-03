@@ -1,21 +1,31 @@
 /**
  * Photographic credits and the shot list.
  *
- * WHAT IS HERE NOW. Three sittings from a single documentary commission — Jon
- * Pountney's photographs for Age Cymru, published under the Unsplash Licence —
- * used at six crops. One recurring cast at several crops is the nearest a
- * licensed set gets to a commissioned shoot, and it is why the site reads as
- * one brand rather than a scatter of stock.
+ * WHAT IS HERE NOW. Two documentary sources, both charities that photograph
+ * older people in their own lives and publish the results under the Unsplash
+ * Licence: the Centre for Ageing Better's image library, which supplies the
+ * opening photograph, and Jon Pountney's series for Age Cymru, which supplies
+ * the rest.
+ *
+ * It was one source until the hero was replaced. A single commission is the
+ * more coherent story and it was worth holding for as long as it held, but the
+ * frame it gave the home page was a tight close-up of two heads with no room
+ * in it — no window, no wall, nothing that said where the care was happening.
+ * A hero has to establish a place. Coherence that costs the opening photograph
+ * is not coherence worth keeping, and the two libraries are in any case the
+ * same register: real people, real rooms, no camera-gaze, no props.
  *
  * WHAT IS NOT HERE, AND WHY. The art direction this site was briefed to hit —
  * a caregiver and client in a modern German apartment with negative space on
  * the left for the headline; a caregiver, a daughter and a mother around a
  * table with a care folder; a Pflegefachkraft with a care bag at an apartment
  * door — does not exist in the free stock libraries reachable from here. It
- * was searched for repeatedly. What comes back is elderly-lifestyle stock
+ * was searched for repeatedly, most recently across both charity libraries and
+ * a dozen query formulations. What else comes back is elderly-lifestyle stock
  * (couples dancing, opening parcels) from a handful of prolific producers,
- * which is exactly the register the brief rejects. The few frames that do come
- * close sit behind Unsplash+, which is a paid licence.
+ * which is exactly the register the brief rejects, or day-centre and care-home
+ * interiors, which are the one setting an ambulatory service must not show.
+ * The few frames that do come close sit behind Unsplash+, a paid licence.
  *
  * That is not a gap to paper over with a nearly-right picture. It is a
  * commission, so the shot list below is written as a commission: each slot has
@@ -29,13 +39,25 @@
  * credibility. Everything below is written to make that day efficient.
  */
 export const PHOTO_CREDIT = {
-  photographer: 'Jon Pountney',
-  commission: 'Age Cymru',
-  licence: 'Unsplash Licence',
-  href: 'https://unsplash.com/@agecymru',
   /** Appended to the alt text of the opening photograph. */
   short: 'Symbolbild.',
-};
+  /** Named in /impressum. One entry per library the set draws on. */
+  sources: [
+    {
+      label: 'Centre for Ageing Better',
+      note: 'britische Stiftung für ein besseres Älterwerden',
+      href: 'https://unsplash.com/@ageing_better',
+      used: 'Startseite, Kopfbild',
+    },
+    {
+      label: 'Jon Pountney für Age Cymru',
+      note: 'nationale Organisation für ältere Menschen in Wales',
+      href: 'https://unsplash.com/@agecymru',
+      used: 'übrige Seiten',
+    },
+  ],
+  licence: 'Unsplash Licence',
+} as const;
 
 /**
  * The shot list.
@@ -67,7 +89,7 @@ export const shotList: ShotBrief[] = [
       + 'Gespräch. Tageslicht vom Fenster, warme neutrale Materialien, keine '
       + 'medizinischen Geräte im Bild. Niemand schaut in die Kamera.',
     framing:
-      'Halbtotale, 6:5 für Desktop und 1:1 für das Telefon. Personen rechts im Bild, '
+      'Halbtotale, 0,95:1 für Desktop und 1,36:1 für das Telefon. Personen rechts im Bild, '
       + '35–45 % ruhige Fläche links — dort steht die Überschrift. Kein Gesicht darf '
       + 'hinter Text geraten. Die Klientin nicht wegunschärfen: beide Personen bleiben '
       + 'relevant.',
@@ -118,7 +140,7 @@ export const shotList: ShotBrief[] = [
     scene:
       'Ersetzen durch ein echtes Bild: Inhaber und Team vor oder in einem der beiden '
       + 'Büros, oder eine Pflegekraft beim Verlassen eines Münchner Wohnhauses. Bis '
-      + 'dahin ein ruhiges Gesprächsmotiv.',
+      + 'dahin ein Motiv, das eine Pflegekraft und eine Klientin zusammen zeigt.',
     framing: 'Quer 3:2.',
     message: 'Diesen Dienst führen Menschen, die man sehen kann.',
   },

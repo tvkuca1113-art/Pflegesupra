@@ -116,7 +116,7 @@ export default function UeberUnsPage() {
             ratio={3 / 2}
             plate
             sizes="(min-width: 64rem) 40vw, 100vw"
-            alt="Zwei Frauen sitzen an einem Tisch bei Kaffee, eine spricht, die andere hört zu."
+            alt="Zwei Frauen lachen miteinander in einem Wohnraum; die jüngere in blauer Arbeitskleidung beugt sich zu der älteren hinunter."
           />
           <div>
             <SectionHead title="Drei Dinge, die hier nicht stehen" />

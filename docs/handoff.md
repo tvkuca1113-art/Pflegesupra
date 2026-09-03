@@ -150,8 +150,8 @@ hashes for throttling, stated retention. That is a description, not legal advice
 | Link previews (Open Graph) | **BLOCKED** | Card generated at 1200×630 and served correctly | `og:image` resolves against `NEXT_PUBLIC_SITE_URL`, which is unset — so it currently points at supra-pd.de, where the file does not yet exist. Every share of the preview URL shows a broken image until §4.1 is done. |
 | Responsive tables | **PASS** | The benefits table restacks below 48rem — measured scrollWidth 348 = clientWidth 348 at 390px, no horizontal scroll | Roles are written out because `display:block` strips implicit table roles |
 | Research-led content | **PASS** | The Klartext section, the Einsatz timeline and the recruiting headline each answer a documented, sourced finding rather than a brief — see §7 | Forums and consumer reporting only; closed groups were not accessible |
-| Photography | **PASS** | Five frames from one documentary commission, credited in the Impressum, labelled as symbolic under every image | Real photographs of the team are still the biggest upgrade — §6 |
-| Core Web Vitals (lab) | **PASS** | `node scripts/vitals.mjs` — CLS 0 on every route, LCP 1.28 s worst case, FCP 0.82 s worst case, under Slow 4G + 4× CPU | Total Blocking Time on the home page is over budget; see §6 |
+| Photography | **PASS** | Six crops from two documentary charity libraries — Centre for Ageing Better for the opening frame, Jon Pountney/Age Cymru for the rest — each credited in the Impressum and labelled as symbolic | Real photographs of the team are still the biggest upgrade — §6 |
+| Core Web Vitals (lab) | **PASS** | `node scripts/vitals.mjs` — CLS 0 on every route, LCP 1.34 s worst case, FCP 1.04 s worst case, under Slow 4G + 4× CPU | Total Blocking Time hovers around the 200 ms budget on the JavaScript-heavy routes; see §6 |
 | Lighthouse score | **NOT RUN** | — | Lighthouse is not installed and installing it was not authorised; the metrics above were measured directly instead. See §6 |
 | Search Console | **BLOCKED** | — | Client access |
 
@@ -209,10 +209,10 @@ gains.
 
   | | worst route | budget |
   |---|---|---|
-  | CLS | **0** (0.0095 on `/kontakt`) | ≤ 0.1 |
-  | LCP | **1.28 s** (`/`) | ≤ 2.5 s |
-  | FCP | **0.82 s** (`/pflegegrade-und-kosten`) | ≤ 1.8 s |
-  | TBT | **233 ms** (`/`, median of 5) | ≤ 200 ms |
+  | CLS | **0** (0.0085 on `/kontakt`) | ≤ 0.1 |
+  | LCP | **1.34 s** (`/`) | ≤ 2.5 s |
+  | FCP | **1.04 s** (`/pflegegrade-und-kosten`) | ≤ 1.8 s |
+  | TBT | **~240 ms** (worst route, single runs) | ≤ 200 ms |
 
   The first measurement was not this. It found **CLS 0.3076 on the home page**
   — three times the threshold — and 0.1284 on `/karriere`. The cause was the
@@ -223,6 +223,20 @@ gains.
   from a measured 1369.90 px vs 1272.80 px lowercase alphabet at 100 px) took
   every route to zero. **The QA harness had never checked layout shift.** It
   does now, in `scripts/vitals.mjs`.
+
+  Replacing the opening photograph cost LCP and then gave it back. The new
+  frame is a whole room in daylight — foliage through a window, patterned
+  fabric — where the old one was a soft close-up, and detail costs bytes: at
+  the same encoder settings the phone crop went from 15 KB to 68 KB and LCP on
+  the throttled profile from 1.28 s to **2.05 s**. The hero is the only eager
+  image on the site, so it is the only one whose bytes land in the LCP, and it
+  now gets its own encoder quality (AVIF 40 rather than 52). That is 41 KB and
+  **1.34 s** — the picture is better and the measurement is where it was. The
+  number was chosen by comparing 34, 40 and 52 side by side at 1:1, not by
+  taste. The first attempt also raised the encoder's `effort` to 9, on the
+  reasoning that a build-time encode may as well work harder; measured, that
+  buys 0 KB and triples the build, so it was removed. Both notes are in
+  `scripts/build-images.mjs` next to the number.
 
   Blocking time on the home page remains over budget by roughly 15 %. About
   170 ms of it is React hydrating the shell — header, mobile bar, consent
@@ -306,7 +320,7 @@ no number is claimed.
 | The most-used tools in this space are free, anonymous, registration-free calculators | Confirmed the Pflege-Kompass, and gave it the site's one dark band so it reads as the centrepiece it is |
 | Nobody outside the profession knows what a visit physically contains | The **Ein Einsatz** timeline — a timed sequence rather than a catalogue of nouns, and the only way to *show* the claim about planning by real duration |
 | What nurses weigh when changing jobs: roster control first, then pay, then being taken seriously | The recruiting headline leads on the roster, not on "werden Sie Teil unseres Teams" |
-| What travels in care content: real faces, real rooms, day-in-the-life, honesty about the system's problems — not marketing gloss | The photographic direction: one documentary commission, minimal treatment, labelled as symbolic |
+| What travels in care content: real faces, real rooms, day-in-the-life, honesty about the system's problems — not marketing gloss | The photographic direction: documentary charity libraries, minimal treatment, labelled as symbolic |
 
 **What was deliberately not done with the research.** No claim about how many
 people feel any of this. No invented testimonial in the voice of a family. No

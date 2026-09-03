@@ -3,6 +3,7 @@ import { PageHeader, Breadcrumbs } from '@/components/Blocks';
 import { IconAlert } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { business } from '@/content/business';
+import { PHOTO_CREDIT } from '@/content/photos';
 
 export const metadata: Metadata = pageMeta({
   title: 'Impressum',
@@ -129,19 +130,8 @@ export default function ImpressumPage() {
 
             <h2>Bildnachweis</h2>
             <p>
-              Sämtliche Fotografien auf dieser Website stammen aus einer
-              dokumentarischen Serie von{' '}
-              <a
-                href="https://unsplash.com/@agecymru"
-                className="linkish"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Jon Pountney für Age Cymru
-                <span className="sr-only"> (öffnet in neuem Tab)</span>
-              </a>
-              , der nationalen Organisation für ältere Menschen in Wales, und wurden
-              über{' '}
+              Die Fotografien auf dieser Website stammen aus zwei dokumentarischen
+              Bildsammlungen gemeinnütziger Organisationen und wurden über{' '}
               <a
                 href="https://unsplash.com/"
                 className="linkish"
@@ -151,10 +141,26 @@ export default function ImpressumPage() {
                 Unsplash
                 <span className="sr-only"> (öffnet in neuem Tab)</span>
               </a>{' '}
-              unter der Unsplash-Lizenz bezogen. Sie wurden einheitlich farblich
+              unter der {PHOTO_CREDIT.licence} bezogen. Sie wurden einheitlich farblich
               bearbeitet und beschnitten. Eine Nennung ist von der Lizenz nicht
               gefordert; sie erfolgt trotzdem.
             </p>
+            <ul>
+              {PHOTO_CREDIT.sources.map((src) => (
+                <li key={src.href}>
+                  <a
+                    href={src.href}
+                    className="linkish"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {src.label}
+                    <span className="sr-only"> (öffnet in neuem Tab)</span>
+                  </a>{' '}
+                  — {src.note}. Verwendet: {src.used}.
+                </li>
+              ))}
+            </ul>
             <p>
               <strong>Alle Bilder sind Symbolbilder.</strong> Sie zeigen weder
               Mitarbeiterinnen und Mitarbeiter noch Klientinnen und Klienten von{' '}
