@@ -1,5 +1,5 @@
 /**
- * KLARTEXT — the four questions families arrive with, and the answers.
+ * KLARTEXT — what families rely on, and what Supra does about each.
  *
  * This is not copywriting. Every fear below is a documented, recurring
  * complaint about ambulante Pflegedienste, taken from the Verbraucherzentrale's
@@ -14,20 +14,23 @@
  * work out whether they are about to be taken advantage of at the worst
  * moment of their family's life, and they have no way to check.
  *
- * The section went through two versions, and the second one matters.
+ * The section went through three versions, and the distance between the first
+ * and the third is the whole lesson.
  *
- * The first phrased each item as an accusation — "Auf der Rechnung stehen
- * Leistungen, die nie erbracht wurden." Every sentence was accurate and
- * sourced, and the section still read as an attack on the rest of the sector.
- * A family choosing a care provider under pressure does not need to be made
- * more afraid; making the fear vivid and then offering yourself as the cure is
- * a sales technique, and a visitor can feel it even when the facts are true.
+ * V1 phrased each item as an accusation: "Auf der Rechnung stehen Leistungen,
+ * die nie erbracht wurden." Sourced, accurate, and an attack on the sector.
+ * V2 softened it into the questions people ask — "Woher weiß ich, dass...?" —
+ * which removed the accusation but kept the visitor in the register of worry.
  *
- * So the items are now the QUESTIONS people actually ask, phrased neutrally,
- * each answered with something specific and checkable that Supra does. Same
- * research, same specificity, no accusation. "Woher weiß ich, dass wirklich
- * geleistet wurde, was auf der Rechnung steht?" carries every bit of the
- * original's usefulness and none of its aggression.
+ * V3, this one, states the PRINCIPLE and then what is done about it.
+ * "Leistungen sollen nachvollziehbar erklärt und abgerechnet werden" is a
+ * standard, not a suspicion. It says the same thing to a reader who already
+ * distrusts the sector, and nothing alarming to one who does not — and it is
+ * the only version of the three that a confident business would write.
+ *
+ * The research underneath is unchanged. Only the posture moved: from "look
+ * what others do" through "here is what you fear" to "here is the standard,
+ * and here is how we meet it".
  *
  * Every answer below is a commitment the client can actually keep with the
  * staff and systems they have. Nothing here asserts a certificate, a rating,
@@ -35,38 +38,36 @@
  */
 
 export type Klartext = {
-  /** The question, phrased the way a family member would ask it. */
+  /** What matters, stated as a principle rather than as a fear. */
   fear: string;
-  /** What is actually done about it. Concrete, checkable, no adjectives. */
+  /** What Supra does about it. Concrete, checkable, no adjectives. */
   answer: string;
 };
 
 export const klartext: Klartext[] = [
   {
-    fear: 'Woher weiß ich, dass wirklich geleistet wurde, was auf der Rechnung steht?',
+    fear: 'Leistungen sollen nachvollziehbar erklärt und abgerechnet werden.',
     answer:
-      'Sie unterschreiben den Leistungsnachweis nach dem Einsatz, nicht vorher. So können '
-      + 'Sie jederzeit nachvollziehen, was erbracht und was abgerechnet wurde.',
+      'Der Leistungsnachweis wird nach dem Einsatz unterschrieben, nicht vorher. Sie können '
+      + 'jederzeit nachvollziehen, was erbracht und was abgerechnet wurde.',
   },
   {
-    fear: 'Was kostet uns das am Ende wirklich?',
+    fear: 'Kosten sollten feststehen, bevor man sich entscheidet.',
     answer:
       'Nach dem Erstgespräch bekommen Sie schriftlich, welche Leistungen Ihr Pflegegrad '
-      + 'deckt und was — falls überhaupt etwas — privat bliebe. Vor der Unterschrift, '
-      + 'nicht mit der ersten Rechnung.',
+      + 'deckt und was — falls überhaupt etwas — privat bliebe. Vor der Unterschrift.',
   },
   {
-    fear: 'An wen wende ich mich, wenn etwas ist?',
+    fear: 'Sie möchten wissen, an wen Sie sich bei Fragen wenden können.',
     answer:
       'Während der Bürozeiten erreichen Sie jemanden, der Ihre Versorgung kennt. Wie Sie '
       + 'uns außerhalb dieser Zeiten erreichen, besprechen wir im Erstgespräch.',
   },
   {
-    fear: 'Steht jede Woche jemand anderes vor der Tür?',
+    fear: 'Möglichst konstante Bezugspersonen schaffen Vertrauen im Alltag.',
     answer:
-      'Wir planen auf möglichst verlässliche Bezugspersonen hin und sagen Ihnen Bescheid, '
-      + 'wenn sich etwas ändert. Urlaub und Krankheit gibt es überall — jede Pflegekraft, '
-      + 'die zu Ihnen kommt, kennt Ihre Situation aus der Pflegeplanung.',
+      'Wir planen darauf hin und sagen Ihnen Bescheid, wenn sich etwas ändert. Jede '
+      + 'Pflegekraft, die zu Ihnen kommt, kennt Ihre Situation aus der Pflegeplanung.',
   },
 ];
 

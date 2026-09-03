@@ -210,25 +210,46 @@ touch.
 
 ### Where each photograph sits, and why
 
-Eight positions, seven distinct scenes, one per page section — never the same
-picture twice. Each was chosen for the argument it stands beside, not for
-looking warm:
+Six placements from **three sittings**, and the small number is the point. An
+earlier version had seven unrelated scenes and read as a scatter of stock; a
+commissioned shoot gives a site one recurring cast, and using one sitting at
+several crops is the nearest a licensed set gets to that.
 
-| Position | Frame | Why this one |
-|---|---|---|
-| Home, hero | Care worker and an older woman laughing, living room | The emotional entry point, and the only eager image on the site |
-| Home, Klartext | Two women talking over coffee | The section is about being told things straight; the picture is a conversation |
-| Home, Ein Einsatz | A woman knitting in her chair | What the half hour is *for* |
-| Home, Haltung | An older man at a window, mid-sentence | A portrait, because the section is about individual judgement |
-| Ablauf | A woman with a cup, letterbox band | A calm beat before a long timeline; a tall image here would be more scrolling |
-| Leistungen | A care worker at a kitchen table with two people | A home kitchen, not a ward — the page is about home care |
-| Über uns | Second frame of the coffee conversation | Different frame, different page, different crop |
-| Karriere | A woman outdoors in a yard | The person you would have time for, not a posed team shot |
+| Position | Sitting | Crop | Why this one |
+|---|---|---|---|
+| Home, hero | Care worker + older woman, living room | 6:5 / 1:1 | The emotional entry point, and the only eager image on the site |
+| Home, Klartext | Two women talking over coffee | 3:2 | The section is about being told things straight; the picture is a conversation |
+| Home, Haltung | Kitchen, carer with two clients | 4:5 | "Wir planen nach Erfahrung" — a carer taking time, seen |
+| Leistungen | Same kitchen | 16:9 | A home kitchen, not a ward: the page is about care at home |
+| Über uns | Second frame of the coffee conversation | 3:2 | Different frame, different page, different crop |
+| Karriere | Same care worker as the hero, alone | 4:5 | Shows the work, to somebody deciding whether to do it |
 
-Two candidates were **rejected after being built**: one showed a day-centre
-lounge (institutional, and the page argues for home care), the other had
-another organisation's logo on a cap. Both are worth recording, because "it is
-from the right photographer" is not the same as "it is the right picture."
+**Five frames were rejected, and the reasons are worth keeping.** Two were cut
+before shipping: one showed a day-centre lounge (institutional, on a site whose
+whole proposition is that the client stays at home), the other carried another
+organisation's logo on a cap. Three more were cut after shipping, against a
+harder test — *does the picture show a care relationship?* An older man at a
+window and a woman knitting in her chair are dignified photographs of older
+people and say nothing about this business; the brief for a home-care site is
+not "elderly lifestyle". A woman with a cup in a hall with others behind her
+read as group care.
+
+They were removed rather than replaced because no better licensed frame was
+reachable at the time. Two sections lost their picture and did not get one
+back: a timeline and a step list, both of which are better without. **Fewer,
+correct pictures beat more, wrong ones**, and a section with no photograph is
+not a defect.
+
+### What only a real shoot can fix
+
+The instruction behind this set was "one coherent premium brand photoshoot,
+consistent cast, consistent interiors". That is a description of a commission,
+not of a stock library, and it should be said plainly: three sittings at six
+crops is the closest approximation available, not the thing itself. A day with
+a photographer in the client's actual working conditions would replace every
+image here and is the single largest remaining upgrade to the site's
+credibility. `scripts/build-images.mjs` is where they go; no page needs
+changing.
 
 ### The hero: an opaque panel, not a scrim
 

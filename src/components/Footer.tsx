@@ -97,7 +97,23 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/20 pt-6 text-sm text-white/75 sm:flex-row sm:items-center sm:justify-between">
+        {/* The symbolic-image disclosure, said once for the whole site.
+            It used to run under every photograph on every page — four times on
+            the home page alone — where repetition turned an honest note into a
+            tic that made the site read as a placeholder. Here it covers every
+            image, stays findable, and interrupts nothing. The full credit is
+            in the Impressum. */}
+        <p className="mt-10 border-t border-white/20 pt-6 text-sm text-white/70">
+          Die Fotografien auf dieser Website sind Symbolbilder aus einer
+          dokumentarischen Serie. Sie zeigen nicht unsere Mitarbeiterinnen und
+          Mitarbeiter, nicht unsere Klientinnen und Klienten und nicht unsere
+          Räume. Nachweis im{' '}
+          <Link href="/impressum" className="text-white/90 underline underline-offset-4">
+            Impressum
+          </Link>.
+        </p>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-white/20 pt-6 text-sm text-white/75 sm:flex-row sm:items-center sm:justify-between">
           <p className="m-0">
             {business.legalName} · Inhaber {business.ownerShort} · {business.approval}
           </p>

@@ -9,7 +9,6 @@ import { business } from '@/content/business';
 import { services } from '@/content/services';
 import { areas } from '@/content/areas';
 import { klartext, KLARTEXT_SOURCE, einsatz } from '@/content/klartext';
-import { PHOTO_CREDIT } from '@/content/photos';
 import { pageMeta } from '@/lib/seo';
 import { trackAttrs } from '@/lib/analytics';
 
@@ -106,8 +105,8 @@ export default function Home() {
                   names the services first, keeps the differentiator, and fits
                   in three. */}
               <p className="measure mt-3 text-lg text-ink sm:mt-5 sm:text-xl">
-                Pflege, Behandlungspflege und Betreuung bei Ihnen zu Hause. Sie wissen
-                vorher, wer kommt und was es kostet.
+                Pflege, Behandlungspflege und Betreuung in der vertrauten Umgebung —
+                mit klaren Absprachen und Kosten, die vorher feststehen.
               </p>
 
               {/* One primary action, and it is the consultation rather than the
@@ -187,8 +186,8 @@ export default function Home() {
           <div>
             <SectionHead
               eyebrow="Klartext"
-              title="Vier Fragen, die fast jede Familie stellt"
-              intro="Es sind die Fragen, die Verbraucherschützer am häufigsten aus der ambulanten Pflege hören. Hier stehen unsere Antworten darauf — konkret genug, dass Sie sie später überprüfen können."
+              title="Worauf Familien bei guter ambulanter Pflege achten"
+              intro="Vier Dinge, die in der ambulanten Pflege den Unterschied machen — und wie wir sie bei uns geregelt haben. Konkret genug, dass Sie es später überprüfen können."
             />
             <dl className="m-0">
               {klartext.map((k) => (
@@ -202,7 +201,7 @@ export default function Home() {
               ))}
             </dl>
             <p className="mt-7 text-sm text-ink-muted">
-              Grundlage der Fragen:{' '}
+              Grundlage:{' '}
               <a href={KLARTEXT_SOURCE.href} className="linkish" rel="noopener noreferrer" target="_blank">
                 {KLARTEXT_SOURCE.label}
                 <span className="sr-only"> (öffnet in neuem Tab)</span>
@@ -220,7 +219,6 @@ export default function Home() {
                 alt="Zwei ältere Frauen sitzen an einem Tisch bei Kaffee und sprechen miteinander."
               />
             </div>
-            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
           </figure>
         </div>
       </section>
@@ -253,21 +251,12 @@ export default function Home() {
           information, and it is the only way to show a claim about planning by
           real duration rather than by the minute list. */}
       <section className="section">
-        <div className="shell grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-          <figure className="figure m-0 self-start lg:sticky lg:top-28">
-            <div className="frame frame--plate">
-              <Photo
-                name="betreuung"
-                widths={[600, 900, 1400]}
-                ratio={3 / 2}
-                sizes="(min-width: 64rem) 30vw, 100vw"
-                alt="Eine ältere Frau strickt in ihrem Sessel und blickt zu jemandem auf, der neben ihr sitzt."
-              />
-            </div>
-            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
-          </figure>
-
-          <div>
+        {/* Held to a reading measure. When this section lost its photograph the
+            grid was left spanning the whole shell and the body text ran past
+            1,280px — a line nobody finishes. A section without an image needs a
+            width of its own, not the full page. */}
+        <div className="shell">
+          <div className="max-w-[54rem]">
             <SectionHead
               eyebrow="Ein Einsatz"
               title="Was in einer halben Stunde tatsächlich passiert."
@@ -354,18 +343,19 @@ export default function Home() {
             </Link>
           </div>
 
-          <figure className="figure m-0">
-            <div className="frame frame--plate">
-              <Photo
-                name="haltung"
-                widths={[480, 720, 1000]}
-                ratio={4 / 5}
-                sizes="(min-width: 64rem) 32vw, 100vw"
-                alt="Ein älterer Mann mit Brille sitzt am Fenster und blickt nach oben, während er spricht."
-              />
-            </div>
-            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
-          </figure>
+          {/* The same kitchen as the services page, cut portrait. One sitting,
+              two frames — a commissioned shoot works exactly this way, and it
+              is what stopped the set reading as five unrelated stock pictures. */}
+          <div className="frame frame--plate">
+            <Photo
+              name="haltung"
+              widths={[480, 720, 1000]}
+              ratio={4 / 5}
+              sizes="(min-width: 64rem) 32vw, 100vw"
+              alt="Eine Pflegekraft nimmt sich in einer Küche Zeit für eine ältere Frau am Tisch."
+            />
+          </div>
+
         </div>
       </section>
 

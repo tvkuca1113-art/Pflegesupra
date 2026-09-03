@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHeader, CtaBand, Breadcrumbs, SectionHead, EditorialImage, Callout } from '@/components/Blocks';
+import { PageHeader, CtaBand, Breadcrumbs, SectionHead, Callout } from '@/components/Blocks';
 import { IconCheck, IconArrow } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { business } from '@/content/business';
@@ -85,23 +85,10 @@ export default function AblaufPage() {
         intro="Die meisten Familien rufen an, wenn die Situation schon eskaliert ist — nach einem Sturz, einer Entlassung, einer Diagnose. Deshalb steht hier genau, was passiert und wann."
       />
 
-      {/* A letterbox band rather than a tall image. The page below is a
-          vertical timeline; a portrait picture at the top of a tall page is
-          just more scrolling before the content starts. */}
-      <div className="shell pt-10">
-        <EditorialImage
-          name="ablauf"
-          widths={[900, 1400, 1900]}
-          ratio={21 / 9}
-          sizes="(min-width: 80rem) 76rem, 100vw"
-          alt="Eine ältere Frau sitzt mit einer Tasse Kaffee in einem hellen Raum und hört jemandem zu."
-        />
-      </div>
-
       {/* The twenty-second version. Four lines, no detail, and it repeats
           nothing the detail below has to say differently — the summaries are
           the same sentences that lead each step. */}
-      <section className="section--tight">
+      <section className="section--tight pt-12">
         <div className="shell">
           <ol className="m-0 grid list-none gap-x-8 gap-y-5 p-0 border-t-2 border-line-strong pt-7 sm:grid-cols-2 lg:grid-cols-4">
             {phases.map((p) => (

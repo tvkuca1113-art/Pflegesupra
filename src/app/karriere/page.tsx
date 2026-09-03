@@ -1,10 +1,8 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import InquiryForm from '@/components/InquiryForm';
-import { PageHeader, Breadcrumbs, SectionHead } from '@/components/Blocks';
+import { PageHeader, Breadcrumbs, SectionHead, EditorialImage } from '@/components/Blocks';
 import { IconCheck, IconAlert } from '@/components/Icons';
-import Photo from '@/components/Photo';
-import { PHOTO_CREDIT } from '@/content/photos';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { business } from '@/content/business';
 
@@ -52,28 +50,39 @@ export default function KarrierePage() {
         intro="Wenn Sie den Beruf gelernt haben, um Menschen zu versorgen, und ihn ausüben, um eine Liste abzuarbeiten, dann liegt das nicht an Ihnen. Es liegt an der Planung."
       />
 
-      {/* One photograph on this page, and it is deliberately not a picture of
-          staff in uniform. The argument the page makes to a nurse is that the
-          planned time is the real time; the thing that time is FOR is the
-          person you visit. A posed team shot would illustrate the employer.
-          This illustrates the offer. */}
-      <section className="section--tight">
-        <div className="shell">
-          {/* Held to 44rem. At the full shell width a 3:2 frame became the
-              page's second hero and shouted down the argument it is meant to
-              support; a supporting image has to be scaled like one. */}
-          <figure className="figure m-0 max-w-[44rem]">
-            <div className="frame frame--plate">
-              <Photo
-                name="karriere"
-                widths={[600, 900]}
-                ratio={3 / 2}
-                sizes="(min-width: 46rem) 44rem, 100vw"
-                alt="Eine ältere Frau mit weißem Haar steht lächelnd auf einem Hof zwischen Steinhäusern."
-              />
-            </div>
-            <figcaption>{PHOTO_CREDIT.caption}</figcaption>
-          </figure>
+      {/* The one photograph on this page shows the work, not a workplace.
+          It replaces a portrait taken outdoors in a farmyard — a dignified
+          picture of an older person that told a prospective Pflegefachkraft
+          nothing about the job. This is the same caregiver as the home page's
+          opening image, cropped close: one recurring cast across the site,
+          which is what a commissioned shoot would give and what a scatter of
+          unrelated stock never does.
+
+          When real photographs of the team exist, this is the first place they
+          belong — the layout takes a 4:5 portrait and needs no other change. */}
+      <section className="section--tight pt-12">
+        <div className="shell grid items-center gap-x-14 gap-y-8 sm:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
+          <EditorialImage
+            name="pflegekraft"
+            widths={[480, 720, 1000]}
+            ratio={4 / 5}
+            plate
+            sizes="(min-width: 40rem) 20rem, 100vw"
+            alt="Eine Pflegekraft in blauer Arbeitskleidung beugt sich lächelnd zu einer Klientin hinunter."
+          />
+          <div>
+            <h2 className="text-2xl">Warum dieser Dienst gegründet wurde</h2>
+            <p className="mt-4 max-w-[52ch] text-lg text-ink-muted">
+              Touren, die nach realer Erfahrung geplant sind statt nach dem, was
+              rechnerisch gerade noch geht. Wenn eine Tour zu voll wird, lehnen wir sie
+              ab — das ist der Grund, aus dem dieser Dienst 2022 gegründet wurde.
+            </p>
+            <p className="mt-4 max-w-[52ch] text-ink-muted">
+              Details zu Gehalt, Umfang und Einsatzzeiten besprechen wir im Gespräch.
+              Eine Zahl auf einer Website, die im Gespräch dann doch anders aussieht,
+              hilft niemandem.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -83,7 +92,7 @@ export default function KarrierePage() {
             <SectionHead title="Was wir zusagen können" />
             <dl className="m-0 space-y-8">
               {promises.map((p) => (
-                <div key={p.t} className="border-t-4 border-sun pt-4">
+                <div key={p.t} className="border-t border-line pt-5 first:border-t-0 first:pt-0">
                   <dt className="text-xl font-bold text-brand-ink">{p.t}</dt>
                   <dd className="m-0 mt-2 text-ink-muted">{p.b}</dd>
                 </div>

@@ -3,7 +3,6 @@ import { business } from '@/content/business';
 import { IconPhone, IconArrow, IconChevron } from './Icons';
 import { trackAttrs } from '@/lib/analytics';
 import Photo from './Photo';
-import { PHOTO_CREDIT } from '@/content/photos';
 
 /** Page header. One H1 per page, always — the old site shipped two. */
 export function PageHeader({
@@ -48,7 +47,17 @@ export function EditorialImage({
   sizes: string;
   alt: string;
   plate?: boolean;
-  /** Overrides the standard symbolic-image note. Rarely needed. */
+  /**
+   * A caption, when the picture needs one. Deliberately NOT defaulted to the
+   * symbolic-image note any more.
+   *
+   * That note used to run under every photograph on every page — four times on
+   * the home page alone — and repetition turned an honest disclosure into a
+   * tic that made the whole site read as a placeholder. The disclosure has not
+   * been dropped: it is stated once in the footer, where it covers every image
+   * on the site, and in full in the Impressum. Said once, believed; said four
+   * times a page, it starts to look like an apology.
+   */
   caption?: string;
   className?: string;
 }) {
@@ -57,7 +66,7 @@ export function EditorialImage({
       <div className={`frame ${plate ? 'frame--plate' : ''}`}>
         <Photo name={name} widths={widths} ratio={ratio} sizes={sizes} alt={alt} />
       </div>
-      <figcaption>{caption ?? PHOTO_CREDIT.caption}</figcaption>
+      {caption ? <figcaption>{caption}</figcaption> : null}
     </figure>
   );
 }

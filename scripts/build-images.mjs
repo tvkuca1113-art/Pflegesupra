@@ -23,6 +23,23 @@
  * the subject stopped being legible; that is the failure this avoids. The
  * photographs are allowed to be photographs.
  *
+ * WHAT WAS REMOVED, and why it is a shorter list than it was.
+ *
+ * Three sittings were cut because they failed the test that matters: does the
+ * picture show a care relationship? An older man looking out of a window and a
+ * woman knitting in her chair are dignified photographs of older people, and
+ * neither says anything about this business — the brief for a home-care site
+ * is not "elderly lifestyle". A third, a woman with a cup in a hall with other
+ * people behind her, read as a day centre, which is the one setting an
+ * ambulatory service must not show: the entire proposition is that the client
+ * stays at home.
+ *
+ * They were removed rather than replaced because no better licensed frame was
+ * reachable at the time — the source was returning errors from every access
+ * path. Fewer, correct pictures beat more, wrong ones, and a section with no
+ * photograph is not a defect. Two of the sections that lost one are a timeline
+ * and a step list, which are better without.
+ *
  * Licensing: Unsplash Licence. Attribution is not required by the licence but
  * is given anyway, in /impressum.
  *
@@ -60,6 +77,12 @@ const SOURCES = [
       // faces near its edges; a 4:5 crop takes only 57% of the width and
       // sliced both of them off. A square takes 71% and keeps them.
       { name: 'hero-tall', ratio: 1, widths: [560, 840, 1120], focus: { x: 0.5, y: 0.44 } },
+      /* The caregiver alone, tight, for the careers page. Same frame as the
+         hero — which is the point rather than a compromise. A commissioned
+         shoot gives a site one recurring cast; using one sitting at three
+         different crops is the nearest a licensed set gets to that, and it
+         reads as far more coherent than five unrelated scenes did. */
+      { name: 'pflegekraft', ratio: 4 / 5, widths: [480, 720, 1000], focus: { x: 0.27, y: 0.44 } },
     ],
   },
   {
@@ -70,50 +93,18 @@ const SOURCES = [
     crops: [{ name: 'beratung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.56, y: 0.45 } }],
   },
   {
-    key: 'portraet',
-    id: '9btZIUYqssE',
-    credit: 'Jon Pountney für Age Cymru',
-    url: 'https://images.unsplash.com/photo-1750853733363-d8f3984c5350?fm=jpg&q=92&w=2400',
-    crops: [{ name: 'haltung', ratio: 4 / 5, widths: [480, 720, 1000], focus: { x: 0.42, y: 0.42 } }],
-  },
-  {
-    key: 'karriere',
-    id: 'esdpHuwX8ZI',
-    credit: 'Jon Pountney für Age Cymru',
-    url: 'https://images.unsplash.com/photo-1781002220057-a56f0df3c49f?fm=jpg&q=92&w=2400',
-    crops: [{ name: 'karriere', ratio: 3 / 2, widths: [600, 900], focus: { x: 0.52, y: 0.44 } }],
-  },
-  {
-    // The second frame of the same sitting as `beratung`. Used on a different
-    // page, at a different crop — a repeat of the setting, not of the picture.
-    key: 'gespraech',
-    id: 'krSBI6OVRLM',
-    credit: 'Jon Pountney für Age Cymru',
-    url: 'https://images.unsplash.com/photo-1685608625836-7b081c676483?fm=jpg&q=92&w=2400',
-    crops: [{ name: 'ueber-uns', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.52, y: 0.46 } }],
-  },
-  {
     key: 'kueche',
     id: 'bSXk1lOp8T0',
     credit: 'Jon Pountney für Age Cymru',
     url: 'https://images.unsplash.com/photo-1762955911431-4c44c7c3f408?fm=jpg&q=92&w=2400',
-    crops: [{ name: 'leistungen', ratio: 16 / 9, widths: [900, 1400, 1900], focus: { x: 0.52, y: 0.45 } }],
-  },
-  {
-    key: 'kaffee',
-    id: 'E9IvdAYIk4w',
-    credit: 'Jon Pountney für Age Cymru',
-    url: 'https://images.unsplash.com/photo-1751977979157-133aa5d65420?fm=jpg&q=92&w=2400',
-    // A letterbox band. The page below it is a vertical timeline, and a tall
-    // image at the top of a tall page would just be more scrolling.
-    crops: [{ name: 'ablauf', ratio: 21 / 9, widths: [900, 1400, 1900], focus: { x: 0.42, y: 0.5 } }],
-  },
-  {
-    key: 'stricken',
-    id: 'vEbfPVpp_jE',
-    credit: 'Jon Pountney für Age Cymru',
-    url: 'https://images.unsplash.com/photo-1762955911235-adeb8838dcf1?fm=jpg&q=92&w=2400',
-    crops: [{ name: 'betreuung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.4 } }],
+    crops: [
+      { name: 'leistungen', ratio: 16 / 9, widths: [900, 1400, 1900], focus: { x: 0.52, y: 0.45 } },
+      /* A portrait cut of the same kitchen, for the home page's argument about
+         planning by what a task actually takes. Same sitting as the services
+         page, a different frame of it — which is how one shoot supplies a
+         whole site, and why the set now reads as one brand rather than five. */
+      { name: 'haltung', ratio: 4 / 5, widths: [480, 720, 1000], focus: { x: 0.58, y: 0.46 } },
+    ],
   },
 ];
 
