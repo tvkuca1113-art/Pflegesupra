@@ -2,16 +2,16 @@
  * Builds the photographic set from the client's approved originals.
  *
  * WHERE THE PICTURES COME FROM NOW. Seven photographs supplied and approved by
- * the client, stored as JPEG masters in assets/photos/. They arrive already
- * branded — the Supra logo is on the uniforms in the supplied files — so this
- * script only crops and encodes. Nothing here retouches a photograph.
+ * the client, stored as JPEG masters in assets/photos/, all seven of them
+ * 1448x1086. They arrive already branded — the Supra logo is on the uniforms in
+ * the supplied files — so this script only crops and encodes. Nothing here
+ * retouches a photograph, draws a logo or alters a person.
  *
- * Five of the seven are the client's final 1448x1086 files. Two —
- * `hauswirtschaft` and `karriere` — are still the earlier 1672x941 masters with
- * the logo composited by scripts/brand-photos.mjs, because the client's final
- * versions of those two have not arrived yet. That script is retained for that
- * reason alone and is NOT part of this pipeline; when the last two finals land,
- * they drop into assets/photos/ and the script goes. Every earlier source — the Age Cymru
+ * There was an interim state where the site composited the logo itself, in
+ * scripts/brand-photos.mjs, because the supplied frames carried an illegible
+ * generated emblem. That script has been deleted along with the masters it
+ * produced: every uniform on the site now carries the logo the client
+ * photographed, not one this repository drew. Every earlier source — the Age Cymru
  * documentary series, the Centre for Ageing Better library, Dominik Lange's
  * photograph — has been removed from the site entirely, files included.
  *
@@ -132,7 +132,7 @@ const SOURCES = [
     /* IMAGE 06 — Hauswirtschaft. Shopping being put away together. Explicitly
        not a cleaning company: no bucket, no mop, no spray bottle. */
     file: 'hauswirtschaft.jpg',
-    crops: [{ name: 'hauswirtschaft', ratio: 16 / 9, widths: [600, 900, 1400, 1672], focus: { x: 0.5, y: 0.5 } }],
+    crops: [{ name: 'hauswirtschaft', ratio: 16 / 9, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.46 } }],
   },
   {
     /* IMAGE 07 — Karriere. Two colleagues checking the round on a tablet in a
@@ -140,7 +140,7 @@ const SOURCES = [
        nurse picture the working day, and this is the working day: the corridor
        before the first visit, with someone to check it with. */
     file: 'karriere.jpg',
-    crops: [{ name: 'karriere', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.48 } }],
+    crops: [{ name: 'karriere', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.46 } }],
   },
 ];
 
