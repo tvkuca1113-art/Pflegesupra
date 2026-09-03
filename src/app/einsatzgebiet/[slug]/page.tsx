@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { PageHeader, CtaBand, Breadcrumbs, SectionHead, Source } from '@/components/Blocks';
+import { PageHeader, CtaBand, Breadcrumbs, SectionHead, Source, ProcessStrip } from '@/components/Blocks';
+import FaqList from '@/components/FaqList';
+import { faq } from '@/content/faq';
 import { IconPin, IconPhone, IconMail, IconClock, IconExternal, IconArrow } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { areas, areaBySlug } from '@/content/areas';
@@ -51,13 +53,13 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
                 {business.phone.display}
               </a>
               <Link href="/kontakt" className="btn btn--secondary">
-                Adresse prüfen lassen <IconArrow />
+                Pflege in {a.city} anfragen <IconArrow />
               </Link>
             </div>
 
             <div className="mt-12 space-y-9">
               {a.localNotes.map((n) => (
-                <div key={n.heading} className="border-t-4 border-sun pt-4">
+                <div key={n.heading} className="border-t border-line pt-5 first:border-t-0 first:pt-0">
                   <h2 className="text-xl">{n.heading}</h2>
                   <p className="measure mt-2 text-ink-muted">{n.body}</p>
                 </div>
@@ -135,7 +137,7 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
           <SectionHead title={`Leistungen in ${a.city}`} />
           <ul className="m-0 grid list-none gap-x-8 gap-y-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
-              <li key={s.slug} className="border-t-4 border-line pt-3">
+              <li key={s.slug} className="border-t-2 border-line-strong pt-3">
                 <Link href={`/leistungen/${s.slug}`} className="inline-block py-1 font-bold text-brand no-underline">
                   {s.name}
                 </Link>
@@ -146,6 +148,33 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
           <p className="mt-9">
             <Link href={`/einsatzgebiet/${other.slug}`} className="linkish inline-block py-1 font-bold">
               Auch in {other.city} sind wir vor Ort
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* Everything a visitor who landed here from a search needs before
+          deciding: what happens after the call, and the questions they would
+          otherwise leave to look up. Neither should require a trip to another
+          page. */}
+      <section className="section">
+        <div className="shell">
+          <ProcessStrip />
+        </div>
+      </section>
+
+      <section className="section section--paper" aria-labelledby="lokale-fragen">
+        <div className="shell">
+          <SectionHead
+            as="h2"
+            title="Häufige Fragen zum Start"
+          />
+          <div className="max-w-[62rem]">
+            <FaqList items={faq.filter((f) => ['erster-schritt', 'ohne-pflegegrad', 'kosten-vorstrecken', 'wer-kommt'].includes(f.id))} />
+          </div>
+          <p className="mt-7">
+            <Link href="/fragen-und-antworten" className="linkish inline-block py-1 font-bold">
+              Alle Fragen und Antworten
             </Link>
           </p>
         </div>

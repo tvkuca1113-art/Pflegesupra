@@ -91,7 +91,7 @@ export const areas: Area[] = [
     },
     localNotes: [
       {
-        heading: 'Ländliche Wege, feste Zeiten',
+        heading: 'Ländliche Wege, abgestimmte Zeiten',
         body:
           'Auf dem Land sind Fahrzeiten der eigentliche Engpass. Wir planen Touren geografisch, damit die Zeit bei Ihnen ankommt und nicht auf der Straße bleibt — und damit Sie wissen, wann jemand vor der Tür steht.',
       },

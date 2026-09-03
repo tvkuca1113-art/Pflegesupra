@@ -44,23 +44,41 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <Breadcrumbs trail={trail} />
       <PageHeader eyebrow={s.legalBasis} title={s.name} intro={s.promise} />
 
-      {/* The three questions a reader has before any description: who pays,
-          do I qualify, what do I actually get. Answered before the prose. */}
+      {/* The questions a reader has before any description: what IS this in
+          plain German, who pays, do I qualify, and how do I start. Answered
+          above the prose, because a page that leads with a paragraph makes the
+          reader work for what they came for.
+
+          The plain-language line under the paragraph reference is the point of
+          the block. "§37 SGB V" tells a worried relative nothing; the sentence
+          under it tells them everything they needed. */}
       <section className="section--tight border-b border-line">
-        <dl className="shell m-0 grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
-          <div className="bg-surface p-5">
-            <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
-              Wer bezahlt
-            </dt>
-            <dd className="m-0 mt-1.5 text-lg">{s.payer}</dd>
-          </div>
-          <div className="bg-surface p-5">
-            <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
-              Voraussetzung
-            </dt>
-            <dd className="m-0 mt-1.5 text-lg">{s.eligibility}</dd>
-          </div>
-        </dl>
+        <div className="shell">
+          <p className="max-w-[62ch] text-lg text-ink">{s.plainLaw}</p>
+          <dl className="m-0 mt-7 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
+            <div className="bg-surface p-5">
+              <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
+                Wer bezahlt
+              </dt>
+              <dd className="m-0 mt-1.5">{s.payer}</dd>
+            </div>
+            <div className="bg-surface p-5">
+              <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
+                Voraussetzung
+              </dt>
+              <dd className="m-0 mt-1.5">{s.eligibility}</dd>
+            </div>
+            <div className="bg-surface p-5">
+              <dt className="text-sm font-bold uppercase tracking-[0.07em] text-ink-accent">
+                So fangen Sie an
+              </dt>
+              <dd className="m-0 mt-1.5">
+                Ein Anruf. Den Rest — Antrag, Verordnung, Abstimmung mit der Kasse —
+                übernehmen wir mit Ihnen.
+              </dd>
+            </div>
+          </dl>
+        </div>
       </section>
 
       <section className="section">
@@ -117,7 +135,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           />
           <ul className="m-0 grid list-none gap-x-8 gap-y-6 p-0 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((o) => (
-              <li key={o.slug} className="border-t-4 border-line pt-3">
+              <li key={o.slug} className="border-t-2 border-line-strong pt-3">
                 <Link href={`/leistungen/${o.slug}`} className="inline-block py-1 font-bold text-brand no-underline">
                   {o.name}
                 </Link>
@@ -129,8 +147,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </section>
 
       <CtaBand
-        title={`${s.name} — passt das zu Ihrer Situation?`}
-        body="Im Erstgespräch klären wir das konkret an Ihrem Fall, kostenlos und ohne dass Sie sich zu etwas verpflichten."
+        title={`Sind Sie unsicher, ob ${s.name} das Richtige ist?`}
+        body="Das müssen Sie nicht selbst entscheiden. Sagen Sie uns, was im Alltag nicht mehr geht — die Zuordnung ist unsere Aufgabe. Das Erstgespräch kostet nichts und verpflichtet zu nichts."
       />
     </>
   );

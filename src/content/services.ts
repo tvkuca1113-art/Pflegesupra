@@ -18,6 +18,15 @@ export interface Service {
   /** One sentence a worried relative can understand on first read. */
   promise: string;
   legalBasis: string;
+  /**
+   * The legal reference in plain German, shown directly under it.
+   *
+   * A page that writes "§37 SGB V" and moves on has told a worried relative
+   * nothing. Every paragraph on this site is followed by what it actually
+   * covers, in a sentence someone can read once — that is what "transparent"
+   * has to mean in practice, rather than as an adjective.
+   */
+  plainLaw: string;
   payer: string;
   /** Answers "does this apply to me?" before anything else. */
   eligibility: string;
@@ -37,6 +46,8 @@ export const services: Service[] = [
     promise:
       'Hilfe bei allem, was den Körper betrifft — so viel wie nötig, so wenig wie möglich, damit Selbständigkeit erhalten bleibt.',
     legalBasis: 'Körperbezogene Pflegemaßnahmen nach §36 SGB XI',
+    plainLaw:
+      'Damit ist die Hilfe am Körper gemeint: Waschen, Anziehen, Aufstehen, Essen und Trinken. Die Pflegekasse zahlt sie aus dem monatlichen Budget Ihres Pflegegrades.',
     payer: 'Pflegekasse, im Rahmen des Sachleistungsbudgets Ihres Pflegegrades',
     eligibility: 'Ab Pflegegrad 2. Bei Pflegegrad 1 sind körperbezogene Maßnahmen über das Sachleistungsbudget nicht abgedeckt.',
     includes: [
@@ -62,6 +73,8 @@ export const services: Service[] = [
     promise:
       'Ärztlich verordnete Maßnahmen werden bei Ihnen zu Hause durchgeführt — Sie müssen dafür nicht in die Praxis.',
     legalBasis: 'Häusliche Krankenpflege nach §37 SGB V',
+    plainLaw:
+      'Das sind ärztlich verordnete Leistungen zu Hause — zum Beispiel Medikamentengabe, Injektionen oder Verbandwechsel. Sie laufen über die Krankenkasse und setzen keinen Pflegegrad voraus.',
     payer: 'Krankenkasse, nach Genehmigung der ärztlichen Verordnung',
     eligibility:
       'Unabhängig vom Pflegegrad. Voraussetzung ist eine Verordnung häuslicher Krankenpflege (Muster 12) von Ihrer Ärztin oder Ihrem Arzt.',
@@ -84,6 +97,8 @@ export const services: Service[] = [
     promise:
       'Zeit für den Menschen, nicht nur für die Pflege — und eine Atempause für die Angehörigen, die sonst alles allein tragen.',
     legalBasis: 'Entlastungsbetrag nach §45b SGB XI',
+    plainLaw:
+      'Zeit für Gespräch, Begleitung und Beschäftigung. Dafür gibt es einen eigenen Betrag von 131 € im Monat, unabhängig vom Sachleistungsbudget — er gilt ab Pflegegrad 1.',
     payer: 'Pflegekasse, bis zu 131 € monatlich',
     eligibility:
       'Ab Pflegegrad 1. Ab Pflegegrad 2 gilt: über den Entlastungsbetrag sind keine körperbezogenen Pflegemaßnahmen abrechenbar.',
@@ -105,6 +120,8 @@ export const services: Service[] = [
     promise:
       'Ein Haushalt, der weiterläuft, auch wenn das Bücken, Tragen oder Stehen nicht mehr geht.',
     legalBasis: 'Hauswirtschaftliche Versorgung nach §36 SGB XI, alternativ über §45b SGB XI',
+    plainLaw:
+      'Unterstützung im Haushalt: Einkaufen, Kochen, Reinigen, Wäsche. Sie kann aus dem Sachleistungsbudget oder aus dem Entlastungsbetrag bezahlt werden.',
     payer: 'Pflegekasse — über das Sachleistungsbudget oder den Entlastungsbetrag',
     eligibility:
       'Über den Entlastungsbetrag ab Pflegegrad 1, über das Sachleistungsbudget ab Pflegegrad 2.',
@@ -126,6 +143,8 @@ export const services: Service[] = [
     promise:
       'Wenn die Person, die sonst pflegt, ausfällt oder Urlaub braucht, übernehmen wir — stunden- oder wochenweise.',
     legalBasis: 'Verhinderungspflege nach §39 SGB XI, seit 01.07.2025 aus dem gemeinsamen Jahresbetrag',
+    plainLaw:
+      'Wenn die Person, die sonst pflegt, ausfällt oder Urlaub braucht, übernehmen wir vorübergehend. Dafür gibt es einen gemeinsamen Jahresbetrag mit der Kurzzeitpflege.',
     payer:
       'Pflegekasse, aus dem gemeinsamen Jahresbetrag für Verhinderungs- und Kurzzeitpflege von bis zu 3.539 € pro Kalenderjahr',
     eligibility:

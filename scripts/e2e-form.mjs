@@ -44,7 +44,7 @@ const b = await chromium.launch({
   check('Kompass maps needs to services',
     shown.includes('Grundpflege') && shown.includes('Hauswirtschaftliche Versorgung'));
 
-  await p.getByRole('link', { name: /Kostenlose Beratung anfragen/ }).click();
+  await p.getByRole('link', { name: /Ergebnis besprechen/ }).click();
   await p.waitForURL(/\/kontakt\?/);
   const url = new URL(p.url());
   check('Kompass answers travel to the form',

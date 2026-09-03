@@ -64,7 +64,7 @@ const phases = [
   {
     n: 4,
     t: 'Pflegevertrag und Start',
-    when: 'Start meist innerhalb weniger Tage',
+    when: 'Startdatum stimmen wir gemeinsam ab',
     summary: 'Der Vertrag hält Leistungen, Zeiten und Kosten fest — danach beginnt die Versorgung.',
     body: [
       'Der Pflegevertrag hält fest, welche Leistungen zu welchen Zeiten erbracht werden und was sie kosten. Erst danach beginnt die Versorgung.',

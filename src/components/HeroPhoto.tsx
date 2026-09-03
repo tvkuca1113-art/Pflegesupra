@@ -6,8 +6,8 @@ const DESK = '(min-width: 64rem)';
 /**
  * The opening photograph, art-directed.
  *
- * Two different crops of the same frame: a square on phones, 16:10 from the
- * laptop breakpoint up. They are served from ONE <picture> with media-scoped
+ * Two different crops of the same frame: a square on phones, 6:5 from the
+ * laptop breakpoint up — both chosen to match the box they land in. They are served from ONE <picture> with media-scoped
  * <source> elements rather than two <img> tags in `hidden`/`lg:block`
  * wrappers, because an <img> inside a display:none container is still
  * downloaded — measured on this site, twice. A media attribute on <source> is
@@ -22,8 +22,8 @@ export default function HeroPhoto() {
 
   return (
     <picture className="block h-full w-full">
-      <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [1200, 1800, 2400])} sizes="54vw" />
-      <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [1200, 1800, 2400])} sizes="54vw" />
+      <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [900, 1300, 1800])} sizes="54vw" />
+      <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [900, 1300, 1800])} sizes="54vw" />
       <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [560, 840, 1120])} sizes="100vw" />
       <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [560, 840, 1120])} sizes="100vw" />
       <img

@@ -50,7 +50,12 @@ const SOURCES = [
     credit: 'Jon Pountney für Age Cymru',
     url: 'https://images.unsplash.com/photo-1765896387387-0538bc9f997e?fm=jpg&q=92&w=2400',
     crops: [
-      { name: 'hero-wide', ratio: 16 / 10, widths: [1200, 1800, 2400], focus: { x: 0.5, y: 0.42 } },
+      /* 6:5, not 16:10. From the laptop breakpoint the picture fills a panel
+         that is 54% of the viewport wide and as tall as the hero copy — about
+         777x760 at 1440px, so very nearly square. A 16:10 crop dropped into
+         that box lost a third of its width to object-cover and cut the second
+         face off at the frame edge. Match the crop to the container, again. */
+      { name: 'hero-wide', ratio: 6 / 5, widths: [900, 1300, 1800], focus: { x: 0.5, y: 0.44 } },
       // 1:1 on phones, not 4:5. The source frame is 1.41:1 and holds two
       // faces near its edges; a 4:5 crop takes only 57% of the width and
       // sliced both of them off. A square takes 71% and keeps them.

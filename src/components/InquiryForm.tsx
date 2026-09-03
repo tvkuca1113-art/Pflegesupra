@@ -149,8 +149,13 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
           {isJob ? 'Ihre Bewerbung ist angekommen.' : 'Ihre Anfrage ist angekommen.'}
         </h2>
         <p className="measure mt-3 text-ink">
-          Wir melden uns bei Ihnen. Wenn es dringend ist, rufen Sie bitte direkt an — das
-          geht immer schneller als jedes Formular.
+          {isJob
+            ? 'Wir sehen sie uns an und melden uns bei Ihnen — auch dann, wenn es gerade nicht passt.'
+            : 'Als Nächstes rufen wir Sie an und besprechen unverbindlich Ihre Situation: was gebraucht wird, welche Leistungen infrage kommen und was die Kassen davon tragen. Ein Termin oder eine Unterschrift entsteht daraus noch nicht.'}
+        </p>
+        <p className="measure mt-3 text-ink-muted">
+          Wenn es dringend ist, rufen Sie bitte direkt an — das geht schneller als jedes
+          Formular.
         </p>
         <a href={business.phone.href} className="btn btn--primary mt-5">
           <IconPhone />
@@ -311,7 +316,7 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
 
       <div className="field">
         <label className="field__label" htmlFor={`${uid}-${isJob ? 'position' : 'topic'}`}>
-          {isJob ? 'Worauf bewerben Sie sich?' : 'Worum geht es?'}
+          {isJob ? 'Worauf bewerben Sie sich?' : 'Wobei benötigen Sie Unterstützung?'}
         </label>
         <select
           id={`${uid}-${isJob ? 'position' : 'topic'}`}

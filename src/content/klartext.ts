@@ -1,5 +1,5 @@
 /**
- * KLARTEXT — the four fears, and what this service does about each.
+ * KLARTEXT — the four questions families arrive with, and the answers.
  *
  * This is not copywriting. Every fear below is a documented, recurring
  * complaint about ambulante Pflegedienste, taken from the Verbraucherzentrale's
@@ -14,10 +14,20 @@
  * work out whether they are about to be taken advantage of at the worst
  * moment of their family's life, and they have no way to check.
  *
- * So the site names the fears out loud, in the visitor's words, before
- * answering them. A competitor's page says "Vertrauen und Qualität". This one
- * says "Leistungen, die nie erbracht wurden, stehen auf der Rechnung" — and
- * then says exactly what happens here instead.
+ * The section went through two versions, and the second one matters.
+ *
+ * The first phrased each item as an accusation — "Auf der Rechnung stehen
+ * Leistungen, die nie erbracht wurden." Every sentence was accurate and
+ * sourced, and the section still read as an attack on the rest of the sector.
+ * A family choosing a care provider under pressure does not need to be made
+ * more afraid; making the fear vivid and then offering yourself as the cure is
+ * a sales technique, and a visitor can feel it even when the facts are true.
+ *
+ * So the items are now the QUESTIONS people actually ask, phrased neutrally,
+ * each answered with something specific and checkable that Supra does. Same
+ * research, same specificity, no accusation. "Woher weiß ich, dass wirklich
+ * geleistet wurde, was auf der Rechnung steht?" carries every bit of the
+ * original's usefulness and none of its aggression.
  *
  * Every answer below is a commitment the client can actually keep with the
  * staff and systems they have. Nothing here asserts a certificate, a rating,
@@ -25,7 +35,7 @@
  */
 
 export type Klartext = {
-  /** The fear, phrased the way people phrase it to each other. */
+  /** The question, phrased the way a family member would ask it. */
   fear: string;
   /** What is actually done about it. Concrete, checkable, no adjectives. */
   answer: string;
@@ -33,32 +43,30 @@ export type Klartext = {
 
 export const klartext: Klartext[] = [
   {
-    fear: 'Auf der Rechnung stehen Leistungen, die nie erbracht wurden.',
+    fear: 'Woher weiß ich, dass wirklich geleistet wurde, was auf der Rechnung steht?',
     answer:
-      'Sie unterschreiben den Leistungsnachweis erst, wenn der Einsatz vorbei ist — '
-      + 'nie vorher, auch nicht „der Einfachheit halber“. Was nicht stattgefunden hat, '
-      + 'wird nicht abgerechnet.',
+      'Sie unterschreiben den Leistungsnachweis nach dem Einsatz, nicht vorher. So können '
+      + 'Sie jederzeit nachvollziehen, was erbracht und was abgerechnet wurde.',
   },
   {
-    fear: 'Vorher sagt niemand, was das Ganze am Ende kostet.',
+    fear: 'Was kostet uns das am Ende wirklich?',
     answer:
       'Nach dem Erstgespräch bekommen Sie schriftlich, welche Leistungen Ihr Pflegegrad '
       + 'deckt und was — falls überhaupt etwas — privat bliebe. Vor der Unterschrift, '
       + 'nicht mit der ersten Rechnung.',
   },
   {
-    fear: 'Wenn etwas ist, erreicht man niemanden.',
+    fear: 'An wen wende ich mich, wenn etwas ist?',
     answer:
-      'Während der Bürozeiten geht jemand ans Telefon, der Ihre Situation kennt, und '
-      + 'nicht eine Zentrale. Außerhalb sind unsere Pflegekräfte im Einsatz erreichbar — '
-      + 'wir sagen Ihnen beim Erstgespräch, wie.',
+      'Während der Bürozeiten erreichen Sie jemanden, der Ihre Versorgung kennt. Wie Sie '
+      + 'uns außerhalb dieser Zeiten erreichen, besprechen wir im Erstgespräch.',
   },
   {
-    fear: 'Jede Woche steht jemand anderes vor der Tür.',
+    fear: 'Steht jede Woche jemand anderes vor der Tür?',
     answer:
-      'Wir planen feste Zeiten und so wenige wechselnde Gesichter wie der Dienstplan '
-      + 'zulässt. Das ist keine Garantie — Krankheit und Urlaub gibt es hier wie überall. '
-      + 'Es ist der Grund, aus dem wir eine Tour lieber ablehnen, als sie zu überfüllen.',
+      'Wir planen auf möglichst verlässliche Bezugspersonen hin und sagen Ihnen Bescheid, '
+      + 'wenn sich etwas ändert. Urlaub und Krankheit gibt es überall — jede Pflegekraft, '
+      + 'die zu Ihnen kommt, kennt Ihre Situation aus der Pflegeplanung.',
   },
 ];
 

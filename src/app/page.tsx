@@ -11,6 +11,7 @@ import { areas } from '@/content/areas';
 import { klartext, KLARTEXT_SOURCE, einsatz } from '@/content/klartext';
 import { PHOTO_CREDIT } from '@/content/photos';
 import { pageMeta } from '@/lib/seo';
+import { trackAttrs } from '@/lib/analytics';
 
 export const metadata: Metadata = pageMeta({
   title: 'Ambulanter Pflegedienst München & Pfaffenhofen a.d. Ilm',
@@ -33,7 +34,7 @@ const steps = [
   { n: 1, t: 'Sie rufen an', b: 'Ein Gespräch, in dem wir zuhören statt zu verkaufen. Wir klären, was gebraucht wird und ob wir Ihre Adresse anfahren können.' },
   { n: 2, t: 'Wir kommen vorbei', b: 'Kostenloses Erstgespräch bei Ihnen zu Hause. Wir sehen die Wohnung, die Situation und die Menschen — das geht am Telefon nicht.' },
   { n: 3, t: 'Wir klären die Kasse', b: 'Wir sagen Ihnen, welche Leistungen Ihr Pflegegrad abdeckt, was die Verordnung enthalten muss und was privat bliebe. Schriftlich, vorher.' },
-  { n: 4, t: 'Die Pflege beginnt', b: 'Feste Zeiten, möglichst wenige wechselnde Gesichter, und jede Pflegekraft kennt Ihre Situation, bevor sie klingelt.' },
+  { n: 4, t: 'Die Pflege beginnt', b: 'Besuchszeiten stimmen wir mit Ihnen ab, damit Sie wissen, womit Sie rechnen können. Jede Pflegekraft kennt Ihre Situation, bevor sie klingelt.' },
 ];
 
 export default function Home() {
@@ -65,45 +66,90 @@ export default function Home() {
             fold — the photograph would have been the whole first screen and
             the call button would have been a scroll away. 44vh keeps both
             faces and still leaves room to act. */}
-        <div className="h-[44vh] min-h-[15rem] max-h-[24rem] overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:max-h-none lg:w-[54%]">
+        <div className="h-[34vh] min-h-[12rem] max-h-[20rem] overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:max-h-none lg:w-[54%]">
           <HeroPhoto />
         </div>
 
         <div className="shell relative">
           <div className="lg:pr-[52%]">
-            <div className="-mt-12 border-t-4 border-sun bg-page px-5 pb-10 pt-6 sm:-mt-20 sm:px-8 sm:pb-12 sm:pt-9 lg:mt-0 lg:border-0 lg:px-0 lg:py-20 xl:py-24">
+            <div className="-mt-12 border-t-4 border-sun bg-page px-5 pb-8 pt-5 sm:-mt-20 sm:px-8 sm:pb-12 sm:pt-9 lg:mt-0 lg:border-0 lg:px-0 lg:py-20 xl:py-24">
               <p className="eyebrow">Ambulanter Pflegedienst</p>
               {/* No non-breaking spaces anywhere in this headline: they glued
                   "Pfaffenhofen a.d. Ilm." into one unbreakable 22-character
                   token that clipped on a 320px screen. */}
-              {/* Sized down a step on phones. At --text-5xl this 52-character
-                  German string set four lines and buried the buttons; the
-                  display size only earns its keep where the line can hold
-                  more than three words. */}
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl">
-                Pflege zu Hause in München und Pfaffenhofen a.d. Ilm.
+              {/* Two steps down on phones, not one. The display size only
+                  earns its keep where a line holds more than three words, and
+                  every pixel it takes on a 390px screen pushes the primary
+                  button under the sticky action bar — which is the one place a
+                  call to action must never be.
+
+                  The headline also drops "a.d. Ilm", which cost a whole fourth
+                  line on a 360px screen for a suffix nobody searches. The full
+                  official name stays in the lead sentence directly below, in
+                  the page title, in the meta description and on every location
+                  page, so nothing is lost for local search.
+
+                  On a 360px screen the button still falls just under the fold.
+                  That is where the tuning stops: the sticky bar at the bottom
+                  of the screen carries the same two actions at all times, and
+                  shrinking the headline and the photograph any further to win
+                  one button on the smallest handset costs the design more than
+                  it gains. Page content clears the bar via the footer's bottom
+                  padding, so nothing is ever permanently hidden behind it. */}
+              <h1 className="text-3xl sm:text-5xl xl:text-6xl">
+                Pflege zu Hause in München und Pfaffenhofen.
               </h1>
-              {/* The lead does the work the research says it has to do. The
-                  fear families arrive with is not bad care — it is not
-                  knowing. So the first sentence on the site is about knowing. */}
-              <p className="measure mt-4 text-lg text-ink sm:mt-5 sm:text-xl">
-                Sie wissen vorher, wer kommt, wann er kommt und was es kostet.
-                Das ist seltener, als es sein sollte.
+              {/* Says WHAT before it says why. The previous lead opened on the
+                  differentiator and closed with "Das ist seltener, als es sein
+                  sollte" — a swipe at the rest of the sector in the second
+                  sentence a visitor reads, and four lines on a phone. This one
+                  names the services first, keeps the differentiator, and fits
+                  in three. */}
+              <p className="measure mt-3 text-lg text-ink sm:mt-5 sm:text-xl">
+                Pflege, Behandlungspflege und Betreuung bei Ihnen zu Hause. Sie wissen
+                vorher, wer kommt und was es kostet.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a href={business.phone.href} className="btn btn--primary text-lg">
+              {/* One primary action, and it is the consultation rather than the
+                  phone number. Two filled buttons of equal weight make the
+                  visitor choose before they have decided anything; a single
+                  filled button decides for them. The number keeps a strong
+                  secondary treatment here and is the FILLED action in the
+                  mobile bar at the bottom of the screen, so a high-intent
+                  caller on a phone is still one tap away. */}
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link
+                  href="/kontakt"
+                  className="btn btn--primary text-lg"
+                  {...trackAttrs('primary_cta_click', { placement: 'hero', label: 'Beratung' })}
+                >
+                  Kostenlos beraten lassen <IconArrow />
+                </Link>
+                <a
+                  href={business.phone.href}
+                  className="btn btn--secondary text-lg"
+                  {...trackAttrs('phone_click', { placement: 'hero' })}
+                >
                   <IconPhone />
                   {business.phone.display}
                 </a>
-                <Link href="/kontakt" className="btn btn--secondary">
-                  Rückruf anfordern <IconArrow />
-                </Link>
               </div>
-              <p className="mt-4 text-sm text-ink-muted">
-                Büro {business.officeHours.days}, {business.officeHours.from}–{business.officeHours.to} Uhr.
-                Ein Erstgespräch kostet Sie nichts.
-              </p>
+              {/* Reassurance next to the button, not three sections below it.
+                  The two things that stop a family from making contact are
+                  "will this commit me to something" and "do I need to know
+                  what I am asking for first". Both are answered here. */}
+              <ul className="mt-5 m-0 flex list-none flex-wrap gap-x-6 gap-y-2 p-0 text-sm text-ink-muted">
+                {[
+                  'Unverbindlich und kostenlos',
+                  'Sie müssen noch nicht wissen, welche Leistung Sie brauchen',
+                  `Büro ${business.officeHours.days}, ${business.officeHours.from}–${business.officeHours.to} Uhr`,
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-2">
+                    <IconCheck className="mt-0.5 flex-none text-brand" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -127,29 +173,27 @@ export default function Home() {
       </section>
 
       {/* ============================================================ KLARTEXT
-          The differentiating section, and the one that came straight out of
-          the research rather than out of a brief.
+          The four questions families actually arrive with, each answered with
+          something specific and checkable.
 
-          Every fear listed here is a documented, recurring complaint about the
-          sector. Naming them costs nothing and is the only thing on the page a
-          competitor would not dare to copy — which is exactly why it earns the
-          space a stock-photo "Über uns" block would otherwise take. */}
+          An earlier version phrased these as accusations against the sector —
+          accurate, sourced, and still the wrong instrument. Making a fear vivid
+          and then offering yourself as the cure is a sales technique, and a
+          family choosing a care provider under pressure can feel it. The
+          research is the same; the posture is calm authority rather than
+          alarm. */}
       <section className="section">
         <div className="shell grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <div>
             <SectionHead
               eyebrow="Klartext"
-              title="Wovor Angehörige Angst haben — und was wir dagegen tun."
-              intro="Diese vier Sätze stammen nicht von uns. Es sind die Beschwerden, die Verbraucherschützer über ambulante Dienste am häufigsten hören. Wir schreiben sie hier hin, weil man ein Misstrauen nicht auflöst, indem man es übergeht."
+              title="Vier Fragen, die fast jede Familie stellt"
+              intro="Es sind die Fragen, die Verbraucherschützer am häufigsten aus der ambulanten Pflege hören. Hier stehen unsere Antworten darauf — konkret genug, dass Sie sie später überprüfen können."
             />
             <dl className="m-0">
               {klartext.map((k) => (
                 <div key={k.fear} className="border-t border-line py-6 first:border-t-0 first:pt-0">
-                  <dt className="text-lg font-bold text-brand-ink">
-                    {/* The quotation marks matter: this is reported speech,
-                        not the client's own claim. */}
-                    „{k.fear}“
-                  </dt>
+                  <dt className="text-lg font-bold text-brand-ink">{k.fear}</dt>
                   <dd className="m-0 mt-2.5 flex items-start gap-3 text-ink-muted">
                     <IconCheck className="mt-1 flex-none text-brand" />
                     <span>{k.answer}</span>
@@ -158,7 +202,7 @@ export default function Home() {
               ))}
             </dl>
             <p className="mt-7 text-sm text-ink-muted">
-              Quelle der Beschwerdelage:{' '}
+              Grundlage der Fragen:{' '}
               <a href={KLARTEXT_SOURCE.href} className="linkish" rel="noopener noreferrer" target="_blank">
                 {KLARTEXT_SOURCE.label}
                 <span className="sr-only"> (öffnet in neuem Tab)</span>

@@ -160,6 +160,40 @@ two BLOCKED items stand between this and going live.**
 
 ---
 
+## 5b. The conversion pass, and the two things it changed most
+
+**The Klartext section was rewritten from accusation to question.** Its first
+version phrased each item as a charge against the sector — "Auf der Rechnung
+stehen Leistungen, die nie erbracht wurden." Every sentence was accurate and
+sourced, and the section still read as an attack. Making a fear vivid and then
+offering yourself as the cure is a sales technique, and a family choosing a
+care provider under pressure can feel it even when the facts are true. The
+items are now the questions people actually ask, each answered with something
+specific and checkable. Same research, same specificity, no accusation.
+
+**The hero has one primary action.** It previously showed two filled buttons of
+equal weight, which asks the visitor to choose before they have decided
+anything. The consultation is now the single filled action; the phone number
+keeps a strong outlined treatment beside it, and is the FILLED action in the
+mobile bar — so a high-intent caller on a phone is still one tap away. Three
+lines of reassurance sit directly under the buttons rather than three sections
+below them, because the two things that stop a family making contact are
+"will this commit me" and "do I need to know what I am asking for first".
+
+**Claims that could not be kept were softened**, not deleted: "Feste Zeiten"
+became "Besuchszeiten stimmen wir mit Ihnen ab", and "Start meist innerhalb
+weniger Tage" became "Startdatum stimmen wir gemeinsam ab". Neither is weaker
+for conversion; both are things the business can actually hold to.
+
+**Measured mobile stopping point.** The hero's primary button clears the sticky
+action bar at 390×844 and 430×932. At 360×780 it falls about 80px under the
+fold. That is where the tuning stopped on purpose: the sticky bar carries the
+same two actions at all times, and shrinking the headline and photograph
+further to win one button on the smallest handset costs the design more than it
+gains.
+
+---
+
 ## 6. Not done, and honestly so
 
 * **No Lighthouse score is claimed.** Lighthouse itself is not installed here

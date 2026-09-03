@@ -339,7 +339,7 @@ export default function PflegeKompass() {
                 className="btn btn--primary"
                 onClick={() => track('primary_cta_click', { placement: 'kompass_result', label: 'Beratung' })}
               >
-                Kostenlose Beratung anfragen
+                Ergebnis besprechen <IconArrow />
               </Link>
               <a
                 href={business.phone.href}
@@ -355,8 +355,10 @@ export default function PflegeKompass() {
             </div>
 
             <p className="mt-5 text-sm text-ink-muted">
-              Angaben nach den Leistungsbeträgen der Pflegeversicherung für 2026. Sie sind
-              eine Orientierung, keine verbindliche Zusage Ihrer Pflegekasse.
+              Diese Beträge sind die gesetzlichen Leistungen für 2026 — eine Orientierung,
+              keine Zusage Ihrer Pflegekasse. Was davon in Ihrem Fall tatsächlich greift,
+              hängt von der Begutachtung und der ärztlichen Verordnung ab. Genau das klären
+              wir im Erstgespräch, unverbindlich.
             </p>
           </div>
         )}

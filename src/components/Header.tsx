@@ -139,7 +139,11 @@ export default function Header() {
           </nav>
 
           <div className="flex flex-none items-center gap-2">
-            <Link href="/kontakt" className="btn btn--primary hidden sm:inline-flex">
+            <Link
+              href="/kontakt"
+              className="btn btn--primary hidden sm:inline-flex"
+              onClick={() => track('primary_cta_click', { placement: 'header', label: 'Beratung anfragen' })}
+            >
               Beratung anfragen
             </Link>
             <button
@@ -186,7 +190,11 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-            <Link href="/kontakt" className="btn btn--primary mt-4 w-full">
+            <Link
+              href="/kontakt"
+              className="btn btn--primary mt-4 w-full"
+              onClick={() => track('primary_cta_click', { placement: 'mobile_menu', label: 'Beratung anfragen' })}
+            >
               Beratung anfragen
             </Link>
           </nav>

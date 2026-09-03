@@ -82,14 +82,23 @@ export function validateInquiry(input: Partial<InquiryInput>): FieldErrors {
 
 export const hasErrors = (e: FieldErrors) => Object.keys(e).length > 0;
 
-/** Topics offered on the care enquiry form. Free text stays possible. */
+/**
+ * Topics offered on the care enquiry form. Free text stays possible.
+ *
+ * "Ich weiß noch nicht genau" is deliberately FIRST. The previous list opened
+ * with "Pflege für ein Familienmitglied" and every option asked the visitor to
+ * classify their own situation before they were allowed to describe it — which
+ * is the one thing many of them came here unable to do. Putting the honest
+ * answer at the top of the list says, at a glance, that not knowing is a
+ * normal way to arrive.
+ */
 export const TOPICS = [
+  'Ich weiß noch nicht genau, was gebraucht wird',
   'Pflege für ein Familienmitglied',
   'Pflege für mich selbst',
   'Behandlungspflege nach ärztlicher Verordnung',
   'Vertretung für pflegende Angehörige',
   'Frage zu Kosten und Abrechnung',
-  'Etwas anderes',
 ] as const;
 
 export const POSITIONS = [

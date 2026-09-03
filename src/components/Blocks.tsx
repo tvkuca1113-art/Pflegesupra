@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { business } from '@/content/business';
 import { IconPhone, IconArrow, IconChevron } from './Icons';
+import { trackAttrs } from '@/lib/analytics';
 import Photo from './Photo';
 import { PHOTO_CREDIT } from '@/content/photos';
 
@@ -58,6 +59,38 @@ export function EditorialImage({
       </div>
       <figcaption>{caption ?? PHOTO_CREDIT.caption}</figcaption>
     </figure>
+  );
+}
+
+/**
+ * The four steps, compactly.
+ *
+ * Lives here rather than on /ablauf because a visitor who lands straight on a
+ * location page from a search for "Pflegedienst München" must be able to
+ * convert without first discovering that another page explains the process.
+ * Anxiety about what happens after you call is one of the two things that stop
+ * a family making contact; answering it costs four lines.
+ */
+export function ProcessStrip({ heading = 'Was nach Ihrem Anruf passiert' }: { heading?: string }) {
+  const steps = [
+    { t: 'Sie rufen an', b: 'Wir hören zu und sagen Ihnen, ob wir Ihre Adresse anfahren können.' },
+    { t: 'Wir kommen vorbei', b: 'Kostenloses Erstgespräch bei Ihnen zu Hause, unverbindlich.' },
+    { t: 'Wir klären die Kosten', b: 'Schriftlich, bevor Sie sich entscheiden müssen.' },
+    { t: 'Die Pflege beginnt', b: 'Zu Zeiten, die wir vorher mit Ihnen abgestimmt haben.' },
+  ];
+  return (
+    <div>
+      <h2 className="text-2xl">{heading}</h2>
+      <ol className="m-0 mt-6 grid list-none gap-x-8 gap-y-5 p-0 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li key={s.t} className="border-t-2 border-line-strong pt-4">
+            <span className="figure-xl block text-xl text-brand">{String(i + 1).padStart(2, '0')}</span>
+            <h3 className="mt-1.5 text-lg">{s.t}</h3>
+            <p className="mt-1.5 text-sm text-ink-muted">{s.b}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
@@ -129,11 +162,23 @@ export function CtaBand({
           <p className="measure mt-4 text-lg text-white/85">{body}</p>
         </div>
         <div className="flex flex-col gap-3">
-          <a href={business.phone.href} className="btn btn--onDark text-lg">
+          {/* The closing band appears on nearly every page and used to report
+              nothing. `placement` carries the page it fired from, so one event
+              answers "which section produces contact" without a separate event
+              per page. */}
+          <a
+            href={business.phone.href}
+            className="btn btn--onDark text-lg"
+            {...trackAttrs('phone_click', { placement: 'cta_band' })}
+          >
             <IconPhone />
             {business.phone.display}
           </a>
-          <Link href="/kontakt" className="btn btn--ghostDark">
+          <Link
+            href="/kontakt"
+            className="btn btn--ghostDark"
+            {...trackAttrs('primary_cta_click', { placement: 'cta_band', label: 'Rückruf' })}
+          >
             Rückruf anfordern <IconArrow />
           </Link>
           <p className="m-0 text-sm text-white/70">
