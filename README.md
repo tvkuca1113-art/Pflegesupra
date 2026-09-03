@@ -210,77 +210,43 @@ touch.
 
 ### Where each photograph sits, and why
 
-Six placements from **four sittings**, at seven crops, and the small number is
-the point. An
-earlier version had seven unrelated scenes and read as a scatter of stock;
-using one sitting at several crops is the nearest a licensed set gets to the
-recurring cast a commissioned shoot would give.
+Seven photographs supplied and approved by the client, one per placement. Every
+earlier image — three stock sittings reused at seven crops — has been deleted
+from the project, files included.
 
-| Position | Sitting | Crop | Why this one |
+| Position | Image | Crop | Why this one |
 |---|---|---|---|
-| Home, hero | An older woman talking over coffee at a bright table | 0.95:1 / 1.36:1 | The emotional entry point, and the exact thing the button under it offers |
-| Home, Klartext | Care worker and client laughing together | 3:2 | The section asks who comes into the flat; this is the one frame showing both |
-| Home, Haltung | Kitchen, carer with two clients | 4:5 | "Wir planen nach Erfahrung" — a carer taking time, seen |
-| Leistungen | Same kitchen | 16:9 | A home kitchen, not a ward: the page is about care at home |
-| Über uns | Evening walk across an open field | 3:2 | Illustrates taking time, which is what the page argues |
-| Karriere | Same care worker, alone and tight | 4:5 | Shows the work, to somebody deciding whether to do it |
+| Home, hero | 01 — care worker and client at the dining table | 0.95:1 / 16:9 | The opening frame, and the only eager image on the site |
+| Home, Vier Fragen | 02 — care worker, daughter and client with the care plan | 3:2 | The section asks who comes, what it costs and who decides; this shows all three |
+| Home, Weshalb Supra | 04 — helping a man into his jacket | 3:2 | The section argues you don't take over what someone can still do |
+| Leistungen / Grundpflege | 04 | 16:9 | Practical help, dignity, and he does the walking |
+| Leistungen / Behandlungspflege | 05 — explaining a weekly dispenser | 16:9 | Medication explained, not administered |
+| Leistungen / Betreuung | 03 — coffee in the conservatory | 16:9 | Company rather than a task |
+| Leistungen / Hauswirtschaft | 06 — putting the shopping away | 16:9 | Household support, deliberately not a cleaning company |
+| Karriere | 07 — two colleagues checking the round | 3:2 | Lets a nurse picture the working day |
 
-**The hero took four attempts, and the three failures are the useful part.**
-(1) A tight close-up of two heads: no window, no wall, no furniture — nothing
-that said where the care was happening. A hero has to establish a place; that
-frame is now the careers portrait, where tight is right. (2) An ordinary front
-room photographed honestly, with floral curtains, a busy armchair and a brown
-lamp in the crop, in a palette that fought the page. A hero also has to be
-beautiful, and "documentary" is not a defence against clutter. (3) A field at
-golden hour: beautiful, calm, and contradicting the sentence beside it — **you
-cannot promise "Pflege zu Hause" over a picture of a meadow.** That frame was
-good in the wrong slot and now sits on /ueber-uns, illustrating an argument
-about taking time, which is what it actually shows.
+**Three places deliberately carry no photograph**: `/leistungen` (the overview
+above seven pages that each have their own), `/ueber-uns` (the approved set has
+no frame of who owns and runs the business) and
+`/leistungen/verhinderungspflege` (no approved frame exists). Repeating one of
+the seven to fill those gaps would undo the point of the set, which is that the
+old one visibly reused the same carer, client and room page after page.
 
-The frame there now is indoors, bright and uncluttered, and it shows the thing
-the button underneath it offers: a free first conversation at the client's own
-table, an older woman doing most of the talking. **A hero has to establish a
-place, be beautiful, AND agree with the sentence next to it.** None of the
-three is optional and none substitutes for the others.
+**The uniforms carry the real logo, composited rather than generated.**
+`scripts/brand-photos.mjs` places `public/logo-supra.png` — the same file the
+site header uses — onto each caregiver's left chest. Generated lettering is
+unreliable and a care provider's own name misspelt on its own staff is worse
+than no logo at all, so nothing regenerates the wordmark. Two of the supplied
+frames already had an invented illegible emblem on the chest; those are patched
+out with clean fabric sampled from the same garment before the real mark goes
+down. The script's header records the one deliberate deviation from the brand
+file: on navy uniforms the blue wordmark becomes the light knockout a real
+embroiderer would supply, because blue on navy cannot be read.
 
-Searched and rejected on the way, so nobody repeats it: Pexels and Pixabay are
-unreachable from this environment (Cloudflare), Openverse's German care results
-are low-resolution signage or press photography, and the Wikimedia
-"Pflegedienst" set turned out to be a competitor's building and its signboard.
-
-Two things came out of that swap and are worth carrying forward. The desktop
-hero panel **has no fixed aspect** — it is 54% of the viewport wide and as tall
-as the copy beside it, measuring 0.68:1 at 1024px and 1.23:1 at 1920px — so its
-crop is an explicit compromise at 0.95:1 rather than a match, and the first
-attempt at 6:5 silently threw away 23% of the frame at 1440px. And the hero,
-alone in the set, gets its own encoder settings, because it is the only eager
-image and therefore the only one whose bytes are the LCP.
-
-**Six frames were rejected, and the reasons are worth keeping.** Two were cut
-before shipping: one showed a day-centre lounge (institutional, on a site whose
-whole proposition is that the client stays at home), the other carried another
-organisation's logo on a cap. Three more were cut after shipping, against a
-harder test — *does the picture show a care relationship?* An older man at a
-window and a woman knitting in her chair are dignified photographs of older
-people and say nothing about this business; the brief for a home-care site is
-not "elderly lifestyle". A woman with a cup in a hall with others behind her
-read as group care. The sixth was the opening frame itself, on the test above
-all the others: a hero has to establish a place, and that one established none.
-
-They were removed rather than replaced because no better licensed frame was
-reachable at the time. Two sections lost their picture and did not get one
-back: a timeline and a step list, both of which are better without. **Fewer,
-correct pictures beat more, wrong ones**, and a section with no photograph is
-not a defect.
-
-One of those removals left a trap worth naming. When a sitting was cut from
-`scripts/build-images.mjs`, its generated files stayed committed in
-`public/img` and `/ueber-uns` went on serving a picture the art direction had
-already rejected — invisibly, because the page worked. **A crop the build
-cannot reproduce is a crop that does not exist**, and the only reason it
-surfaced is that the QA harness reads the console: deleting the orphaned files
-turned it into a 404 and a failing run. If a sitting goes, its placements go
-with it or get refilled in the same commit.
+**These are not photographs of Supra's staff, clients or premises, and the site
+says so** — quietly under each image, and in full in the Impressum, including
+that they were produced with generative AI. That disclosure matters more now
+that the uniforms carry the real logo, not less.
 
 ### What only a real shoot can fix
 

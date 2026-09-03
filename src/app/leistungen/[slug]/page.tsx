@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { PageHeader, CtaBand, Breadcrumbs, SectionHead } from '@/components/Blocks';
+import { PageHeader, CtaBand, Breadcrumbs, SectionHead, EditorialImage } from '@/components/Blocks';
 import { IconAlert, IconArrow } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta, serviceJsonLd } from '@/lib/seo';
 import { services, serviceBySlug } from '@/content/services';
@@ -80,6 +80,22 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </dl>
         </div>
       </section>
+
+      {/* One approved photograph per service, and nothing where the set has
+          none — Verhinderungspflege runs without one rather than borrowing a
+          picture of a different service. `photo` being optional is the whole
+          mechanism; see the note on the type in src/content/services.ts. */}
+      {s.photo ? (
+        <div className="shell pt-10">
+          <EditorialImage
+            name={s.photo.name}
+            widths={[600, 900, 1400, 1672]}
+            ratio={16 / 9}
+            sizes="(min-width: 80rem) 76rem, 100vw"
+            alt={s.photo.alt}
+          />
+        </div>
+      ) : null}
 
       <section className="section">
         <div className="shell grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">

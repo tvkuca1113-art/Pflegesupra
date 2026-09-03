@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHeader, CtaBand, Breadcrumbs, SectionHead, EditorialImage } from '@/components/Blocks';
+import { PageHeader, CtaBand, Breadcrumbs, SectionHead } from '@/components/Blocks';
 import { IconPin } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { business } from '@/content/business';
@@ -105,30 +105,24 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* The photograph belongs here rather than at the top: the page opens on
-          an argument about how the work is planned, and a picture above that
-          would illustrate nothing yet. */}
+      {/* No photograph on this page. The approved set is seven frames, each
+          tied to a specific service or to the recruiting page, and none of them
+          is about who runs this business — which is what this section is for.
+          Repeating one of the seven here to fill the space would undo the point
+          of the new set. This is the slot for a real photograph of the owner
+          and the team, and until that exists the section runs on its argument,
+          which is the stronger half of it anyway. */}
       <section className="section section--paper">
-        <div className="shell grid items-center gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <EditorialImage
-            name="ueber-uns"
-            widths={[600, 900, 1400]}
-            ratio={3 / 2}
-            plate
-            sizes="(min-width: 64rem) 40vw, 100vw"
-            alt="Eine jüngere Frau schiebt eine ältere Frau im Rollstuhl über eine Wiese; Abendlicht, offener Horizont."
-          />
-          <div>
-            <SectionHead title="Drei Dinge, die hier nicht stehen" />
-            <dl className="m-0">
-              {notClaimed.map((n) => (
-                <div key={n.t} className="border-t border-line py-5 first:border-t-0 first:pt-0">
-                  <dt className="font-bold text-brand-ink">{n.t}</dt>
-                  <dd className="m-0 mt-1.5 text-ink-muted">{n.b}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+        <div className="shell max-w-[54rem]">
+          <SectionHead title="Drei Dinge, die hier nicht stehen" />
+          <dl className="m-0">
+            {notClaimed.map((n) => (
+              <div key={n.t} className="border-t border-line py-5 first:border-t-0 first:pt-0">
+                <dt className="font-bold text-brand-ink">{n.t}</dt>
+                <dd className="m-0 mt-1.5 text-ink-muted">{n.b}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

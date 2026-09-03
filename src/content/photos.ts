@@ -1,61 +1,44 @@
 /**
  * Photographic credits and the shot list.
  *
- * WHAT IS HERE NOW. Two sources, both under the Unsplash Licence: Jon
- * Pountney's documentary series for Age Cymru — the national charity for older
- * people in Wales — which carries the home page and the service pages, and one
- * photograph by Dominik Lange on /ueber-uns.
+ * WHAT IS HERE NOW. Seven photographs supplied and approved by the client, one
+ * per placement, stored as masters in assets/photos/ and rendered by
+ * scripts/build-images.mjs. Every previous image is gone from the site and from
+ * the repository: the Age Cymru documentary series, the Centre for Ageing
+ * Better library and the single Dominik Lange frame, together with every
+ * rendition built from them.
  *
- * The opening frame took four attempts, and the three failures are the useful
- * part. A close-up of two heads showed no place. An honest photograph of a
- * cluttered front room showed a place and was not beautiful. A field at golden
- * hour was beautiful and contradicted the headline above it — you cannot
- * promise "Pflege zu Hause" over a meadow. A hero has to establish a place, be
- * beautiful, AND agree with the sentence next to it; none of the three is
- * optional and none substitutes for the others.
+ * WHY ONE FRAME PER PLACEMENT. The set this replaces reused three sittings at
+ * seven crops, and a visitor could see it: the same carer, the same client, the
+ * same room, page after page. Seven different homes and seven different people
+ * fix that only if nothing is repeated, so nothing is — with one deliberate
+ * exception, `grundpflege`, which also carries the home page's argument about
+ * preserving independence, on a different page.
  *
- * WHAT IS NOT HERE, AND WHY. The art direction this site was briefed to hit —
- * a caregiver and client in a modern German apartment with negative space on
- * the left for the headline; a caregiver, a daughter and a mother around a
- * table with a care folder; a Pflegefachkraft with a care bag at an apartment
- * door — does not exist in the free stock libraries reachable from here. It
- * was searched for repeatedly, most recently across both charity libraries and
- * a dozen query formulations. What else comes back is elderly-lifestyle stock
- * (couples dancing, opening parcels) from a handful of prolific producers,
- * which is exactly the register the brief rejects, or day-centre and care-home
- * interiors, which are the one setting an ambulatory service must not show.
- * The few frames that do come close sit behind Unsplash+, a paid licence.
+ * WHAT THEY ARE, STATED PLAINLY. These are not photographs of Supra's staff,
+ * clients or premises, and the site says so: quietly, once per image, through
+ * the `figure__mark` word rather than a paragraph of disclaimer. The Impressum
+ * carries the full disclosure, including how the pictures were produced —
+ * which matters more here than on most sites, because the site this replaces
+ * used generated imagery and had to disclose it too. Saying it plainly is the
+ * difference between disclosure and being caught.
  *
- * That is not a gap to paper over with a nearly-right picture. It is a
- * commission, so the shot list below is written as a commission: each slot has
- * the scene, the framing and the reason, precise enough for a photographer to
- * shoot from or a picture editor to buy against. Filling any one of them is a
- * change to `scripts/build-images.mjs` and nothing else — no page markup moves.
- *
- * RECOMMENDATION, plainly: one day with a photographer in the client's real
- * working conditions, with two consenting clients and two staff, replaces
- * every image on this site and is the single largest remaining upgrade to its
- * credibility. Everything below is written to make that day efficient.
+ * WHAT ONLY A REAL SHOOT CAN STILL FIX. Two slots have no approved frame and
+ * are deliberately running without one: /ueber-uns, which is about who owns and
+ * runs this business, and /leistungen/verhinderungspflege. Both are waiting for
+ * photographs of real people at real addresses, and /ueber-uns is the one where
+ * a real picture would do the most work — a care provider's own face is worth
+ * more than any commissioned scene. The briefs below are written to make that
+ * day efficient.
  */
 export const PHOTO_CREDIT = {
   /** Appended to the alt text of the opening photograph. */
   short: 'Symbolbild.',
-  /** Named in /impressum. One entry per library the set draws on. */
-  sources: [
-    {
-      label: 'Jon Pountney für Age Cymru',
-      note: 'nationale Organisation für ältere Menschen in Wales',
-      href: 'https://unsplash.com/@agecymru',
-      used: 'Startseite und Leistungen',
-    },
-    {
-      label: 'Dominik Lange',
-      note: 'dokumentarische Aufnahme, veröffentlicht über Unsplash',
-      href: 'https://unsplash.com/@the_real_napster',
-      used: 'Über uns',
-    },
-  ],
-  licence: 'Unsplash Licence',
+  /**
+   * Named in /impressum. Kept as data so the Impressum cannot drift away from
+   * what is actually on the site — the last set went out of sync twice.
+   */
+  origin: 'vom Auftraggeber bereitgestellt und freigegeben',
 } as const;
 
 /**
@@ -79,112 +62,51 @@ export type ShotBrief = {
 
 export const shotList: ShotBrief[] = [
   {
-    slot: 'hero-wide / hero-tall',
-    where: 'Startseite, Hero',
-    status: 'placeholder',
-    scene:
-      'Pflegekraft und Klientin in einer echten, hellen Wohnung. Die Klientin sitzt '
-      + 'am Esstisch oder im Sessel, die Pflegekraft beugt sich leicht zu ihr im '
-      + 'Gespräch. Tageslicht vom Fenster, warme neutrale Materialien, keine '
-      + 'medizinischen Geräte im Bild. Niemand schaut in die Kamera.',
-    framing:
-      'Halbtotale, 0,95:1 für Desktop und 1,36:1 für das Telefon. Personen rechts im Bild, '
-      + '35–45 % ruhige Fläche links — dort steht die Überschrift. Kein Gesicht darf '
-      + 'hinter Text geraten. Die Klientin nicht wegunschärfen: beide Personen bleiben '
-      + 'relevant.',
-    message: 'Sie können zu Hause bleiben und werden zuverlässig unterstützt.',
-  },
-  {
-    slot: 'beratung',
-    where: 'Startseite, „Vier Fragen“',
-    status: 'placeholder',
-    scene:
-      'Drei Personen an einem Küchen- oder Esstisch in der Wohnung der Klientin: '
-      + 'ältere Mutter, Tochter (45–55), Pflegekraft. Auf dem Tisch eine schmale '
-      + 'Mappe, ein Stift, Wasser oder Kaffee — kein Papierstapel. Die Pflegekraft '
-      + 'erklärt ruhig, die Tochter hört zu, die Mutter ist Teil des Gesprächs.',
-    framing:
-      'Halbtotale quer, 3:2. Alle drei verbunden im Bild, niemand in die Kamera. '
-      + 'Kein Besprechungsraum-Gefühl.',
-    message: 'Wir erklären Ihnen, wie Versorgung, Leistungen und Kosten organisiert werden.',
-  },
-  {
-    slot: 'haltung',
-    where: 'Startseite, „Pflege lässt sich nicht auf Minuten reduzieren“',
-    status: 'placeholder',
-    scene:
-      'Pflegekraft hilft einem älteren Herrn beim Aufstehen aus dem Sessel oder beim '
-      + 'Anziehen einer leichten Jacke vor dem Hinausgehen. Leichte Armunterstützung, '
-      + 'er macht den Schritt selbst. Zurückhaltend und würdevoll — der Klient wirkt '
-      + 'nicht hilflos, die Pflegekraft nicht dominant.',
-    framing: 'Hochformat 4:5, halbnah. Beide Gesichter sichtbar.',
-    message: 'Unterstützung, die Selbstständigkeit erhält.',
-  },
-  {
-    slot: 'leistungen',
-    where: 'Leistungen, Kopfbild',
-    status: 'placeholder',
-    scene:
-      'Pflegekraft und Klientin gemeinsam in einer aufgeräumten Küche bei einer '
-      + 'kleinen alltäglichen Aufgabe — Tisch decken, Einkäufe einräumen, etwas '
-      + 'Einfaches zubereiten. Kein Putzeimer, kein Wischmopp, keine Sprühflaschen: '
-      + 'Supra ist kein Reinigungsdienst.',
-    framing: 'Quer 16:9, Halbtotale mit Raumkontext.',
-    message: 'Unterstützung im Haushalt als Teil eines selbstbestimmten Alltags.',
-  },
-  {
     slot: 'ueber-uns',
-    where: 'Über uns',
+    where: 'Über uns — derzeit ohne Foto',
     status: 'placeholder',
     scene:
-      'Ersetzen durch ein echtes Bild: Inhaber und Team vor oder in einem der beiden '
-      + 'Büros, oder eine Pflegekraft beim Verlassen eines Münchner Wohnhauses. Bis '
-      + 'dahin ein Motiv, das eine Pflegekraft und eine Klientin zusammen zeigt.',
-    framing: 'Quer 3:2.',
+      'Inhaber und Team vor oder in einem der beiden Büros. Kein gestelltes '
+      + 'Gruppenfoto in einer Reihe: zwei bis vier Personen im Gespräch, so wie sie '
+      + 'morgens tatsächlich zusammenstehen, bevor die Touren losgehen.',
+    framing: 'Quer 3:2, Halbtotale mit Raumkontext.',
     message: 'Diesen Dienst führen Menschen, die man sehen kann.',
   },
   {
-    slot: 'pflegekraft',
-    where: 'Karriere',
-    status: 'placeholder',
-    scene:
-      'Pflegefachkraft, 28–40, moderne saubere Arbeitskleidung, bereitet die '
-      + 'Pflegetasche vor der Wohnungstür vor — oder geht auf ein Münchner Wohnhaus '
-      + 'zu. Kein Krankenhausflur, kein verschränkte-Arme-Porträt, keine ältere '
-      + 'Person, die das Bild dominiert.',
-    framing:
-      'Hochformat 4:5. Etwas mehr Bewegung als auf den Klientenseiten, gleiche '
-      + 'Farbstimmung.',
-    message: 'Das könnte mein Arbeitsplatz sein.',
-  },
-  {
-    slot: 'behandlungspflege (neu)',
-    where: 'Leistungen / Behandlungspflege',
-    status: 'placeholder',
-    scene:
-      'Pflegekraft richtet in der Wohnung ruhig Medikamente oder prüft eine '
-      + 'Dokumentation, der Klient ist anwesend und beteiligt. Sauberer Tisch. Keine '
-      + 'Kanülen im Vordergrund, keine Klinikgeräte, keine dramatische Prozedur.',
-    framing: 'Quer 3:2.',
-    message: 'Medizinisch notwendige Unterstützung — professionell bei Ihnen zu Hause.',
-  },
-  {
-    slot: 'verhinderungspflege (neu)',
-    where: 'Leistungen / Verhinderungspflege',
+    slot: 'verhinderungspflege',
+    where: 'Leistungen / Verhinderungspflege — derzeit ohne Foto',
     status: 'placeholder',
     scene:
       'Ruhige Übergabesituation: die Tochter zieht die Jacke an und geht, die '
       + 'Pflegekraft übernimmt selbstverständlich. Kein dramatischer Abschied, kein '
       + 'Koffer-Klischee.',
-    framing: 'Quer 3:2.',
+    framing: 'Quer 16:9, passend zu den übrigen Leistungsseiten.',
     message: 'Entlastung für Angehörige — ohne dass die Versorgung unterbrochen wird.',
+  },
+  {
+    slot: 'alle sieben Bestandsbilder',
+    where: 'Startseite, Leistungsseiten, Karriere',
+    status: 'placeholder',
+    scene:
+      'Ersetzen durch echte Aufnahmen: eigene Pflegekräfte, echte Klientinnen und '
+      + 'Klienten mit schriftlicher Einwilligung, echte Wohnungen in München und '
+      + 'Pfaffenhofen. Ein Tag mit einer Fotografin oder einem Fotografen deckt alle '
+      + 'sieben Motive ab, wenn zwei Touren begleitet werden dürfen.',
+    framing:
+      'Pro Motiv 16:9 quer; für den Kopfbereich zusätzlich eine Aufnahme mit '
+      + 'ruhiger Fläche links, damit der Zuschnitt 0,95:1 auf dem Desktop und '
+      + '1,36:1 auf dem Telefon beide funktionieren. Mindestens 3000 px Breite — '
+      + 'die aktuellen Vorlagen haben 1672 px und müssen für große Desktop-Displays '
+      + 'hochskaliert werden.',
+    message: 'Echte Menschen schlagen jedes Symbolbild.',
   },
 ];
 
 /**
- * Reject any candidate on which ANY of these is true. Written down because
- * five frames already had to be pulled from this site after they had shipped,
- * and every one of them failed a test that was obvious in hindsight.
+ * Reject any candidate on which ANY of these is true. Kept for the real shoot,
+ * because the list was earned: frames were pulled from this site after they had
+ * shipped for most of these reasons, and the hero alone was replaced four times
+ * before the client supplied the current set.
  */
 export const REJECT_IF = [
   'Menschen wirken KI-generiert; Hände, Finger oder Zähne unnatürlich',

@@ -34,6 +34,16 @@ export interface Service {
   /** Things people wrongly assume are included — prevents disappointment. */
   notIncluded?: string[];
   faqRefs: string[];
+  /**
+   * The approved photograph for this service, or absent.
+   *
+   * Absent is a real state, not an oversight: the approved set has no frame for
+   * Verhinderungspflege, and the rule agreed with the client is that a section
+   * without a photograph beats a section with an unrelated one. Filling the gap
+   * by repeating another service's picture is exactly what made the previous
+   * image set look like a single shoot.
+   */
+  photo?: { name: string; alt: string };
 }
 
 export const services: Service[] = [
@@ -63,6 +73,7 @@ export const services: Service[] = [
       'Putzen und Einkaufen — das sind hauswirtschaftliche Leistungen',
     ],
     faqRefs: ['budget-reicht-nicht', 'kombinationsleistung'],
+    photo: { name: 'grundpflege', alt: 'Pflegekraft unterstützt einen Senior beim Anziehen zu Hause' },
   },
   {
     slug: 'behandlungspflege',
@@ -87,6 +98,7 @@ export const services: Service[] = [
       'Katheter- und Stomaversorgung',
     ],
     faqRefs: ['verordnung-bekommen'],
+    photo: { name: 'behandlungspflege', alt: 'Pflegefachkraft erklärt einer Seniorin ihre Medikamente zu Hause' },
   },
   {
     slug: 'betreuung-und-entlastung',
@@ -110,6 +122,7 @@ export const services: Service[] = [
       'Entlastung pflegender Angehöriger für einige Stunden',
     ],
     faqRefs: ['entlastungsbetrag-verfallen'],
+    photo: { name: 'betreuung', alt: 'Alltagsbegleiter im Gespräch mit einer Seniorin bei ihr zu Hause' },
   },
   {
     slug: 'hauswirtschaft',
@@ -133,6 +146,7 @@ export const services: Service[] = [
       'Müll entsorgen und Ordnung halten',
     ],
     faqRefs: ['entlastungsbetrag-verfallen'],
+    photo: { name: 'hauswirtschaft', alt: 'Pflegekraft hilft einer Seniorin beim Auspacken der Einkäufe' },
   },
   {
     slug: 'verhinderungspflege',

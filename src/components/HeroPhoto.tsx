@@ -11,19 +11,15 @@ const DESK = '(min-width: 64rem)';
  * breakpoint up, which is a deliberate compromise because that panel has no
  * fixed aspect at all. `scripts/build-images.mjs` carries the measurements.
  *
- * The frame itself has been replaced three times, and each rejection was
- * about something different: no place in the picture, then a cluttered place,
- * then a beautiful place that contradicted the promise printed next to it —
- * you cannot say "Pflege zu Hause" over a meadow. This one is indoors, bright
- * and uncluttered, and it shows the thing the button underneath it offers: a
- * free first conversation at the client's own table.
- * `scripts/build-images.mjs` carries the full note.
+ * The frame is one of seven photographs supplied and approved by the client;
+ * everything that stood here before came from a stock library and is gone.
  *
- * They are served from ONE <picture> with media-scoped <source> elements
- * rather than two <img> tags in `hidden`/`lg:block` wrappers, because an <img>
- * inside a display:none container is still downloaded — measured on this site,
- * twice. A media attribute on <source> is evaluated before the fetch; a CSS
- * class is not.
+ * The two crops are not interchangeable and the mobile one is the fussier of
+ * the pair: on a phone the picture is a 1.36:1 band, and a centred crop of a
+ * 16:9 original pushes the client out of the right-hand edge, leaving a hero
+ * that shows one person talking to nobody. The focal point in
+ * `scripts/build-images.mjs` is set right of centre for exactly that reason,
+ * and both crops are verified at 360, 390 and 430px.
  *
  * `priority` is deliberate and singular: this is the LCP element on the home
  * page and the only image in the project that is eager.
@@ -34,19 +30,19 @@ export default function HeroPhoto() {
 
   return (
     <picture className="block h-full w-full">
-      <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [900, 1300, 1800])} sizes="54vw" />
-      <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [900, 1300, 1800])} sizes="54vw" />
-      <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [480, 760, 1040])} sizes="100vw" />
-      <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [480, 760, 1040])} sizes="100vw" />
+      <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [600, 894, 1300])} sizes="54vw" />
+      <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [600, 894, 1300])} sizes="54vw" />
+      <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [480, 760, 1040, 1280])} sizes="100vw" />
+      <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [480, 760, 1040, 1280])} sizes="100vw" />
       <img
         src="/img/hero-tall-760.webp"
         // The alt text describes what is in the frame and stops there. It does
         // not say "Pflegerin" or "Klient", because we cannot know that about
         // people in a licensed photograph — and this site does not assert
         // things it cannot know.
-        alt={`Eine ältere Frau sitzt mit einer Tasse Kaffee an einem hellen Tisch und spricht mit einer zweiten Person, die ihr zuhört. ${PHOTO_CREDIT.short}`}
-        width={1040}
-        height={765}
+        alt={`Pflegekraft im Gespräch mit einer Seniorin in ihrer Wohnung. ${PHOTO_CREDIT.short}`}
+        width={1280}
+        height={720}
         fetchPriority="high"
         decoding="async"
         className="block h-full w-full object-cover"

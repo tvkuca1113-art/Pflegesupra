@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHeader, CtaBand, Breadcrumbs, EditorialImage } from '@/components/Blocks';
+import { PageHeader, CtaBand, Breadcrumbs } from '@/components/Blocks';
 import { IconArrow } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { payerGroups, servicesFor } from '@/content/services';
@@ -29,15 +29,11 @@ export default function LeistungenPage() {
         intro="Fünf Leistungen, zwei Kostenträger. Welcher greift, hängt nicht davon ab, wie aufwendig etwas ist, sondern wer es angeordnet hat — und das entscheidet, was Ihnen zusteht."
       />
 
-      <div className="shell pt-10">
-        <EditorialImage
-          name="leistungen"
-          widths={[900, 1400, 1900]}
-          ratio={16 / 9}
-          sizes="(min-width: 80rem) 76rem, 100vw"
-          alt="Eine Pflegekraft beugt sich in einer hellen Küche zu zwei älteren Menschen an einem Tisch."
-        />
-      </div>
+      {/* No photograph on this page, deliberately. The approved set has one
+          frame per service and this is the overview above them; a picture here
+          would have to be one of those seven shown a second time, and repeating
+          a frame is the exact thing that made the previous image set look like
+          a single shoot. The five service pages each carry their own. */}
 
       {/* The page is organised by payer, because that is the distinction that
           actually changes what a visitor can have. The old version listed five

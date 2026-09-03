@@ -107,6 +107,13 @@
 }
 
 @theme {
+  /* One extra breakpoint below Tailwind's `sm`, for the smallest handsets only.
+     Everything on the home page's opening screen is tuned so the primary call
+     to action clears the sticky action bar; between 320 and 384px the copy no
+     longer fits at the same scale, so the photograph gives up some height and
+     the headline one step. Measured at 360, 375, 390 and 430. */
+  --breakpoint-xs: 24rem;
+
   /* --- Brand, sampled from the client's logo file ----------------------- */
   --color-brand: #003399;         /* 10.25:1 on paper */
   --color-brand-deep: #002270;

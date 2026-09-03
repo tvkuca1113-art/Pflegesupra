@@ -63,12 +63,12 @@ export default function KarrierePage() {
       <section className="section--tight pt-12">
         <div className="shell grid items-center gap-x-14 gap-y-8 sm:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
           <EditorialImage
-            name="pflegekraft"
-            widths={[480, 720, 1000]}
-            ratio={4 / 5}
+            name="karriere"
+            widths={[600, 900, 1400]}
+            ratio={3 / 2}
             plate
-            sizes="(min-width: 40rem) 20rem, 100vw"
-            alt="Eine Pflegekraft in blauer Arbeitskleidung beugt sich lächelnd zu einer Klientin hinunter."
+            sizes="(min-width: 40rem) 28rem, 100vw"
+            alt="Zwei Pflegekräfte bereiten sich gemeinsam auf ihre Hausbesuche vor"
           />
           <div>
             <h2 className="text-2xl">Warum dieser Dienst gegründet wurde</h2>

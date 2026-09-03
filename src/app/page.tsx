@@ -64,13 +64,13 @@ export default function Home() {
             fold — the photograph would have been the whole first screen and
             the call button would have been a scroll away. 44vh keeps both
             faces and still leaves room to act. */}
-        <div className="h-[34vh] min-h-[12rem] max-h-[20rem] overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:max-h-none lg:w-[54%]">
+        <div className="aspect-[16/9] max-h-[20rem] overflow-hidden lg:aspect-auto lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:max-h-none lg:w-[54%]">
           <HeroPhoto />
         </div>
 
         <div className="shell relative">
           <div className="lg:pr-[52%]">
-            <div className="-mt-12 border-t-4 border-sun bg-page px-5 pb-8 pt-5 sm:-mt-20 sm:px-8 sm:pb-12 sm:pt-9 lg:mt-0 lg:border-0 lg:px-0 lg:py-20 xl:py-24">
+            <div className="-mt-10 border-t-4 border-sun bg-page px-5 pb-8 pt-4 sm:-mt-20 sm:px-8 sm:pb-12 sm:pt-9 lg:mt-0 lg:border-0 lg:px-0 lg:py-20 xl:py-24">
               <p className="eyebrow">Ambulanter Pflegedienst</p>
               {/* No non-breaking spaces anywhere in this headline: they glued
                   "Pfaffenhofen a.d. Ilm." into one unbreakable 22-character
@@ -94,7 +94,7 @@ export default function Home() {
                   one button on the smallest handset costs the design more than
                   it gains. Page content clears the bar via the footer's bottom
                   padding, so nothing is ever permanently hidden behind it. */}
-              <h1 className="text-3xl sm:text-5xl xl:text-6xl">
+              <h1 className="text-[1.6rem] leading-[1.15] xs:text-3xl sm:text-5xl xl:text-6xl">
                 Pflege zu Hause, bei der Sie wissen, wer klingelt.
               </h1>
               {/* Says WHAT before it says why. The previous lead opened on the
@@ -124,10 +124,10 @@ export default function Home() {
                   load-bearing of the three — the whole Ablauf section answers
                   it forty lines further down — and it was worth two lines on a
                   phone. The other two clauses are untouched. */}
-              <p className="measure mt-3 text-base leading-relaxed text-ink sm:mt-5 sm:text-lg xl:text-xl">
+              <p className="measure mt-2.5 text-base leading-relaxed text-ink sm:mt-5 sm:text-lg xl:text-xl">
                 Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft in München
-                und Pfaffenhofen. Wir kommen kostenlos zu Ihnen nach Hause und sagen
-                Ihnen vorher, was die Kasse übernimmt — und was nicht.
+                und Pfaffenhofen. Wir kommen kostenlos zu Ihnen und sagen
+                vorher, was die Kasse übernimmt — und was nicht.
               </p>
 
               {/* One primary action, and it is the consultation rather than the
@@ -137,7 +137,7 @@ export default function Home() {
                   secondary treatment here and is the FILLED action in the
                   mobile bar at the bottom of the screen, so a high-intent
                   caller on a phone is still one tap away. */}
-              <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:items-center">
+              <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:items-center">
                 <Link
                   href="/kontakt"
                   className="btn btn--primary text-lg"
@@ -158,6 +158,10 @@ export default function Home() {
                   The two things that stop a family from making contact are
                   "will this commit me to something" and "do I need to know
                   what I am asking for first". Both are answered here. */}
+              {/* Marks the point past which the sticky action bar may appear.
+                  It sits after the hero's own button so the two never share the
+                  screen; see the note in MobileActionBar. */}
+              <span id="mobile-bar-sentinel" aria-hidden="true" className="block h-px" />
               <ul className="mt-5 m-0 flex list-none flex-wrap gap-x-6 gap-y-2 p-0 text-sm text-ink-muted">
                 {[
                   'Unverbindliches Erstgespräch',
@@ -237,7 +241,7 @@ export default function Home() {
             ratio={3 / 2}
             plate
             sizes="(min-width: 64rem) 34vw, 100vw"
-            alt="Eine Pflegekraft in blauer Arbeitskleidung und eine ältere Frau lachen miteinander in einem Wohnraum."
+            alt="Pflegeberatung mit einer Seniorin und ihrer Angehörigen zu Hause"
           />
         </div>
       </section>
@@ -372,11 +376,11 @@ export default function Home() {
               is what stopped the set reading as five unrelated stock pictures. */}
           <EditorialImage
             name="haltung"
-            widths={[480, 720, 1000]}
-            ratio={4 / 5}
+            widths={[600, 900, 1400]}
+            ratio={3 / 2}
             plate
             sizes="(min-width: 64rem) 32vw, 100vw"
-            alt="Eine Pflegekraft nimmt sich in einer Küche Zeit für eine ältere Frau am Tisch."
+            alt="Pflegekraft unterstützt einen Senior beim Anziehen zu Hause"
           />
 
         </div>

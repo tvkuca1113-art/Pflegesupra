@@ -130,47 +130,21 @@ export default function ImpressumPage() {
 
             <h2>Bildnachweis</h2>
             <p>
-              Die Fotografien auf dieser Website stammen aus zwei dokumentarischen
-              Bildsammlungen gemeinnütziger Organisationen und wurden über{' '}
-              <a
-                href="https://unsplash.com/"
-                className="linkish"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Unsplash
-                <span className="sr-only"> (öffnet in neuem Tab)</span>
-              </a>{' '}
-              unter der {PHOTO_CREDIT.licence} bezogen. Sie wurden einheitlich farblich
-              bearbeitet und beschnitten. Eine Nennung ist von der Lizenz nicht
-              gefordert; sie erfolgt trotzdem.
+              Die Fotografien auf dieser Website wurden {PHOTO_CREDIT.origin}. Sie
+              wurden für die Verwendung auf dieser Seite lediglich zugeschnitten und
+              in Größe und Dateiformat für die Auslieferung im Web optimiert.
             </p>
-            <ul>
-              {PHOTO_CREDIT.sources.map((src) => (
-                <li key={src.href}>
-                  <a
-                    href={src.href}
-                    className="linkish"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {src.label}
-                    <span className="sr-only"> (öffnet in neuem Tab)</span>
-                  </a>{' '}
-                  — {src.note}. Verwendet: {src.used}.
-                </li>
-              ))}
-            </ul>
             <p>
-              <strong>Alle Bilder sind Symbolbilder.</strong> Sie zeigen weder
+              <strong>Alle Fotografien sind Symbolbilder.</strong> Sie zeigen weder
               Mitarbeiterinnen und Mitarbeiter noch Klientinnen und Klienten von{' '}
-              {business.legalName} und auch nicht deren Räumlichkeiten. Sobald eigene
-              Aufnahmen vorliegen, werden sie ersetzt.
+              {business.legalName} und auch nicht deren Räumlichkeiten. Die
+              dargestellten Personen sind nicht real; die Bilder wurden mit Hilfe
+              generativer KI erstellt. Sobald eigene Aufnahmen vorliegen, werden sie
+              ersetzt.
             </p>
             <p>
               Die übrigen grafischen Elemente — Sonnenmotiv, Symbole und Icons — wurden
               eigens für diese Website erstellt. Das Logo ist Eigentum des Betreibers.
-              KI-generierte Bilder werden auf dieser Website nicht verwendet.
             </p>
 
             <h2>Hosting</h2>
