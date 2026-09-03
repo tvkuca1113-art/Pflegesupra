@@ -3,13 +3,13 @@
  *
  * ART DIRECTION — why these photographs and not others.
  *
- * Two documentary sources, both charities photographing older people in their
- * own lives: the Centre for Ageing Better's image library, which supplies the
- * opening photograph, and Jon Pountney's series for Age Cymru, which supplies
- * the rest. Not one commission any more, and the honest reason is that the one
- * commission did not contain a usable hero. What matters for coherence is the
- * register, and both are the same register: real people, real rooms, nobody
- * holding a clipboard and smiling at nothing.
+ * Two sources. The opening photograph is Dominik Lange's picture of his wife
+ * walking with her grandmother; the rest is Jon Pountney's documentary series
+ * for Age Cymru, the national charity for older people in Wales. Not one
+ * commission any more, and the honest reason is that the one commission did
+ * not contain a usable hero — see the long note on `begleitung` below. What
+ * matters for coherence is the register, and both are the same register: real
+ * people, real situations, nobody holding a clipboard and smiling at nothing.
  *
  * It also matters for this client specifically. The site being replaced used
  * AI-generated images of people who do not exist — a fact its own Impressum
@@ -77,9 +77,19 @@ const TMP = path.join(process.cwd(), '.image-cache');
    in 82 s. It buys nothing and triples the build. Quality was doing all the
    work; effort was doing none.
 
-   The other crops stay at the set default: spending anything extra on an image
-   nobody waits for buys nothing either. */
-const HERO_Q = { avif: 40, webp: 66 };
+   `sharpen: false` is the second half of the same story, and it is about this
+   photograph rather than about heroes in general. The set default applies a
+   light unsharp mask to counter the softness of downscaling. This frame is a
+   backlit, grainy, 35mm-looking picture, and sharpening it amplifies the grain
+   in the sky, which then has to be encoded: measured at 1800px, sharpening
+   costs 100 KB vs 59 KB in AVIF and 506 KB vs 290 KB in WebP, and side by side
+   the unsharpened version is visibly CLEANER — same hair detail, far less
+   noise. Bigger and worse, for nothing. The other crops keep the sharpening,
+   which suits them.
+
+   The other crops stay at the set default in every other respect too:
+   spending anything extra on an image nobody waits for buys nothing either. */
+const HERO_Q = { avif: 40, webp: 66, sharpen: false };
 
 /**
  * source  — the Unsplash photo id, so any of these can be traced back.
@@ -93,24 +103,40 @@ const HERO_Q = { avif: 40, webp: 66 };
  */
 const SOURCES = [
   {
-    /* THE OPENING PHOTOGRAPH.
-       Centre for Ageing Better's image library rather than Age Cymru, and the
-       reason is worth recording. The frame that used to sit here was a tight
-       two-head close-up: warm, but with no room in it — no window, no wall, no
-       furniture, nothing that said where this was happening. At hero size it
-       read as a fragment of a photograph rather than a photograph, and the
-       client rejected it outright, twice.
+    /* THE OPENING PHOTOGRAPH — third frame in this slot, and the reason for
+       each replacement is worth keeping, because they were different reasons.
 
-       This one is a whole scene. A real front room, daylight through the
-       window, two people in an unposed exchange over a photo album, and enough
-       air around them to crop at two very different aspects. It says the one
-       thing the hero of an ambulatory service has to say: this happens in your
-       home, not in an institution. Nobody looks at the camera, nobody is in
-       uniform, there is no equipment and no logo. */
-    key: 'hausbesuch',
-    id: 'rQJ3xo-0WYE',
-    credit: 'Centre for Ageing Better',
-    url: 'https://images.unsplash.com/photo-1702648156180-25d8be9c9527?fm=jpg&q=92&w=2400',
+       The first was a tight close-up of two heads. It had no window, no wall,
+       no furniture: nothing that told a visitor where the care was happening.
+       A hero has to establish a place, so it moved to the careers page, where
+       a tight portrait is exactly right.
+
+       The second put a place in the frame and lost on a different test. It was
+       an ordinary front room photographed honestly — heavy floral curtains, a
+       busy patterned armchair, a large brown lamp filling the right of the
+       crop. Truthful, warm, and visually cluttered, in a green-and-red palette
+       that fought the warm paper and navy of this site. The client's word for
+       it was "katastrofa". They were right: a hero has to be beautiful, and
+       "documentary" is not a defence against clutter.
+
+       This one is calm. Evening light across an open field, two figures, a
+       clean horizon, and nothing else in the frame — no props to tidy, no
+       palette to fight. It is also a real care relationship rather than a
+       staged one: the photographer's note records it as his wife with her
+       grandmother, who is over ninety, has severe dementia and lives with the
+       family. Nobody faces the camera, which for a Symbolbild is a feature.
+
+       The honest trade-off, stated rather than hidden: this is Begleitung
+       outdoors, not care inside a flat, and the headline above it says "Pflege
+       zu Hause". Accompanying someone outside is a real Betreuungsleistung, so
+       it does not misrepresent the service — but it does not illustrate the
+       headline literally either. The alternative was another cluttered
+       interior. When the client's own photographs exist, this is the first
+       slot to fill. */
+    key: 'begleitung',
+    id: 'VUOiQW4OeLI',
+    credit: 'Dominik Lange',
+    url: 'https://images.unsplash.com/photo-1543333995-a78aea2eee50?fm=jpg&q=92&w=3000',
     crops: [
       /* 0.95:1 — very slightly taller than square — from the laptop breakpoint
          up, and this one is a compromise rather than a match, which is worth
@@ -122,18 +148,17 @@ const SOURCES = [
          single crop fits all of that. 0.95 sits in the middle of where the
          traffic is: at 1440 it loses 3% of its width to object-cover, at 1366
          about 8%, and at the two ends it gives up roughly a quarter of one
-         dimension — which the framing below is chosen to survive, both faces
-         well inside the centre.
+         dimension.
 
-         The first version of this crop was 6:5. That is the aspect the panel
+         An earlier version of this crop was 6:5. That is the aspect the panel
          had before the hero copy was retuned, and nobody re-measured: at 1440
          it silently threw away 23% of the frame's width. Measure the box. */
-      { name: 'hero-wide', ratio: 0.95, widths: [900, 1300, 1800], focus: { x: 0.56, y: 0.48 }, q: HERO_Q },
+      { name: 'hero-wide', ratio: 0.95, widths: [900, 1300, 1800], focus: { x: 0.30, y: 0.55 }, q: HERO_Q },
       /* 1.36:1 on phones — MEASURED from the box, not chosen by eye. The phone
          hero container is `h-[34vh] max-h-[20rem]` at full width, which comes
          out 360x265, 390x287 and 430x317 on the three handset sizes: 1.36:1
          every time. Match the crop to the box. Every time. */
-      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.55, y: 0.5 }, q: HERO_Q },
+      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.34, y: 0.55 }, q: HERO_Q },
     ],
   },
   {
@@ -232,14 +257,14 @@ for (const s of SOURCES) {
         .composite([{
           input: { create: { width: w, height: h, channels: 4, background: { r: 255, g: 232, b: 200, alpha: 0.34 } } },
           blend: 'soft-light',
-        }])
-        .sharpen({ sigma: 0.6 });
+        }]);
+      const finished = c.q?.sharpen === false ? treated : treated.sharpen({ sigma: 0.6 });
 
       for (const fmt of ['avif', 'webp']) {
         const out = path.join(OUT, `${c.name}-${w}.${fmt}`);
         await (fmt === 'avif'
-          ? treated.clone().avif({ quality: c.q?.avif ?? 52, effort: 6 })
-          : treated.clone().webp({ quality: c.q?.webp ?? 74 })
+          ? finished.clone().avif({ quality: c.q?.avif ?? 52, effort: 6 })
+          : finished.clone().webp({ quality: c.q?.webp ?? 74 })
         ).toFile(out);
         rows.push([`${c.name}-${w}.${fmt}`, (fs.statSync(out).size / 1024).toFixed(0) + ' KB', s.credit]);
       }
@@ -254,7 +279,7 @@ for (const s of SOURCES) {
    rewritten — the title comes from the page's own metadata. */
 {
   const src = fetchSource(SOURCES[0]);
-  const base = await crop(src, 1200 / 630, { x: 0.56, y: 0.5 });
+  const base = await crop(src, 1200 / 630, { x: 0.38, y: 0.55 });
   const out = path.join(process.cwd(), 'public/og-default.jpg');
   await base
     .resize(1200, 630, { fit: 'cover' })

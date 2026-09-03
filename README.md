@@ -218,22 +218,35 @@ recurring cast a commissioned shoot would give.
 
 | Position | Sitting | Crop | Why this one |
 |---|---|---|---|
-| Home, hero | Home visit: two people with a photo album by the window | 0.95:1 / 1.36:1 | The emotional entry point, and the only eager image on the site |
+| Home, hero | Evening walk: a woman pushing her grandmother across an open field | 0.95:1 / 1.36:1 | The emotional entry point, and the only eager image on the site |
 | Home, Klartext | Two women talking over coffee | 3:2 | The section is about being told things straight; the picture is a conversation |
 | Home, Haltung | Kitchen, carer with two clients | 4:5 | "Wir planen nach Erfahrung" — a carer taking time, seen |
 | Leistungen | Same kitchen | 16:9 | A home kitchen, not a ward: the page is about care at home |
 | Über uns | Care worker + older woman, wide | 3:2 | The people who do the work, on the page about who does the work |
 | Karriere | Same care worker, alone and tight | 4:5 | Shows the work, to somebody deciding whether to do it |
 
-**The hero was replaced after the client rejected it twice, and the second
-rejection was about the photograph, not the crop.** The frame that had been
-there was a tight close-up of two heads: warm, but with no window, no wall and
-no furniture in it — nothing that said where the care was happening. That is a
-good portrait and a poor hero, and no amount of re-cropping fixes it. The
-frame now in that slot is a whole room in daylight. Keeping every image inside
-a single commission had been the tidier story; it was not worth an opening
-photograph that does not open anything, so the set now draws on two charity
-libraries in the same documentary register rather than one.
+**The hero has been replaced twice, and the two rejections were about
+different things.** The first frame was a tight close-up of two heads: warm,
+but with no window, no wall and no furniture — nothing that said where the care
+was happening. That is a good portrait and a poor hero, and no amount of
+re-cropping fixes it; it moved to the careers page. The second put a place in
+the frame and failed on beauty instead: an ordinary front room photographed
+honestly, with heavy floral curtains, a busy patterned armchair and a large
+brown lamp in the crop, in a green-and-red palette that fought the warm paper
+and navy of the page. The client's word was "katastrofa". **A hero has to
+establish a place AND be beautiful, and "documentary" is not a defence against
+clutter.**
+
+The frame there now is calm: evening light across an open field, two figures, a
+clean horizon, nothing else to tidy. It is a real care relationship rather than
+a staged one — the photographer's note records it as his wife with her
+grandmother, who is over ninety, has severe dementia and lives with the family.
+Nobody faces the camera, which for a Symbolbild is a feature. The trade-off,
+stated rather than hidden: it shows Begleitung outdoors, not care inside a
+flat, while the headline above it says "Pflege zu Hause". Accompanying someone
+outside is a real Betreuungsleistung, so it does not misrepresent the service,
+but it does not illustrate the headline literally either. **This is the first
+slot to fill when the client's own photographs exist.**
 
 Two things came out of that swap and are worth carrying forward. The desktop
 hero panel **has no fixed aspect** — it is 54% of the viewport wide and as tall

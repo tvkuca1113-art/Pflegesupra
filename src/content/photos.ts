@@ -1,19 +1,19 @@
 /**
  * Photographic credits and the shot list.
  *
- * WHAT IS HERE NOW. Two documentary sources, both charities that photograph
- * older people in their own lives and publish the results under the Unsplash
- * Licence: the Centre for Ageing Better's image library, which supplies the
- * opening photograph, and Jon Pountney's series for Age Cymru, which supplies
- * the rest.
+ * WHAT IS HERE NOW. Two sources, both under the Unsplash Licence: Dominik
+ * Lange's photograph of his wife walking with her grandmother, which opens the
+ * home page, and Jon Pountney's documentary series for Age Cymru — the
+ * national charity for older people in Wales — which supplies every other
+ * placement.
  *
- * It was one source until the hero was replaced. A single commission is the
- * more coherent story and it was worth holding for as long as it held, but the
- * frame it gave the home page was a tight close-up of two heads with no room
- * in it — no window, no wall, nothing that said where the care was happening.
- * A hero has to establish a place. Coherence that costs the opening photograph
- * is not coherence worth keeping, and the two libraries are in any case the
- * same register: real people, real rooms, no camera-gaze, no props.
+ * It was one source until the hero was replaced, twice. A single commission is
+ * the more coherent story and it was worth holding for as long as it held, but
+ * the frame it gave the home page was a tight close-up of two heads with no
+ * room in it, and the frame that replaced that one was an honest photograph of
+ * a cluttered front room. A hero has to establish a place AND be beautiful;
+ * neither of those is optional and neither is a substitute for the other.
+ * Coherence that costs the opening photograph is not coherence worth keeping.
  *
  * WHAT IS NOT HERE, AND WHY. The art direction this site was briefed to hit —
  * a caregiver and client in a modern German apartment with negative space on
@@ -44,9 +44,9 @@ export const PHOTO_CREDIT = {
   /** Named in /impressum. One entry per library the set draws on. */
   sources: [
     {
-      label: 'Centre for Ageing Better',
-      note: 'britische Stiftung für ein besseres Älterwerden',
-      href: 'https://unsplash.com/@ageing_better',
+      label: 'Dominik Lange',
+      note: 'dokumentarische Aufnahme, veröffentlicht über Unsplash',
+      href: 'https://unsplash.com/@the_real_napster',
       used: 'Startseite, Kopfbild',
     },
     {

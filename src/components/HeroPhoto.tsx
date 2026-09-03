@@ -11,10 +11,12 @@ const DESK = '(min-width: 64rem)';
  * breakpoint up, which is a deliberate compromise because that panel has no
  * fixed aspect at all. `scripts/build-images.mjs` carries the measurements.
  *
- * The frame itself was replaced once. The previous one was a tight close-up of
- * two heads with no room in it — a fine portrait and a poor hero, because a
- * hero has to establish a place before it establishes a mood. This one has a
- * window, a wall and a sofa in it, so a visitor can see where the care happens.
+ * The frame itself has been replaced twice, for two different reasons. The
+ * first was a tight close-up of two heads with no room in it — a fine portrait
+ * and a poor hero, because a hero has to establish a place. The second put a
+ * place in the frame and was visually cluttered, in a palette that fought the
+ * page. A hero has to do both. `scripts/build-images.mjs` carries the full
+ * note, including the honest trade-off this frame makes.
  *
  * They are served from ONE <picture> with media-scoped <source> elements
  * rather than two <img> tags in `hidden`/`lg:block` wrappers, because an <img>
@@ -41,7 +43,7 @@ export default function HeroPhoto() {
         // not say "Pflegerin" or "Klient", because we cannot know that about
         // people in a licensed photograph — and this site does not assert
         // things it cannot know.
-        alt={`Eine jüngere und eine ältere Person sitzen nebeneinander auf einem Sofa am Fenster und sehen sich lachend ein Fotoalbum an. ${PHOTO_CREDIT.short}`}
+        alt={`Eine jüngere Frau schiebt eine ältere Frau im Rollstuhl über eine Wiese; Abendlicht, offener Horizont. ${PHOTO_CREDIT.short}`}
         width={1040}
         height={765}
         fetchPriority="high"
