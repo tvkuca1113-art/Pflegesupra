@@ -97,17 +97,13 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* The symbolic-image disclosure, said once for the whole site.
-            It used to run under every photograph on every page — four times on
-            the home page alone — where repetition turned an honest note into a
-            tic that made the site read as a placeholder. Here it covers every
-            image, stays findable, and interrupts nothing. The full credit is
-            in the Impressum. */}
+        {/* One clause, not a paragraph. Each photograph carries the word
+            "Symbolbild"; this says what that means, once, and the Impressum
+            carries the full credit. */}
         <p className="mt-10 border-t border-white/20 pt-6 text-sm text-white/70">
-          Die Fotografien auf dieser Website sind Symbolbilder aus einer
-          dokumentarischen Serie. Sie zeigen nicht unsere Mitarbeiterinnen und
-          Mitarbeiter, nicht unsere Klientinnen und Klienten und nicht unsere
-          Räume. Nachweis im{' '}
+          Als Symbolbild gekennzeichnete Fotografien zeigen nicht unsere
+          Mitarbeiterinnen und Mitarbeiter, Klientinnen und Klienten oder Räume.
+          Nachweis im{' '}
           <Link href="/impressum" className="text-white/90 underline underline-offset-4">
             Impressum
           </Link>.

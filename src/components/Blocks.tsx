@@ -39,7 +39,7 @@ export function PageHeader({
  * the series — forgetting either is how a set stops looking like a set.
  */
 export function EditorialImage({
-  name, widths, ratio, sizes, alt, plate = false, caption, className = '',
+  name, widths, ratio, sizes, alt, plate = false, caption, symbolic = true, className = '',
 }: {
   name: string;
   widths: number[];
@@ -47,18 +47,10 @@ export function EditorialImage({
   sizes: string;
   alt: string;
   plate?: boolean;
-  /**
-   * A caption, when the picture needs one. Deliberately NOT defaulted to the
-   * symbolic-image note any more.
-   *
-   * That note used to run under every photograph on every page — four times on
-   * the home page alone — and repetition turned an honest disclosure into a
-   * tic that made the whole site read as a placeholder. The disclosure has not
-   * been dropped: it is stated once in the footer, where it covers every image
-   * on the site, and in full in the Impressum. Said once, believed; said four
-   * times a page, it starts to look like an apology.
-   */
+  /** A caption, where the picture needs explaining. Usually it does not. */
   caption?: string;
+  /** Set false only for a photograph that is genuinely of this business. */
+  symbolic?: boolean;
   className?: string;
 }) {
   return (
@@ -67,6 +59,9 @@ export function EditorialImage({
         <Photo name={name} widths={widths} ratio={ratio} sizes={sizes} alt={alt} />
       </div>
       {caption ? <figcaption>{caption}</figcaption> : null}
+      {/* One word. The full disclosure is in the Impressum; a sentence under
+          every image turned an honest note into a tic. */}
+      {symbolic ? <span className="figure__mark">Symbolbild</span> : null}
     </figure>
   );
 }

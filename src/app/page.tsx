@@ -2,8 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import PflegeKompass from '@/components/PflegeKompass';
 import HeroPhoto from '@/components/HeroPhoto';
-import Photo from '@/components/Photo';
-import { CtaBand, SectionHead } from '@/components/Blocks';
+import { CtaBand, SectionHead, EditorialImage } from '@/components/Blocks';
 import { IconPhone, IconArrow, IconCheck, IconPin } from '@/components/Icons';
 import { business } from '@/content/business';
 import { services } from '@/content/services';
@@ -96,7 +95,7 @@ export default function Home() {
                   it gains. Page content clears the bar via the footer's bottom
                   padding, so nothing is ever permanently hidden behind it. */}
               <h1 className="text-3xl sm:text-5xl xl:text-6xl">
-                Pflege zu Hause in München und Pfaffenhofen.
+                Pflege zu Hause, auf die Sie sich verlassen können.
               </h1>
               {/* Says WHAT before it says why. The previous lead opened on the
                   differentiator and closed with "Das ist seltener, als es sein
@@ -104,9 +103,20 @@ export default function Home() {
                   sentence a visitor reads, and four lines on a phone. This one
                   names the services first, keeps the differentiator, and fits
                   in three. */}
+              {/* The cities moved out of the H1 and into this line. That is a
+                  deliberate trade with one cost worth naming: "Pflegedienst
+                  München" is the primary local query and an H1 is the strongest
+                  on-page signal for it. The signal is not lost — the cities are
+                  in the first line of body copy, the <title>, the meta
+                  description, the top utility strip, the trust row, the footer
+                  and both location pages, whose own H1s carry them fully. What
+                  is gained is a first line that speaks to a worried reader
+                  rather than to a crawler. */}
               <p className="measure mt-3 text-lg text-ink sm:mt-5 sm:text-xl">
-                Pflege, Behandlungspflege und Betreuung in der vertrauten Umgebung —
-                mit klaren Absprachen und Kosten, die vorher feststehen.
+                Ambulante Pflege, Behandlungspflege und Betreuung in München und
+                Pfaffenhofen. Wir klären mit Ihnen, welche Unterstützung benötigt wird,
+                wie die Versorgung organisiert werden kann und welche Kosten übernommen
+                werden.
               </p>
 
               {/* One primary action, and it is the consultation rather than the
@@ -130,7 +140,7 @@ export default function Home() {
                   {...trackAttrs('phone_click', { placement: 'hero' })}
                 >
                   <IconPhone />
-                  {business.phone.display}
+                  Jetzt anrufen
                 </a>
               </div>
               {/* Reassurance next to the button, not three sections below it.
@@ -139,8 +149,8 @@ export default function Home() {
                   what I am asking for first". Both are answered here. */}
               <ul className="mt-5 m-0 flex list-none flex-wrap gap-x-6 gap-y-2 p-0 text-sm text-ink-muted">
                 {[
-                  'Unverbindlich und kostenlos',
-                  'Sie müssen noch nicht wissen, welche Leistung Sie brauchen',
+                  'Unverbindliches Erstgespräch',
+                  'Sie müssen noch nicht wissen, welche Leistung Sie benötigen',
                   `Büro ${business.officeHours.days}, ${business.officeHours.from}–${business.officeHours.to} Uhr`,
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-2">
@@ -186,8 +196,8 @@ export default function Home() {
           <div>
             <SectionHead
               eyebrow="Klartext"
-              title="Worauf Familien bei guter ambulanter Pflege achten"
-              intro="Vier Dinge, die in der ambulanten Pflege den Unterschied machen — und wie wir sie bei uns geregelt haben. Konkret genug, dass Sie es später überprüfen können."
+              title="Vier Fragen, die fast jede Familie stellt"
+              intro="Vier Dinge, die in der ambulanten Pflege den Unterschied machen — und wie sie bei uns geregelt sind. Konkret genug, dass Sie es später überprüfen können."
             />
             <dl className="m-0">
               {klartext.map((k) => (
@@ -209,17 +219,15 @@ export default function Home() {
             </p>
           </div>
 
-          <figure className="figure m-0 self-start lg:sticky lg:top-28">
-            <div className="frame frame--plate">
-              <Photo
-                name="beratung"
-                widths={[600, 900, 1400]}
-                ratio={3 / 2}
-                sizes="(min-width: 64rem) 34vw, 100vw"
-                alt="Zwei ältere Frauen sitzen an einem Tisch bei Kaffee und sprechen miteinander."
-              />
-            </div>
-          </figure>
+          <EditorialImage
+            className="self-start lg:sticky lg:top-28"
+            name="beratung"
+            widths={[600, 900, 1400]}
+            ratio={3 / 2}
+            plate
+            sizes="(min-width: 64rem) 34vw, 100vw"
+            alt="Zwei ältere Frauen sitzen an einem Tisch bei Kaffee und sprechen miteinander."
+          />
         </div>
       </section>
 
@@ -318,24 +326,29 @@ export default function Home() {
           <div>
             <SectionHead
               eyebrow="Weshalb Supra"
-              title="Wir planen nach Erfahrung, nicht nach der Minutenliste."
+              title="Pflege lässt sich nicht immer auf Minuten reduzieren."
             />
+            {/* Rewritten to describe how Supra plans, not how anyone else
+                does. The previous version opened on "In vielen Diensten steht
+                vor jedem Einsatz eine Liste..." — a claim about the sector that
+                the business cannot evidence and does not need to make. */}
             <div className="prose text-ink-muted">
               <p>
-                In vielen Diensten steht vor jedem Einsatz eine Liste: welche Tätigkeit
-                bringt wie viel Geld in welcher Zeit. Was dabei herauskommt, kennen
-                Angehörige — jemand kommt, arbeitet im Laufschritt und ist wieder weg.
+                Jede Versorgungssituation ist unterschiedlich. Deshalb betrachten wir
+                nicht nur einzelne Tätigkeiten, sondern den tatsächlichen
+                Unterstützungsbedarf im Alltag: die Wohnung, die Tagesstruktur und die
+                Menschen, die schon jetzt helfen.
               </p>
               <p>
-                Wir planen die Zeiten nach dem, was eine Aufgabe bei diesem Menschen in
-                dieser Wohnung tatsächlich braucht. Das ist der Grund, aus dem dieser
-                Dienst 2022 gegründet wurde, und es ist auch der Grund, warum wir eine
-                Tour lieber ablehnen, als sie nur auf dem Papier zu schaffen.
+                Welche Leistungen möglich sind und wie viel Zeit dafür eingeplant werden
+                kann, besprechen wir vorher mit Ihnen. Wenn eine Tour das nicht hergibt,
+                sagen wir das — das ist der Grundsatz, mit dem dieser Dienst 2022
+                gegründet wurde.
               </p>
               <p>
-                Der zweite Grundsatz ist unbequemer: Wir übernehmen nicht alles, nur weil
-                es schneller geht. Wir schauen, was jemand noch selbst kann, und
-                unterstützen so, dass es erhalten bleibt.
+                Dazu gehört auch, nicht alles zu übernehmen, nur weil es schneller geht.
+                Wir schauen, was jemand noch selbst kann, und unterstützen so, dass es
+                erhalten bleibt.
               </p>
             </div>
             <Link href="/ueber-uns" className="btn btn--secondary mt-7">
@@ -346,15 +359,14 @@ export default function Home() {
           {/* The same kitchen as the services page, cut portrait. One sitting,
               two frames — a commissioned shoot works exactly this way, and it
               is what stopped the set reading as five unrelated stock pictures. */}
-          <div className="frame frame--plate">
-            <Photo
-              name="haltung"
-              widths={[480, 720, 1000]}
-              ratio={4 / 5}
-              sizes="(min-width: 64rem) 32vw, 100vw"
-              alt="Eine Pflegekraft nimmt sich in einer Küche Zeit für eine ältere Frau am Tisch."
-            />
-          </div>
+          <EditorialImage
+            name="haltung"
+            widths={[480, 720, 1000]}
+            ratio={4 / 5}
+            plate
+            sizes="(min-width: 64rem) 32vw, 100vw"
+            alt="Eine Pflegekraft nimmt sich in einer Küche Zeit für eine ältere Frau am Tisch."
+          />
 
         </div>
       </section>

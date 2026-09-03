@@ -22,15 +22,14 @@
  * V2 softened it into the questions people ask — "Woher weiß ich, dass...?" —
  * which removed the accusation but kept the visitor in the register of worry.
  *
- * V3, this one, states the PRINCIPLE and then what is done about it.
- * "Leistungen sollen nachvollziehbar erklärt und abgerechnet werden" is a
- * standard, not a suspicion. It says the same thing to a reader who already
- * distrusts the sector, and nothing alarming to one who does not — and it is
- * the only version of the three that a confident business would write.
+ * V3, this one, asks the question a family member would actually ask out loud
+ * — "Wer kommt zu uns nach Hause?" — and answers it with what is done about
+ * it. It says the same thing to a reader who already distrusts the sector,
+ * and nothing alarming to one who does not.
  *
- * The research underneath is unchanged. Only the posture moved: from "look
- * what others do" through "here is what you fear" to "here is the standard,
- * and here is how we meet it".
+ * The research underneath is unchanged through all three. Only the posture
+ * moved: from "look what others do", through "here is what you fear", to
+ * "here is your question, and here is our answer".
  *
  * Every answer below is a commitment the client can actually keep with the
  * staff and systems they have. Nothing here asserts a certificate, a rating,
@@ -38,7 +37,7 @@
  */
 
 export type Klartext = {
-  /** What matters, stated as a principle rather than as a fear. */
+  /** The question, in the words a family member would use. */
   fear: string;
   /** What Supra does about it. Concrete, checkable, no adjectives. */
   answer: string;
@@ -46,28 +45,32 @@ export type Klartext = {
 
 export const klartext: Klartext[] = [
   {
-    fear: 'Leistungen sollen nachvollziehbar erklärt und abgerechnet werden.',
+    fear: 'Wer kommt zu uns nach Hause?',
     answer:
-      'Der Leistungsnachweis wird nach dem Einsatz unterschrieben, nicht vorher. Sie können '
-      + 'jederzeit nachvollziehen, was erbracht und was abgerechnet wurde.',
+      'Wir achten auf möglichst verlässliche Bezugspersonen und stimmen Änderungen '
+      + 'transparent mit Ihnen ab. Jede Pflegekraft, die zu Ihnen kommt, kennt Ihre '
+      + 'Situation aus der Pflegeplanung.',
   },
   {
-    fear: 'Kosten sollten feststehen, bevor man sich entscheidet.',
+    fear: 'Was wird eigentlich abgerechnet?',
     answer:
-      'Nach dem Erstgespräch bekommen Sie schriftlich, welche Leistungen Ihr Pflegegrad '
-      + 'deckt und was — falls überhaupt etwas — privat bliebe. Vor der Unterschrift.',
+      'Wir erklären Ihnen nachvollziehbar, welche Leistungen vereinbart wurden und '
+      + 'welche Kosten über Pflege- oder Krankenkasse abgerechnet werden können. Den '
+      + 'Leistungsnachweis unterschreiben Sie nach dem Einsatz, nicht vorher.',
   },
   {
-    fear: 'Sie möchten wissen, an wen Sie sich bei Fragen wenden können.',
+    fear: 'An wen wenden wir uns bei Fragen?',
     answer:
-      'Während der Bürozeiten erreichen Sie jemanden, der Ihre Versorgung kennt. Wie Sie '
-      + 'uns außerhalb dieser Zeiten erreichen, besprechen wir im Erstgespräch.',
+      'Sie wissen, an wen Sie sich bei organisatorischen Fragen zur Versorgung wenden '
+      + 'können. Während der Bürozeiten erreichen Sie jemanden, der Ihre Versorgung '
+      + 'kennt.',
   },
   {
-    fear: 'Möglichst konstante Bezugspersonen schaffen Vertrauen im Alltag.',
+    fear: 'Wie passt die Pflege in unseren Alltag?',
     answer:
-      'Wir planen darauf hin und sagen Ihnen Bescheid, wenn sich etwas ändert. Jede '
-      + 'Pflegekraft, die zu Ihnen kommt, kennt Ihre Situation aus der Pflegeplanung.',
+      'Einsatzzeiten und benötigte Unterstützung werden anhand Ihrer individuellen '
+      + 'Versorgungssituation besprochen — beim kostenlosen Hausbesuch, dort, wo die '
+      + 'Pflege später stattfindet.',
   },
 ];
 

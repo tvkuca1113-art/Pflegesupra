@@ -366,6 +366,23 @@
   @media (max-width: 40rem) { .frame--plate::before { display: none; } }
 
   figure.figure { margin: 0; }
+
+  /* The symbolic-image mark.
+     One word, at caption size, in the muted ink — the smallest honest thing
+     that can be said. It replaced a full sentence under every photograph
+     ("Symbolbild — nicht unsere Mitarbeiterinnen oder Klientinnen"), which was
+     accurate and which, repeated four times on one page, made the site read as
+     a placeholder. The full disclosure lives in the Impressum, where somebody
+     who wants it will look. */
+  .figure__mark {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
   .figure figcaption {
     margin-top: 0.7rem;
     font-size: var(--text-sm);
