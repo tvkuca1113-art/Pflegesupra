@@ -39,8 +39,23 @@ export default function KontaktPage() {
               intro="Zwei Pflichtangaben, damit wir antworten können. Alles Weitere klären wir im Gespräch."
             />
             {/* useSearchParams needs a boundary so the rest of the page can
-                still be prerendered as static HTML. */}
-            <Suspense fallback={<p className="text-ink-muted">Formular wird geladen …</p>}>
+                still be prerendered as static HTML.
+
+                The fallback reserves the form's height rather than being a
+                single line of text. On a phone the layout is one column, so the
+                "Rufen Sie einfach an" panel sits underneath: a one-line
+                placeholder swapping for a 1237px form shoved that panel down
+                the page, which is what CLS measures. Measured heights are
+                1237px at 390px wide and 933px from the tablet breakpoint up.
+                Reserving them costs nothing — the space is about to be filled
+                by the form anyway — and takes /kontakt to zero shift. */}
+            <Suspense
+              fallback={(
+                <div className="min-h-[1237px] sm:min-h-[933px]" aria-hidden="true">
+                  <p className="text-ink-muted">Formular wird geladen …</p>
+                </div>
+              )}
+            >
               <InquiryForm kind="beratung" />
             </Suspense>
           </div>

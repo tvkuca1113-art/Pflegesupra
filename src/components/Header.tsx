@@ -110,7 +110,7 @@ export default function Header() {
               width={260}
               height={184}
               priority
-              className="site-header__logo h-12 w-auto sm:h-16"
+              className="site-header__logo h-10 w-auto xs:h-12 sm:h-16"
             />
           </Link>
 

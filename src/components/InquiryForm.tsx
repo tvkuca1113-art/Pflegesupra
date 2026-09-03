@@ -112,10 +112,11 @@ export default function InquiryForm({ kind = 'beratung' }: { kind?: InquiryKind 
           res.status === 429
             ? 'Es wurden gerade sehr viele Anfragen gesendet. Bitte versuchen Sie es in ein paar Minuten noch einmal — oder rufen Sie uns direkt an.'
             : json.error === 'server_not_configured'
-              // Only reachable on a preview whose database credentials are not
-              // set yet. Say so plainly rather than implying the visitor did
-              // something wrong or that the form is broken by design.
-              ? 'Diese Vorschau ist noch nicht mit der Datenbank verbunden, deshalb kann das Formular hier nichts speichern. Bitte rufen Sie uns an.'
+              // Reachable whenever the database credentials are unset — which
+              // includes production until the environment variables are added,
+              // so this must not tell a real visitor they are on a preview.
+              // Say what is true and give them the one route that still works.
+              ? 'Das Formular ist gerade nicht erreichbar. Rufen Sie uns bitte an — wir nehmen Ihre Anfrage direkt am Telefon auf.'
               : 'Ihre Anfrage konnte nicht gespeichert werden. Das liegt an uns, nicht an Ihnen. Bitte rufen Sie uns an oder versuchen Sie es später erneut.',
         );
         setState('failed');

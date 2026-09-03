@@ -89,7 +89,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="shell pt-10">
           <EditorialImage
             name={s.photo.name}
-            widths={[600, 900, 1400, 1672]}
+            widths={[600, 900, 1400]}
             ratio={16 / 9}
             sizes="(min-width: 80rem) 76rem, 100vw"
             alt={s.photo.alt}

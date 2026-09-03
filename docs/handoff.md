@@ -148,6 +148,7 @@ hashes for throttling, stated retention. That is a description, not legal advice
 | Legal content | **BLOCKED** | Drafted, red-flagged | §4.3 |
 | Production deployment | **BLOCKED** | — | §4.1 |
 | Link previews (Open Graph) | **BLOCKED** | Card generated at 1200×630 and served correctly | `og:image` resolves against `NEXT_PUBLIC_SITE_URL`, which is unset — so it currently points at supra-pd.de, where the file does not yet exist. Every share of the preview URL shows a broken image until §4.1 is done. |
+| Every asset resolves | **PASS** | `node scripts/assets-check.mjs` — 65 asset URLs across 17 routes, every `srcset` candidate expanded and requested, 0 failures, 0 orphaned files in `public/img` | Added after four `-1672` srcset candidates 404'd; the page-level harness could not see them because no test viewport happened to pick those widths |
 | Responsive tables | **PASS** | The benefits table restacks below 48rem — measured scrollWidth 348 = clientWidth 348 at 390px, no horizontal scroll | Roles are written out because `display:block` strips implicit table roles |
 | Research-led content | **PASS** | The Klartext section, the Einsatz timeline and the recruiting headline each answer a documented, sourced finding rather than a brief — see §7 | Forums and consumer reporting only; closed groups were not accessible |
 | Photography | **PASS** | Seven client-approved photographs, one per placement, with the real Supra logo composited onto every uniform from the site's own logo asset; three sections deliberately run without a photograph rather than repeat one | Real photographs of the team are still the biggest upgrade — §6 |
@@ -209,7 +210,7 @@ gains.
 
   | | worst route | budget |
   |---|---|---|
-  | CLS | **0** (0.0085 on `/kontakt`) | ≤ 0.1 |
+  | CLS | **0** on every measured route | ≤ 0.1 |
   | LCP | **1.80 s** (`/karriere`; 0.90 s on `/`) | ≤ 2.5 s |
   | FCP | **0.90 s** (`/pflegegrade-und-kosten`) | ≤ 1.8 s |
   | TBT | **~240 ms** (worst route, single runs) | ≤ 200 ms |

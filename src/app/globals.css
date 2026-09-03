@@ -557,12 +557,37 @@
      somebody is trying to read.
      ========================================================================== */
   .site-header__bar {
-    padding-block: 0.75rem;
+    /* Tighter on handsets. The bar and the utility strip above it were taking
+       118px off a 780px screen — 15% of the first view spent on chrome, on the
+       devices with the least room to spare. Below 24rem the logo also drops a
+       size (see Header.tsx), which together returns about 18px to the content.
+       Desktop is unchanged. */
+    padding-block: 0.55rem;
     transition: padding-block 200ms ease;
+  }
+
+  @media (min-width: 40rem) {
+    .site-header__bar { padding-block: 0.75rem; }
   }
   .site-header__logo { transition: height 200ms ease; }
   .site-header[data-compact] .site-header__bar { padding-block: 0.35rem; }
   .site-header[data-compact] .site-header__logo { height: 2.5rem; }
+
+  /* Below `sm` the header does not compact, and that is a layout-stability
+     decision rather than a stylistic one. The compact state animates
+     padding-block and the logo's height, both of which move everything under
+     them; on a phone the bar is already tight enough that the shrink buys a few
+     pixels and costs a measurable shift. Trimming the base padding here pushed
+     /kontakt from CLS 0.0085 to 0.0159 — still far inside budget, but a
+     regression, and unnecessary. Desktop keeps the effect, where the header is
+     tall enough for it to be worth something and the viewport is not the
+     constraint. */
+  @media (max-width: 39.999rem) {
+    .site-header__bar,
+    .site-header[data-compact] .site-header__bar { padding-block: 0.55rem; }
+    .site-header__logo,
+    .site-header[data-compact] .site-header__logo { height: 2.5rem; }
+  }
 
   /* ==========================================================================
      ACCORDION MOTION
