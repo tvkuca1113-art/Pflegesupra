@@ -30,19 +30,19 @@ export default function HeroPhoto() {
 
   return (
     <picture className="block h-full w-full">
-      <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [600, 894, 1300])} sizes="54vw" />
-      <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [600, 894, 1300])} sizes="54vw" />
-      <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [480, 760, 1040, 1280])} sizes="100vw" />
-      <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [480, 760, 1040, 1280])} sizes="100vw" />
+      <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [600, 860, 1032])} sizes="54vw" />
+      <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [600, 860, 1032])} sizes="54vw" />
+      <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [480, 760, 1040, 1280, 1448])} sizes="100vw" />
+      <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [480, 760, 1040, 1280, 1448])} sizes="100vw" />
       <img
         src="/img/hero-tall-760.webp"
         // The alt text describes what is in the frame and stops there. It does
         // not say "Pflegerin" or "Klient", because we cannot know that about
         // people in a licensed photograph — and this site does not assert
         // things it cannot know.
-        alt={`Pflegekraft im Gespräch mit einer Seniorin in ihrer Wohnung. ${PHOTO_CREDIT.short}`}
-        width={1280}
-        height={720}
+        alt={`Pflegekraft im Gespräch mit einer Seniorin am Esstisch ihrer Wohnung. ${PHOTO_CREDIT.short}`}
+        width={1448}
+        height={815}
         fetchPriority="high"
         decoding="async"
         className="block h-full w-full object-cover"

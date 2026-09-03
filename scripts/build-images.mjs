@@ -2,9 +2,16 @@
  * Builds the photographic set from the client's approved originals.
  *
  * WHERE THE PICTURES COME FROM NOW. Seven photographs supplied and approved by
- * the client, stored as JPEG masters in assets/photos/ and branded with the
- * real Supra logo into assets/photos-branded/ by scripts/brand-photos.mjs, so
- * the whole chain is reproducible without a network call. Every earlier source — the Age Cymru
+ * the client, stored as JPEG masters in assets/photos/. They arrive already
+ * branded — the Supra logo is on the uniforms in the supplied files — so this
+ * script only crops and encodes. Nothing here retouches a photograph.
+ *
+ * Five of the seven are the client's final 1448x1086 files. Two —
+ * `hauswirtschaft` and `karriere` — are still the earlier 1672x941 masters with
+ * the logo composited by scripts/brand-photos.mjs, because the client's final
+ * versions of those two have not arrived yet. That script is retained for that
+ * reason alone and is NOT part of this pipeline; when the last two finals land,
+ * they drop into assets/photos/ and the script goes. Every earlier source — the Age Cymru
  * documentary series, the Centre for Ageing Better library, Dominik Lange's
  * photograph — has been removed from the site entirely, files included.
  *
@@ -33,11 +40,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const OUT = path.join(process.cwd(), 'public/img');
-/* The BRANDED masters, not the raw ones. scripts/brand-photos.mjs reads
-   assets/photos, composites the real Supra logo onto each uniform and writes
-   assets/photos-branded; this script then crops and encodes those. Run
-   brand-photos first if the placements change. */
-const SRC = path.join(process.cwd(), 'assets/photos-branded');
+const SRC = path.join(process.cwd(), 'assets/photos');
 
 /**
  * file   — the master in assets/photos.
@@ -71,7 +74,7 @@ const SOURCES = [
          still beats leaving the browser to do it bilinearly at display time, so
          the 1300 variant exists and is honestly an upscale. If higher-resolution
          originals ever arrive, this is the first place they pay off. */
-      { name: 'hero-wide', ratio: 0.95, widths: [600, 894, 1300], focus: { x: 0.62, y: 0.52 }, allowUpscale: true, q: { avif: 46, webp: 72 } },
+      { name: 'hero-wide', ratio: 0.95, widths: [600, 860, 1032], focus: { x: 0.60, y: 0.50 }, q: { avif: 46, webp: 72 } },
       /* 16:9 on phones — the native aspect of the master, which means the
          phone hero is the whole frame with nothing cropped away at all.
 
@@ -84,7 +87,7 @@ const SOURCES = [
          `aspect-[16/9]`, so the box and the crop are the same shape at every
          width and both people are guaranteed to survive. It is also sharper:
          every width below is native pixels. */
-      { name: 'hero-tall', ratio: 16 / 9, widths: [480, 760, 1040, 1280], focus: { x: 0.5, y: 0.5 }, q: { avif: 44, webp: 70 } },
+      { name: 'hero-tall', ratio: 16 / 9, widths: [480, 760, 1040, 1280, 1448], focus: { x: 0.5, y: 0.44 }, q: { avif: 44, webp: 70 } },
     ],
   },
   {
@@ -93,14 +96,14 @@ const SOURCES = [
        families ask, because it shows the answer to all four at once: someone
        explains, the family is in the room, and it is written down. */
     file: 'beratung.jpg',
-    crops: [{ name: 'beratung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.50, y: 0.50 } }],
+    crops: [{ name: 'beratung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.50, y: 0.48 } }],
   },
   {
     /* IMAGE 03 — Betreuung. Coffee in the conservatory with a younger
        colleague: company rather than a task. Deliberately NOT used for
        Grundpflege or Behandlungspflege, which are different promises. */
     file: 'betreuung.jpg',
-    crops: [{ name: 'betreuung', ratio: 16 / 9, widths: [600, 900, 1400, 1672], focus: { x: 0.5, y: 0.5 } }],
+    crops: [{ name: 'betreuung', ratio: 16 / 9, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.46 } }],
   },
   {
     /* IMAGE 04 — Grundpflege, and the home page's argument about independence.
@@ -108,12 +111,12 @@ const SOURCES = [
        is doing the walking. Support, not rescue. */
     file: 'grundpflege.jpg',
     crops: [
-      { name: 'grundpflege', ratio: 16 / 9, widths: [600, 900, 1400, 1672], focus: { x: 0.5, y: 0.5 } },
+      { name: 'grundpflege', ratio: 16 / 9, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.44 } },
       /* The same frame at 3:2 for the home page. The section beside it argues
          that you do not take over what someone can still do themselves, which
          is exactly what this picture is of. It is the only frame used twice in
          the set, and the two uses are on different pages. */
-      { name: 'haltung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.52, y: 0.48 } },
+      { name: 'haltung', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.52, y: 0.46 } },
     ],
   },
   {
@@ -123,7 +126,7 @@ const SOURCES = [
        The crop keeps the dispenser legible without turning the frame into a
        product shot. */
     file: 'behandlungspflege.jpg',
-    crops: [{ name: 'behandlungspflege', ratio: 16 / 9, widths: [600, 900, 1400, 1672], focus: { x: 0.5, y: 0.5 } }],
+    crops: [{ name: 'behandlungspflege', ratio: 16 / 9, widths: [600, 900, 1400], focus: { x: 0.5, y: 0.46 } }],
   },
   {
     /* IMAGE 06 — Hauswirtschaft. Shopping being put away together. Explicitly
@@ -204,7 +207,7 @@ for (const s of SOURCES) {
    link shows the picture the page opens on, with no text baked in — the card
    then never contradicts a headline that has since been rewritten. */
 {
-  const { pipeline } = await crop(path.join(SRC, 'hero.jpg'), 1200 / 630, { x: 0.58, y: 0.5 });
+  const { pipeline } = await crop(path.join(SRC, 'hero.jpg'), 1200 / 630, { x: 0.56, y: 0.44 });
   const out = path.join(process.cwd(), 'public/og-default.jpg');
   await pipeline
     .resize(1200, 630, { fit: 'cover', kernel: 'lanczos3' })
