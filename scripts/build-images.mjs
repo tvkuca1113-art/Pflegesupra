@@ -73,10 +73,18 @@ const SOURCES = [
          that box lost a third of its width to object-cover and cut the second
          face off at the frame edge. Match the crop to the container, again. */
       { name: 'hero-wide', ratio: 6 / 5, widths: [900, 1300, 1800], focus: { x: 0.5, y: 0.44 } },
-      // 1:1 on phones, not 4:5. The source frame is 1.41:1 and holds two
-      // faces near its edges; a 4:5 crop takes only 57% of the width and
-      // sliced both of them off. A square takes 71% and keeps them.
-      { name: 'hero-tall', ratio: 1, widths: [560, 840, 1120], focus: { x: 0.5, y: 0.44 } },
+      /* 1.36:1 on phones — MEASURED from the box, not chosen by eye.
+         The phone hero container is `h-[34vh] max-h-[20rem]` at full width,
+         which comes out 360x265, 390x287 and 430x317 on the three handset
+         sizes: 1.36:1 every time. The square crop that used to sit here got
+         scaled up 36% by object-cover and sliced top and bottom, which is why
+         the mobile hero read as a tight zoomed close-up with the second face
+         falling off the right edge — while the desktop crop looked fine.
+
+         Third time on this project that a picture "looked wrong" and the cause
+         was the crop's aspect not matching its container's. Match the crop to
+         the box. Every time. */
+      { name: 'hero-tall', ratio: 1.36, widths: [480, 760, 1040], focus: { x: 0.5, y: 0.46 } },
       /* The caregiver alone, tight, for the careers page. Same frame as the
          hero — which is the point rather than a compromise. A commissioned
          shoot gives a site one recurring cast; using one sitting at three

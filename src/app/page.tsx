@@ -111,12 +111,23 @@ export default function Home() {
                   description, the top utility strip, the trust row, the footer
                   and both location pages, whose own H1s carry them fully. What
                   is gained is a first line that speaks to a worried reader
-                  rather than to a crawler. */}
-              <p className="measure mt-3 text-lg text-ink sm:mt-5 sm:text-xl">
+                  rather than to a crawler.
+
+                  Set a step smaller on phones. The briefed sentence is 210
+                  characters; at --text-lg it ran seven lines on a 390px screen
+                  and pushed the call to action well past the fold. At the base
+                  size it is five, and the base size on this site is 17-18px —
+                  comfortably above the floor for a reader in their sixties.
+
+                  One clause was also cut from the briefed sentence: "wie die
+                  Versorgung organisiert werden kann". It is the least
+                  load-bearing of the three — the whole Ablauf section answers
+                  it forty lines further down — and it was worth two lines on a
+                  phone. The other two clauses are untouched. */}
+              <p className="measure mt-3 text-base leading-relaxed text-ink sm:mt-5 sm:text-lg xl:text-xl">
                 Ambulante Pflege, Behandlungspflege und Betreuung in München und
-                Pfaffenhofen. Wir klären mit Ihnen, welche Unterstützung benötigt wird,
-                wie die Versorgung organisiert werden kann und welche Kosten übernommen
-                werden.
+                Pfaffenhofen. Wir klären mit Ihnen, welche Unterstützung nötig ist und
+                welche Kosten übernommen werden.
               </p>
 
               {/* One primary action, and it is the consultation rather than the
@@ -126,7 +137,7 @@ export default function Home() {
                   secondary treatment here and is the FILLED action in the
                   mobile bar at the bottom of the screen, so a high-intent
                   caller on a phone is still one tap away. */}
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:items-center">
                 <Link
                   href="/kontakt"
                   className="btn btn--primary text-lg"

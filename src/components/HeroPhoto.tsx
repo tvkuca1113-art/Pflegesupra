@@ -6,8 +6,9 @@ const DESK = '(min-width: 64rem)';
 /**
  * The opening photograph, art-directed.
  *
- * Two different crops of the same frame: a square on phones, 6:5 from the
- * laptop breakpoint up — both chosen to match the box they land in. They are served from ONE <picture> with media-scoped
+ * Two crops of the same frame, each matched to the box it lands in: 1.36:1
+ * on phones (the measured aspect of the hero container at 360, 390 and 430px)
+ * and 6:5 from the laptop breakpoint up. They are served from ONE <picture> with media-scoped
  * <source> elements rather than two <img> tags in `hidden`/`lg:block`
  * wrappers, because an <img> inside a display:none container is still
  * downloaded — measured on this site, twice. A media attribute on <source> is
@@ -24,17 +25,17 @@ export default function HeroPhoto() {
     <picture className="block h-full w-full">
       <source media={DESK} type="image/avif" srcSet={set('hero-wide', 'avif', [900, 1300, 1800])} sizes="54vw" />
       <source media={DESK} type="image/webp" srcSet={set('hero-wide', 'webp', [900, 1300, 1800])} sizes="54vw" />
-      <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [560, 840, 1120])} sizes="100vw" />
-      <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [560, 840, 1120])} sizes="100vw" />
+      <source media={PHONE} type="image/avif" srcSet={set('hero-tall', 'avif', [480, 760, 1040])} sizes="100vw" />
+      <source media={PHONE} type="image/webp" srcSet={set('hero-tall', 'webp', [480, 760, 1040])} sizes="100vw" />
       <img
-        src="/img/hero-tall-840.webp"
+        src="/img/hero-tall-760.webp"
         // The alt text describes the two people, because that is the whole
         // content of the picture. It does not say "Pflegerin", because we
         // cannot know that about someone in a licensed photograph — and this
         // site does not assert things it cannot know.
         alt={`Zwei Frauen lachen miteinander in einem Wohnzimmer, eine jüngere in blauer Arbeitskleidung beugt sich zu einer älteren hinunter. ${PHOTO_CREDIT.short}`}
-        width={1120}
-        height={1120}
+        width={1040}
+        height={765}
         fetchPriority="high"
         decoding="async"
         className="block h-full w-full object-cover"
