@@ -79,6 +79,31 @@ const SOURCES = [
     crops: [{ name: 'karriere', ratio: 3 / 2, widths: [600, 900], focus: { x: 0.52, y: 0.44 } }],
   },
   {
+    // The second frame of the same sitting as `beratung`. Used on a different
+    // page, at a different crop — a repeat of the setting, not of the picture.
+    key: 'gespraech',
+    id: 'krSBI6OVRLM',
+    credit: 'Jon Pountney für Age Cymru',
+    url: 'https://images.unsplash.com/photo-1685608625836-7b081c676483?fm=jpg&q=92&w=2400',
+    crops: [{ name: 'ueber-uns', ratio: 3 / 2, widths: [600, 900, 1400], focus: { x: 0.52, y: 0.46 } }],
+  },
+  {
+    key: 'kueche',
+    id: 'bSXk1lOp8T0',
+    credit: 'Jon Pountney für Age Cymru',
+    url: 'https://images.unsplash.com/photo-1762955911431-4c44c7c3f408?fm=jpg&q=92&w=2400',
+    crops: [{ name: 'leistungen', ratio: 16 / 9, widths: [900, 1400, 1900], focus: { x: 0.52, y: 0.45 } }],
+  },
+  {
+    key: 'kaffee',
+    id: 'E9IvdAYIk4w',
+    credit: 'Jon Pountney für Age Cymru',
+    url: 'https://images.unsplash.com/photo-1751977979157-133aa5d65420?fm=jpg&q=92&w=2400',
+    // A letterbox band. The page below it is a vertical timeline, and a tall
+    // image at the top of a tall page would just be more scrolling.
+    crops: [{ name: 'ablauf', ratio: 21 / 9, widths: [900, 1400, 1900], focus: { x: 0.42, y: 0.5 } }],
+  },
+  {
     key: 'stricken',
     id: 'vEbfPVpp_jE',
     credit: 'Jon Pountney für Age Cymru',
@@ -150,6 +175,27 @@ for (const s of SOURCES) {
       }
     }
   }
+}
+
+/* The Open Graph card.
+   1200x630 is the size every platform crops to; the previous default was the
+   260px logo, which social previews upscaled into a blur. A photograph with no
+   text baked in, so the card never contradicts a headline that has since been
+   rewritten — the title comes from the page's own metadata. */
+{
+  const src = fetchSource(SOURCES[0]);
+  const base = await crop(src, 1200 / 630, { x: 0.5, y: 0.42 });
+  const out = path.join(process.cwd(), 'public/og-default.jpg');
+  await base
+    .resize(1200, 630, { fit: 'cover' })
+    .modulate({ saturation: 0.93, brightness: 1.02 })
+    .composite([{
+      input: { create: { width: 1200, height: 630, channels: 4, background: { r: 255, g: 232, b: 200, alpha: 0.34 } } },
+      blend: 'soft-light',
+    }])
+    .jpeg({ quality: 82, progressive: true })
+    .toFile(out);
+  rows.push(['og-default.jpg', (fs.statSync(out).size / 1024).toFixed(0) + ' KB', SOURCES[0].credit]);
 }
 
 const pad = (v, n) => String(v).padEnd(n);

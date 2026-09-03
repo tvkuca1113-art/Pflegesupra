@@ -19,23 +19,23 @@ export default function FaqList({ items }: { items: FaqItem[] }) {
         <details
           key={f.id}
           id={f.id}
-          className="group scroll-mt-28 border-b border-line"
+          className="faq group scroll-mt-28 border-b border-line"
           onToggle={(e) => {
             if ((e.currentTarget as HTMLDetailsElement).open) track('faq_open', { id: f.id });
           }}
         >
-          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-4 text-lg font-bold text-brand-ink [&::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-[3.25rem] cursor-pointer list-none items-start justify-between gap-4 py-5 text-lg font-bold text-brand-ink [&::-webkit-details-marker]:hidden">
             {f.question}
             {/* Plus/minus drawn in CSS, not an emoji or a glyph font. */}
             <span
               aria-hidden="true"
-              className="relative mt-2 h-4 w-4 flex-none"
+              className="relative mt-2.5 h-4 w-4 flex-none"
             >
               <span className="absolute inset-x-0 top-1.5 h-1 bg-sun" />
               <span className="absolute inset-y-0 left-1.5 w-1 bg-sun transition-transform group-open:scale-y-0" />
             </span>
           </summary>
-          <div className="prose pb-5 text-ink-muted">
+          <div className="prose pb-6 text-ink-muted">
             {f.answer.map((p) => <p key={p}>{p}</p>)}
           </div>
         </details>

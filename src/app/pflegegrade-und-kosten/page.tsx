@@ -67,52 +67,57 @@ export default function KostenPage() {
             title={`Alle Beträge je Pflegegrad, Stand ${BENEFIT_SOURCE.validFor}`}
             intro="Die Beträge sind gegenüber 2025 unverändert. Die nächste gesetzliche Anpassung ist für den 1. Januar 2028 vorgesehen."
           />
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[46rem] border-collapse text-left">
-              <caption className="sr-only">
-                Leistungsbeträge der Pflegeversicherung {BENEFIT_SOURCE.validFor} je Pflegegrad
-              </caption>
-              <thead>
-                <tr className="border-b-4 border-brand">
-                  <th scope="col" className="py-3 pr-4 align-bottom">Pflegegrad</th>
-                  <th scope="col" className="py-3 pr-4 align-bottom">
-                    Pflegesachleistung<span className="block text-sm font-normal text-ink-muted">§36 SGB XI, monatlich</span>
+          {/* No horizontal scroll. Below 48rem the same table restacks into
+              one labelled block per Pflegegrad — see `.table-stack`. The roles
+              are written out because `display: block` strips the implicit ones,
+              and a table that stops being a table for a screen reader is worse
+              than one that scrolls. */}
+          <table className="table-stack" role="table">
+            <caption className="sr-only">
+              Leistungsbeträge der Pflegeversicherung {BENEFIT_SOURCE.validFor} je Pflegegrad
+            </caption>
+            <thead role="rowgroup">
+              <tr role="row" className="border-b-4 border-brand">
+                <th role="columnheader" scope="col" className="py-3 pr-4 align-bottom">Pflegegrad</th>
+                <th role="columnheader" scope="col" className="py-3 pr-4 align-bottom">
+                  Pflegesachleistung<span className="block text-sm font-normal text-ink-muted">§36 SGB XI, monatlich</span>
+                </th>
+                <th role="columnheader" scope="col" className="py-3 pr-4 align-bottom">
+                  Pflegegeld<span className="block text-sm font-normal text-ink-muted">§37 SGB XI, monatlich</span>
+                </th>
+                <th role="columnheader" scope="col" className="py-3 pr-4 align-bottom">
+                  Entlastungsbetrag<span className="block text-sm font-normal text-ink-muted">§45b SGB XI, monatlich</span>
+                </th>
+                <th role="columnheader" scope="col" className="py-3 align-bottom">
+                  Gemeinsamer Jahresbetrag<span className="block text-sm font-normal text-ink-muted">§39 SGB XI, jährlich</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              {grades.map((g) => (
+                <tr role="row" key={g.grad} className="border-b border-line align-top">
+                  <th role="rowheader" scope="row" className="py-4 pr-4 text-lg font-bold text-brand-ink">
+                    Pflegegrad {g.grad}
+                    <span className="mt-1 block max-w-[30ch] text-sm font-normal text-ink-muted">
+                      {g.summary}
+                    </span>
                   </th>
-                  <th scope="col" className="py-3 pr-4 align-bottom">
-                    Pflegegeld<span className="block text-sm font-normal text-ink-muted">§37 SGB XI, monatlich</span>
-                  </th>
-                  <th scope="col" className="py-3 pr-4 align-bottom">
-                    Entlastungsbetrag<span className="block text-sm font-normal text-ink-muted">§45b SGB XI, monatlich</span>
-                  </th>
-                  <th scope="col" className="py-3 align-bottom">
-                    Gemeinsamer Jahresbetrag<span className="block text-sm font-normal text-ink-muted">§39 SGB XI, jährlich</span>
-                  </th>
+                  <td role="cell" data-label="Sachleistung / Monat" className="py-4 pr-4 text-lg font-bold tabular-nums">
+                    {g.sachleistung ? euro(g.sachleistung) : <span className="text-base font-normal text-ink-muted">nicht vorgesehen</span>}
+                  </td>
+                  <td role="cell" data-label="Pflegegeld / Monat" className="py-4 pr-4 text-lg font-bold tabular-nums">
+                    {g.pflegegeld ? euro(g.pflegegeld) : <span className="text-base font-normal text-ink-muted">nicht vorgesehen</span>}
+                  </td>
+                  <td role="cell" data-label="Entlastung / Monat" className="py-4 pr-4 text-lg font-bold tabular-nums">
+                    {euro(g.entlastungsbetrag)}
+                  </td>
+                  <td role="cell" data-label="Jahresbetrag" className="py-4 text-lg font-bold tabular-nums">
+                    {g.jahresbetrag ? euro(g.jahresbetrag) : <span className="text-base font-normal text-ink-muted">ab Pflegegrad 2</span>}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {grades.map((g) => (
-                  <tr key={g.grad} className="border-b border-line align-top">
-                    <th scope="row" className="py-4 pr-4 font-bold text-brand-ink">
-                      Pflegegrad {g.grad}
-                      <span className="mt-1 block max-w-[22ch] text-sm font-normal text-ink-muted">
-                        {g.summary}
-                      </span>
-                    </th>
-                    <td className="py-4 pr-4 text-lg font-bold tabular-nums">
-                      {g.sachleistung ? euro(g.sachleistung) : <span className="font-normal text-ink-muted">nicht vorgesehen</span>}
-                    </td>
-                    <td className="py-4 pr-4 text-lg font-bold tabular-nums">
-                      {g.pflegegeld ? euro(g.pflegegeld) : <span className="font-normal text-ink-muted">nicht vorgesehen</span>}
-                    </td>
-                    <td className="py-4 pr-4 text-lg font-bold tabular-nums">{euro(g.entlastungsbetrag)}</td>
-                    <td className="py-4 text-lg font-bold tabular-nums">
-                      {g.jahresbetrag ? euro(g.jahresbetrag) : <span className="font-normal text-ink-muted">ab Pflegegrad 2</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
           <Source label={BENEFIT_SOURCE.label} url={BENEFIT_SOURCE.url} />
         </div>
       </section>

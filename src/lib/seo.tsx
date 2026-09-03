@@ -26,9 +26,18 @@ export function pageMeta({ title, description, path, noindex }: PageMetaInput): 
       title,
       description,
       url,
-      images: [{ url: `${siteUrl}/logo-supra.png`, width: 260, height: 184, alt: SITE_NAME }],
+      /* 1200x630 — the size every platform crops a link preview to. The logo
+         that used to sit here is 260px wide and was upscaled into a blur. No
+         text is baked into the card: the title comes from the page metadata,
+         so a rewritten headline never leaves a stale one in the image. */
+      images: [{
+        url: `${siteUrl}/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — ambulante Pflege zu Hause in München und Pfaffenhofen a.d. Ilm`,
+      }],
     },
-    twitter: { card: 'summary', title, description },
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
 

@@ -417,6 +417,179 @@
   }
 
   /* ==========================================================================
+     RESPONSIVE TABLE
+     --------------------------------------------------------------------------
+     A statutory benefit table has five columns of German legal terms. At 390px
+     that is 46rem of content in 24rem of screen, and the previous answer was
+     `overflow-x-auto` — which works, and which nobody uses: a horizontally
+     scrolling table on a phone hides four of its five columns behind a gesture
+     most readers never make.
+
+     Below the tablet breakpoint the same markup restacks: one block per row,
+     each cell labelled from `data-label`. The <table> stays a <table> — only
+     its display changes — and because `display: block` strips the implicit
+     table roles in every engine, the roles are restored explicitly in the
+     markup. One DOM, one accessible name per cell, no duplicated content and
+     nothing hidden from assistive technology.
+     ========================================================================== */
+  .table-stack { width: 100%; border-collapse: collapse; text-align: left; }
+
+  @media (max-width: 47.999rem) {
+    .table-stack,
+    .table-stack tbody,
+    .table-stack tr,
+    .table-stack th,
+    .table-stack td { display: block; }
+
+    /* The head is still read by assistive technology through the roles and
+       headers; visually its labels move into each cell instead. */
+    .table-stack thead {
+      position: absolute;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0; border: 0;
+      overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+    }
+    .table-stack tbody tr {
+      border-top: 2px solid var(--color-line-strong);
+      padding-block: 1.15rem;
+    }
+    .table-stack tbody tr:first-child { border-top-width: 2px; }
+    .table-stack tbody th[scope='row'] { padding: 0 0 0.75rem; }
+    .table-stack td {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.3rem 0;
+    }
+    .table-stack td::before {
+      content: attr(data-label);
+      font-size: var(--text-sm);
+      color: var(--color-ink-muted);
+      font-weight: 400;
+    }
+  }
+
+  /* ==========================================================================
+     TIMELINE
+     --------------------------------------------------------------------------
+     One hairline spine with the step numbers sitting on it. The spine is what
+     turns four stacked blocks into a sequence; without it the reader has to
+     infer the order from the numerals alone. It is drawn on the list, not
+     between the items, so it cannot break when a step's height changes.
+     ========================================================================== */
+  .timeline { position: relative; list-style: none; margin: 0; padding: 0; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.4rem;
+    top: 0.8rem;
+    bottom: 4rem;
+    width: 1px;
+    background: var(--color-line-strong);
+  }
+  @media (min-width: 48rem) {
+    .timeline::before { left: 2rem; }
+  }
+  .timeline > li { position: relative; padding-left: 4rem; }
+  @media (min-width: 48rem) {
+    .timeline > li { padding-left: 5.5rem; }
+  }
+  .timeline__marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border: 2px solid var(--color-brand);
+    border-radius: 50%;
+    background: var(--color-page);
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: var(--text-lg);
+    color: var(--color-brand);
+  }
+  @media (min-width: 48rem) {
+    .timeline__marker { width: 4rem; height: 4rem; font-size: var(--text-2xl); }
+  }
+  .section--paper .timeline__marker { background: var(--color-paper); }
+
+  /* ==========================================================================
+     STICKY HEADER
+     --------------------------------------------------------------------------
+     Compacts once the page has scrolled past a one-pixel sentinel above it.
+     Written here rather than as utilities because the state lives on the
+     <header> and has to reach a descendant: a data attribute plus a descendant
+     selector is the whole mechanism, and it beats threading a `group` class
+     through the markup for one property.
+
+     Only padding and the logo's height move, over 200ms, and the transition is
+     suppressed under prefers-reduced-motion by the global rule. A header that
+     animates more than this is a header that draws attention to itself while
+     somebody is trying to read.
+     ========================================================================== */
+  .site-header__bar {
+    padding-block: 0.75rem;
+    transition: padding-block 200ms ease;
+  }
+  .site-header__logo { transition: height 200ms ease; }
+  .site-header[data-compact] .site-header__bar { padding-block: 0.35rem; }
+  .site-header[data-compact] .site-header__logo { height: 2.5rem; }
+
+  /* ==========================================================================
+     ACCORDION MOTION
+     --------------------------------------------------------------------------
+     A real height transition on a native <details>, via ::details-content and
+     interpolate-size. Progressive enhancement in the strict sense: browsers
+     without support simply snap open, which is exactly what the element did
+     before. No JavaScript, no measured heights, no content held back from the
+     DOM — the answers are always present, which is also what keeps the FAQPage
+     structured data honest.
+
+     180ms and nothing else moves. An accordion that makes you wait to read is
+     worse than one that does not animate at all.
+     ========================================================================== */
+  @supports (interpolate-size: allow-keywords) {
+    :root { interpolate-size: allow-keywords; }
+
+    details.faq::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition: block-size 180ms ease, content-visibility 180ms allow-discrete;
+    }
+    details.faq[open]::details-content { block-size: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    details.faq::details-content { transition: none; }
+  }
+
+  /* ==========================================================================
+     CALLOUT
+     --------------------------------------------------------------------------
+     A note that sits beside the main argument rather than inside it. One
+     variant, one border, no icon chrome — the label carries the meaning.
+     ========================================================================== */
+  .callout {
+    border-left: 3px solid var(--color-brand);
+    background: var(--color-paper);
+    padding: 1.1rem 1.25rem;
+  }
+  .section--paper .callout { background: var(--color-page); }
+  .callout__label {
+    display: block;
+    margin: 0 0 0.5rem;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-accent);
+  }
+
+  /* ==========================================================================
      CONTROLS
      ========================================================================== */
   .btn {
@@ -446,7 +619,7 @@
     color: var(--color-brand);
     border-color: var(--color-brand);
   }
-  .btn--secondary:hover { background: #eef2fb; }
+  .btn--secondary:hover { background: var(--color-paper); }
   .btn--onDark {
     background: #fff;
     color: var(--color-brand-deep);

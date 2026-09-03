@@ -121,7 +121,7 @@ export const faq: FaqItem[] = [
     category: 'Über uns',
     question: 'Sprechen Ihre Pflegekräfte andere Sprachen?',
     answer: [
-      'Unser Team ist sprachlich gemischt. Welche Sprachen aktuell abgedeckt sind, hängt vom Dienstplan ab — sagen Sie uns, welche Sprache gebraucht wird, dann bekommen Sie eine ehrliche Auskunft, ob wir sie im konkreten Fall leisten können.',
+      'Unser Team ist sprachlich gemischt. Welche Sprachen aktuell abgedeckt sind, hängt vom Dienstplan ab — sagen Sie uns, welche Sprache gebraucht wird, dann bekommen Sie eine klare Auskunft, ob wir sie im konkreten Fall leisten können.',
     ],
   },
 ];

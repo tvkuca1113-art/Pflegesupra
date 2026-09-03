@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMeta({
   title: 'Fragen & Antworten zur ambulanten Pflege',
   description:
     'Erster Schritt, Pflegegrad, Kosten, Abrechnung, Verhinderungspflege — die Fragen, '
-    + 'die uns am häufigsten erreichen, ehrlich beantwortet.',
+    + 'die uns am häufigsten erreichen — kurz beantwortet.',
   path: '/fragen-und-antworten',
 });
 
@@ -27,7 +27,7 @@ export default function FaqPage() {
       <PageHeader
         eyebrow="Fragen & Antworten"
         title="Was uns am häufigsten gefragt wird"
-        intro="Ohne Marketingsprache. Wo eine ehrliche Antwort unbequem ist, steht sie trotzdem hier."
+        intro="Auch dort, wo die Antwort unbequem ist."
       />
 
       <section className="section">

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
-import { PageHeader, CtaBand, LinkCard, Breadcrumbs } from '@/components/Blocks';
+import Link from 'next/link';
+import { PageHeader, CtaBand, Breadcrumbs, EditorialImage } from '@/components/Blocks';
+import { IconArrow } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
-import { services } from '@/content/services';
+import { payerGroups, servicesFor } from '@/content/services';
 
 export const metadata: Metadata = pageMeta({
   title: 'Leistungen — ambulante Pflege zu Hause',
@@ -24,56 +26,82 @@ export default function LeistungenPage() {
       <PageHeader
         eyebrow="Leistungen"
         title="Was wir zu Hause übernehmen"
-        intro="Ambulante Pflege ist kein Paket, sondern eine Kombination aus Leistungen mit
-        unterschiedlichen Kostenträgern und Voraussetzungen. Deshalb steht bei jeder hier,
-        wer sie bezahlt und ab welchem Pflegegrad sie möglich ist."
+        intro="Fünf Leistungen, zwei Kostenträger. Welcher greift, hängt nicht davon ab, wie aufwendig etwas ist, sondern wer es angeordnet hat — und das entscheidet, was Ihnen zusteht."
       />
 
-      <section className="section" aria-labelledby="leistungen-uebersicht">
-        <div className="shell">
-          <h2 id="leistungen-uebersicht" className="sr-only">Übersicht unserer Leistungen</h2>
-          <ul className="m-0 grid list-none gap-x-8 gap-y-10 p-0 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <LinkCard
-                key={s.slug}
-                href={`/leistungen/${s.slug}`}
-                title={s.name}
-                body={s.promise}
-                meta={`${s.payer} · ${s.legalBasis}`}
-              />
-            ))}
-          </ul>
+      <div className="shell pt-10">
+        <EditorialImage
+          name="leistungen"
+          widths={[900, 1400, 1900]}
+          ratio={16 / 9}
+          sizes="(min-width: 80rem) 76rem, 100vw"
+          alt="Eine Pflegekraft beugt sich in einer hellen Küche zu zwei älteren Menschen an einem Tisch."
+        />
+      </div>
+
+      {/* The page is organised by payer, because that is the distinction that
+          actually changes what a visitor can have. The old version listed five
+          near-identical cards and explained the distinction in four paragraphs
+          at the bottom — where the people it matters most to, those without a
+          Pflegegrad, had already stopped reading. */}
+      <section className="section">
+        <div className="shell space-y-16">
+          {payerGroups.map((group) => (
+            <section key={group.id} aria-labelledby={`payer-${group.id}`}>
+              <div className="border-t-2 border-brand pt-6">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h2 id={`payer-${group.id}`} className="text-3xl">{group.label}</h2>
+                  <span className="text-sm font-bold uppercase tracking-[0.09em] text-ink-accent">
+                    {group.law}
+                  </span>
+                </div>
+                <p className="mt-3 max-w-[56ch] text-lg text-ink">{group.condition}</p>
+                <p className="mt-2 max-w-[62ch] text-ink-muted">{group.note}</p>
+              </div>
+
+              <ul className="m-0 mt-8 list-none border-t border-line p-0">
+                {servicesFor(group).map((s) => (
+                  <li key={s.slug} className="group relative border-b border-line">
+                    <Link
+                      href={`/leistungen/${s.slug}`}
+                      className="grid items-baseline gap-x-8 gap-y-1.5 py-6 no-underline sm:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto]"
+                    >
+                      <h3 className="text-xl text-brand-ink transition-colors group-hover:text-brand">
+                        {s.name}
+                      </h3>
+                      <span className="block text-ink-muted">
+                        {s.promise}
+                        <span className="mt-1.5 block text-sm">{s.legalBasis}</span>
+                      </span>
+                      <IconArrow className="hidden flex-none self-center text-brand transition-transform group-hover:translate-x-1 sm:block" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
         </div>
       </section>
 
       <section className="section section--paper">
         <div className="shell">
-          <div className="prose">
-            <h2 className="text-3xl">Zwei Kostenträger, nicht einer</h2>
-            <p>
-              Der häufigste Irrtum in der ambulanten Pflege ist die Annahme, dass alles aus
-              einem Topf bezahlt wird. Tatsächlich gibt es zwei getrennte Systeme, und
-              welches greift, hängt nicht davon ab, wie aufwendig etwas ist, sondern wer es
-              angeordnet hat.
+          <div className="max-w-[62ch]">
+            <span className="horizont" aria-hidden="true" />
+            <h2 className="text-3xl">Meistens ist es beides</h2>
+            <p className="mt-4 text-lg text-ink-muted">
+              Die meisten unserer Klientinnen und Klienten beziehen Leistungen aus beiden
+              Systemen gleichzeitig. Sie müssen das nicht auseinanderhalten — wir stellen
+              die Kombination zusammen, beantragen, was zu beantragen ist, und sagen Ihnen
+              vorher, was dabei gegebenenfalls privat bliebe.
             </p>
-            <h3>Die Pflegekasse zahlt nach SGB XI</h3>
-            <p>
-              Körperbezogene Pflege, Betreuung und hauswirtschaftliche Leistungen laufen über
-              die Pflegekasse. Voraussetzung ist ein Pflegegrad, und die Höhe des Budgets
-              hängt von diesem Pflegegrad ab.
-            </p>
-            <h3>Die Krankenkasse zahlt nach SGB V</h3>
-            <p>
-              Alles, was ärztlich verordnet ist — Medikamentengabe, Injektionen,
-              Verbandwechsel — läuft über die Krankenkasse und ist{' '}
-              <strong>unabhängig vom Pflegegrad</strong>. Wer keinen Pflegegrad hat, kann
-              Behandlungspflege trotzdem bekommen.
-            </p>
-            <p>
-              In der Praxis kombinieren die meisten unserer Klientinnen und Klienten beides.
-              Wir stellen das für Sie zusammen und sagen Ihnen vorher, was dabei
-              gegebenenfalls privat bliebe.
-            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/pflegegrade-und-kosten" className="btn btn--primary">
+                Was Ihr Pflegegrad abdeckt <IconArrow />
+              </Link>
+              <Link href="/ablauf" className="btn btn--secondary">
+                So fängt es an <IconArrow />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

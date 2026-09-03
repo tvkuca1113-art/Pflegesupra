@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHeader, CtaBand, Breadcrumbs, SectionHead } from '@/components/Blocks';
+import { PageHeader, CtaBand, Breadcrumbs, SectionHead, EditorialImage } from '@/components/Blocks';
 import { IconPin } from '@/components/Icons';
 import { JsonLd, breadcrumbJsonLd, pageMeta } from '@/lib/seo';
 import { business } from '@/content/business';
 
 export const metadata: Metadata = pageMeta({
-  title: 'Über uns — Supra ambulanter Pflegedienst',
+  title: 'Über uns — wie wir Touren und Personal planen',
   description:
-    'Seit 2022 eigenständiger ambulanter Pflegedienst in München und Pfaffenhofen a.d. Ilm. '
-    + 'Wie wir Touren planen, wie wir Personal auswählen und was wir bewusst nicht tun.',
+    'Seit 2022 eigenständiger ambulanter Pflegedienst in München und Pfaffenhofen a.d. Ilm: '
+    + 'wie Einsatzzeiten entstehen, wie Personal ausgewählt wird und wo unsere Standorte sind.',
   path: '/ueber-uns',
 });
 
@@ -37,10 +37,29 @@ const principles = [
   },
 ];
 
-const honesty = [
-  'Wir garantieren nicht, dass immer dieselbe Person kommt. Urlaub, Krankheit und Schichtwechsel gibt es bei jedem Dienst — wer etwas anderes verspricht, hält es nicht.',
-  'Wir nennen keine Reaktionszeit in Stunden. Ob wir kurzfristig übernehmen können, hängt von der Tour und der Auslastung ab, und das erfahren Sie im Gespräch, nicht aus einem Werbeversprechen.',
-  'Wir zeigen keine Kundenstimmen und keine Sternebewertungen auf dieser Seite. Was Menschen über uns sagen, sollen sie dort sagen, wo wir es nicht redigieren können.',
+/**
+ * Three things this site does not claim.
+ *
+ * Kept, but cut back hard and moved out of its own headline section. The
+ * previous version gave a full band, a heading about transparency and three
+ * cards to the subject of its own honesty — which is itself a marketing move,
+ * and the fourth time the word appeared on the page. Naming the three specific
+ * claims is useful; framing them as a virtue is not. They now sit as a short
+ * list under the principles they qualify.
+ */
+const notClaimed = [
+  {
+    t: 'Keine Zusage auf dieselbe Person',
+    b: 'Urlaub, Krankheit und Schichtwechsel gibt es bei jedem Dienst. Wir planen auf wenige Gesichter hin, versprechen aber keins.',
+  },
+  {
+    t: 'Keine Reaktionszeit in Stunden',
+    b: 'Ob wir kurzfristig übernehmen können, hängt an der Tour und der Auslastung. Das erfahren Sie im Gespräch.',
+  },
+  {
+    t: 'Keine Kundenstimmen auf dieser Seite',
+    b: 'Was Menschen über uns sagen, sollen sie dort sagen, wo wir es nicht redigieren können.',
+  },
 ];
 
 export default function UeberUnsPage() {
@@ -76,7 +95,7 @@ export default function UeberUnsPage() {
             <SectionHead title="Vier Grundsätze" />
             <dl className="m-0 space-y-8">
               {principles.map((p) => (
-                <div key={p.t} className="border-t-4 border-sun pt-4">
+                <div key={p.t} className="border-t border-line pt-5 first:border-t-0 first:pt-0">
                   <dt className="text-xl font-bold text-brand-ink">{p.t}</dt>
                   <dd className="m-0 mt-2 text-ink-muted">{p.b}</dd>
                 </div>
@@ -86,22 +105,30 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* Saying what you will not claim is itself a trust signal — and it keeps
-          the site honest as it grows. */}
+      {/* The photograph belongs here rather than at the top: the page opens on
+          an argument about how the work is planned, and a picture above that
+          would illustrate nothing yet. */}
       <section className="section section--paper">
-        <div className="shell">
-          <SectionHead
-            eyebrow="Transparenz"
-            title="Was Sie auf dieser Seite bewusst nicht finden"
-            intro="Weil wir es nicht belegen können — und weil eine Pflegeseite der letzte Ort ist, an dem geraten werden sollte."
+        <div className="shell grid items-center gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <EditorialImage
+            name="ueber-uns"
+            widths={[600, 900, 1400]}
+            ratio={3 / 2}
+            plate
+            sizes="(min-width: 64rem) 40vw, 100vw"
+            alt="Zwei Frauen sitzen an einem Tisch bei Kaffee, eine spricht, die andere hört zu."
           />
-          <ul className="m-0 grid list-none gap-6 p-0 lg:grid-cols-3">
-            {honesty.map((h) => (
-              <li key={h} className="border-l-4 border-line-strong bg-surface p-5 text-ink-muted">
-                {h}
-              </li>
-            ))}
-          </ul>
+          <div>
+            <SectionHead title="Drei Dinge, die hier nicht stehen" />
+            <dl className="m-0">
+              {notClaimed.map((n) => (
+                <div key={n.t} className="border-t border-line py-5 first:border-t-0 first:pt-0">
+                  <dt className="font-bold text-brand-ink">{n.t}</dt>
+                  <dd className="m-0 mt-1.5 text-ink-muted">{n.b}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </section>
 

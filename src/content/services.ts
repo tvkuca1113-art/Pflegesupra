@@ -141,3 +141,50 @@ export const services: Service[] = [
 ];
 
 export const serviceBySlug = (slug: string) => services.find((s) => s.slug === slug);
+
+/**
+ * The two payers, and which services sit under each.
+ *
+ * This is the single most useful thing a visitor can learn on the services
+ * page, and it used to be four paragraphs of prose at the bottom of it. The
+ * distinction is not a footnote: it decides whether somebody without a
+ * Pflegegrad can get help at all. So it becomes the page's structure instead
+ * of its afterword.
+ */
+export interface PayerGroup {
+  id: string;
+  label: string;
+  law: string;
+  /** The one thing that decides whether this branch is open to you. */
+  condition: string;
+  note: string;
+  slugs: string[];
+}
+
+export const payerGroups: PayerGroup[] = [
+  {
+    id: 'pflegekasse',
+    label: 'Die Pflegekasse zahlt',
+    law: 'SGB XI',
+    condition: 'Voraussetzung ist ein Pflegegrad.',
+    note:
+      'Körperbezogene Pflege, Betreuung und hauswirtschaftliche Leistungen laufen über '
+      + 'die Pflegekasse. Wie viel Ihnen im Monat zusteht, hängt vom Pflegegrad ab.',
+    slugs: ['grundpflege', 'betreuung-und-entlastung', 'hauswirtschaft', 'verhinderungspflege'],
+  },
+  {
+    id: 'krankenkasse',
+    label: 'Die Krankenkasse zahlt',
+    law: 'SGB V',
+    condition: 'Unabhängig vom Pflegegrad.',
+    note:
+      'Alles ärztlich Verordnete — Medikamentengabe, Injektionen, Verbandwechsel — läuft '
+      + 'über die Krankenkasse. Wer keinen Pflegegrad hat, kann Behandlungspflege trotzdem '
+      + 'bekommen.',
+    slugs: ['behandlungspflege'],
+  },
+];
+
+export const servicesFor = (group: PayerGroup) =>
+  group.slugs.map((slug) => serviceBySlug(slug)!).filter(Boolean);
+

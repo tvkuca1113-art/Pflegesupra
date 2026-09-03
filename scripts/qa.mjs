@@ -199,6 +199,25 @@ for (const width of WIDTHS) {
         if (cs.overflowX === 'auto' || cs.overflowX === 'scroll') continue;
         if (el.classList.contains('sr-only')) continue;
         if (el.closest('[aria-hidden="true"]')) continue;
+        /* Visually hidden, not clipped. The clip-path/1px idiom deliberately
+           makes an element's content wider than its box — that is how it is
+           kept off the screen while staying in the accessibility tree — so it
+           trips this check by construction. The responsive table's <thead>
+           uses it, and reporting it as "text is being cut off" sent me looking
+           for a layout bug that did not exist. Detect the idiom rather than
+           special-casing one class name: a box of 1px or less whose overflow
+           is hidden and which is clipped away is hidden on purpose. */
+        const isVisuallyHidden = (node) => {
+          const s2 = getComputedStyle(node);
+          const clipped = s2.clipPath !== 'none' || s2.clip !== 'auto';
+          const tiny = node.clientWidth <= 1 || node.clientHeight <= 1;
+          return clipped && tiny && s2.overflow === 'hidden';
+        };
+        let hidden = false;
+        for (let n = el; n && n !== document.body; n = n.parentElement) {
+          if (isVisuallyHidden(n)) { hidden = true; break; }
+        }
+        if (hidden) continue;
         result.clipped.push(
           `${el.tagName}.${el.className.toString().slice(0, 26)} ${el.scrollWidth}>${el.clientWidth} "${(el.textContent || '').trim().slice(0, 28)}"`,
         );

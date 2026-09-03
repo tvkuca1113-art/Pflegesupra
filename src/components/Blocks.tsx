@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { business } from '@/content/business';
 import { IconPhone, IconArrow, IconChevron } from './Icons';
+import Photo from './Photo';
+import { PHOTO_CREDIT } from '@/content/photos';
 
 /** Page header. One H1 per page, always — the old site shipped two. */
 export function PageHeader({
@@ -19,12 +21,52 @@ export function PageHeader({
       <div className="shell">
         {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
         <span className="horizont" aria-hidden="true" />
-        <h1 className="max-w-[20ch] text-4xl sm:text-5xl">{title}</h1>
+        <h1 className="max-w-[18ch] text-4xl sm:text-5xl">{title}</h1>
+        {/* 62ch, not the 66ch used for body copy. An intro is read once, at
+            speed, and a shorter line is what makes that possible. */}
         {intro ? (
-          <p className="measure mt-5 text-lg text-ink-muted">{intro}</p>
+          <p className="mt-5 max-w-[58ch] text-lg text-ink-muted sm:text-xl">{intro}</p>
         ) : null}
         {children}
       </div>
+    </div>
+  );
+}
+
+/**
+ * A photograph with its caption, framed the way every photograph on this site
+ * is framed. Exists so no page has to remember the frame classes or to credit
+ * the series — forgetting either is how a set stops looking like a set.
+ */
+export function EditorialImage({
+  name, widths, ratio, sizes, alt, plate = false, caption, className = '',
+}: {
+  name: string;
+  widths: number[];
+  ratio: number;
+  sizes: string;
+  alt: string;
+  plate?: boolean;
+  /** Overrides the standard symbolic-image note. Rarely needed. */
+  caption?: string;
+  className?: string;
+}) {
+  return (
+    <figure className={`figure m-0 ${className}`}>
+      <div className={`frame ${plate ? 'frame--plate' : ''}`}>
+        <Photo name={name} widths={widths} ratio={ratio} sizes={sizes} alt={alt} />
+      </div>
+      <figcaption>{caption ?? PHOTO_CREDIT.caption}</figcaption>
+    </figure>
+  );
+}
+
+/** A note beside the argument. `label` is what it is; children are the note. */
+export function Callout({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="callout">
+      <span className="callout__label">{label}</span>
+      {children}
     </div>
   );
 }
@@ -64,8 +106,8 @@ export function SectionHead({
     <div className="mb-8">
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <span className="horizont" aria-hidden="true" />
-      <As className="max-w-[22ch] text-3xl">{title}</As>
-      {intro ? <p className="measure mt-4 text-lg text-ink-muted">{intro}</p> : null}
+      <As className="max-w-[24ch] text-3xl">{title}</As>
+      {intro ? <p className="mt-4 max-w-[56ch] text-lg text-ink-muted">{intro}</p> : null}
     </div>
   );
 }
@@ -73,7 +115,7 @@ export function SectionHead({
 /** Closing call to action. One per page, never two competing ones. */
 export function CtaBand({
   title = 'Sie wissen nicht, wo Sie anfangen sollen?',
-  body = 'Rufen Sie an. Wir hören zu, ordnen die Situation ein und sagen Ihnen ehrlich, ob wir helfen können — auch dann, wenn die Antwort nein lautet.',
+  body = 'Rufen Sie an. Wir hören zu, ordnen die Situation ein und sagen Ihnen, ob wir helfen können — auch dann, wenn die Antwort nein lautet.',
 }: {
   title?: string;
   body?: string;

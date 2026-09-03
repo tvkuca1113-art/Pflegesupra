@@ -14,9 +14,25 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [compact, setCompact] = useState(false);
 
   // Close on navigation.
   useEffect(() => { setOpen(false); }, [pathname]);
+
+  /* Compact-on-scroll, driven by an IntersectionObserver on a one-pixel
+     sentinel above the header rather than by a scroll handler. A scroll
+     listener runs on every frame of every scroll on every page; this callback
+     runs twice in a session — once when the sentinel leaves the viewport and
+     once when it comes back. The header gives back about 18px, which is a
+     phone's worth of a line of text, and nothing else moves. */
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(([entry]) => setCompact(!entry.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Escape closes and returns focus to the control that opened the drawer.
   useEffect(() => {
@@ -80,8 +96,13 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-line bg-page/95 backdrop-blur">
-        <div className="shell flex items-center justify-between gap-4 py-3">
+      <div ref={sentinelRef} aria-hidden="true" className="h-px" />
+
+      <header
+        data-compact={compact ? '' : undefined}
+        className="site-header sticky top-0 z-40 border-b border-line bg-page/95 backdrop-blur"
+      >
+        <div className="shell site-header__bar flex items-center justify-between gap-4">
           <Link href="/" className="flex-none" aria-label={`${business.legalName} — zur Startseite`}>
             <Image
               src="/logo-supra.png"
@@ -89,7 +110,7 @@ export default function Header() {
               width={260}
               height={184}
               priority
-              className="h-12 w-auto sm:h-16"
+              className="site-header__logo h-12 w-auto sm:h-16"
             />
           </Link>
 
@@ -100,7 +121,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
-                    className="relative block rounded px-3 py-2.5 font-semibold text-brand-ink no-underline hover:bg-[#eef2fb]"
+                    className="relative block rounded px-3 py-2.5 font-semibold text-brand-ink no-underline hover:bg-paper"
                   >
                     {item.label}
                     {/* The active marker is the Horizont, 4px of brand orange —

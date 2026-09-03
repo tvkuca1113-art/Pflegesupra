@@ -139,7 +139,7 @@ export default function PflegeKompass() {
                   key={String(c.value)}
                   className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3.5 ${
                     grad === c.value
-                      ? 'border-brand bg-[#eef2fb]'
+                      ? 'border-brand bg-paper'
                       : 'border-line hover:border-brand'
                   }`}
                 >
@@ -179,7 +179,7 @@ export default function PflegeKompass() {
                   key={n.id}
                   className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3.5 ${
                     needs.includes(n.id)
-                      ? 'border-brand bg-[#eef2fb]'
+                      ? 'border-brand bg-paper'
                       : 'border-line hover:border-brand'
                   }`}
                 >
@@ -216,12 +216,12 @@ export default function PflegeKompass() {
             <legend className="sr-only">Ort auswählen</legend>
             <div className="grid gap-2.5">
               {[...areas.map((a) => ({ value: a.slug, label: a.city, sub: `${a.city} und Umgebung` })),
-                { value: 'anderswo', label: 'Ein anderer Ort', sub: 'Wir sagen Ihnen ehrlich, ob wir hinkommen' }].map((c) => (
+                { value: 'anderswo', label: 'Ein anderer Ort', sub: 'Wir sagen Ihnen, ob wir hinkommen' }].map((c) => (
                 <label
                   key={c.value}
                   className={`flex cursor-pointer items-start gap-3 rounded-md border-2 p-3.5 ${
                     area === c.value
-                      ? 'border-brand bg-[#eef2fb]'
+                      ? 'border-brand bg-paper'
                       : 'border-line hover:border-brand'
                   }`}
                 >

@@ -395,12 +395,12 @@ export default function Home() {
             <p className="eyebrow">Für Pflegekräfte</p>
             <span className="horizont" aria-hidden="true" />
             <h2 className="max-w-[26ch] text-3xl">
-              Sie sind Pflegekraft und haben genug von der Minutenliste?
+              Sie sind Pflegekraft und suchen einen Dienstplan, der stimmt?
             </h2>
             <p className="measure mt-4 text-lg text-ink-muted">
-              Derselbe Grundsatz, der unseren Klienten zugutekommt, gilt für die Touren
-              unserer Mitarbeiterinnen und Mitarbeiter: geplant nach realer Erfahrung, nicht
-              nach dem, was rechnerisch gerade noch geht.
+              Touren, die nach realer Erfahrung geplant sind statt nach dem, was
+              rechnerisch gerade noch geht. Derselbe Grundsatz, der unseren Klientinnen
+              und Klienten zugutekommt.
             </p>
           </div>
           <Link href="/karriere" className="btn btn--primary">

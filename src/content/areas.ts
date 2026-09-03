@@ -59,7 +59,7 @@ export const areas: Area[] = [
       {
         heading: 'Warum die Wege in München zählen',
         body:
-          'In einer Stadt mit dichtem Verkehr entscheidet die Tourenplanung darüber, ob eine Pflegekraft pünktlich und ohne Hetze bei Ihnen ankommt. Deshalb sagen wir lieber ehrlich ab, als eine Tour anzunehmen, die wir nur im Laufschritt schaffen würden.',
+          'In einer Stadt mit dichtem Verkehr entscheidet die Tourenplanung darüber, ob eine Pflegekraft pünktlich und ohne Hetze bei Ihnen ankommt. Deshalb sagen wir lieber ab, als eine Tour anzunehmen, die wir nur im Laufschritt schaffen würden.',
       },
       {
         heading: 'Zusammenspiel mit Hausarzt und Apotheke',

@@ -208,6 +208,28 @@ mother's flat. **Replace them with photographs of the real team as soon as they
 exist**; `src/content/photos.ts` and the build script are the only files to
 touch.
 
+### Where each photograph sits, and why
+
+Eight positions, seven distinct scenes, one per page section — never the same
+picture twice. Each was chosen for the argument it stands beside, not for
+looking warm:
+
+| Position | Frame | Why this one |
+|---|---|---|
+| Home, hero | Care worker and an older woman laughing, living room | The emotional entry point, and the only eager image on the site |
+| Home, Klartext | Two women talking over coffee | The section is about being told things straight; the picture is a conversation |
+| Home, Ein Einsatz | A woman knitting in her chair | What the half hour is *for* |
+| Home, Haltung | An older man at a window, mid-sentence | A portrait, because the section is about individual judgement |
+| Ablauf | A woman with a cup, letterbox band | A calm beat before a long timeline; a tall image here would be more scrolling |
+| Leistungen | A care worker at a kitchen table with two people | A home kitchen, not a ward — the page is about home care |
+| Über uns | Second frame of the coffee conversation | Different frame, different page, different crop |
+| Karriere | A woman outdoors in a yard | The person you would have time for, not a posed team shot |
+
+Two candidates were **rejected after being built**: one showed a day-centre
+lounge (institutional, and the page argues for home care), the other had
+another organisation's logo on a cap. Both are worth recording, because "it is
+from the right photographer" is not the same as "it is the right picture."
+
 ### The hero: an opaque panel, not a scrim
 
 The opening photograph is the ground, and the copy sits on an **opaque paper

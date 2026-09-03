@@ -22,5 +22,5 @@ export const PHOTO_CREDIT = {
   /** Appended to the alt text of the opening photograph. */
   short: 'Symbolbild.',
   /** Rendered under photographs in body content. */
-  caption: 'Symbolbild aus einer dokumentarischen Serie — nicht unsere Mitarbeiterinnen.',
+  caption: 'Symbolbild — nicht unsere Mitarbeiterinnen oder Klientinnen.',
 };
