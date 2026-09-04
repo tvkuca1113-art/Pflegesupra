@@ -93,11 +93,12 @@ export const shotList: ShotBrief[] = [
       + 'Pfaffenhofen. Ein Tag mit einer Fotografin oder einem Fotografen deckt alle '
       + 'sieben Motive ab, wenn zwei Touren begleitet werden dürfen.',
     framing:
-      'Pro Motiv 16:9 quer; für den Kopfbereich zusätzlich eine Aufnahme mit '
-      + 'ruhiger Fläche links, damit der Zuschnitt 0,95:1 auf dem Desktop und '
-      + '1,36:1 auf dem Telefon beide funktionieren. Mindestens 3000 px Breite — '
-      + 'die aktuellen Vorlagen haben 1672 px und müssen für große Desktop-Displays '
-      + 'hochskaliert werden.',
+      'Pro Motiv 4:3 quer; für den Kopfbereich zusätzlich eine Aufnahme mit '
+      + 'ruhiger Fläche links, damit die Zuschnitte 0,95:1 auf dem Desktop und '
+      + '16:9 auf dem Telefon beide funktionieren. Mindestens 3000 px Breite — '
+      + 'die aktuellen Vorlagen haben 1448 px. Für das Kopfbild reicht das nicht '
+      + 'ganz: ein 1440-px-Display mit doppelter Pixeldichte möchte rund 1556 px, '
+      + 'der Zuschnitt liefert 1032 px.',
     message: 'Echte Menschen schlagen jedes Symbolbild.',
   },
 ];

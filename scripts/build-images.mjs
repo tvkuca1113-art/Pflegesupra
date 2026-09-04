@@ -23,10 +23,11 @@
  * they do not collapse back into looking like a single shoot.
  *
  * THE SOURCE CONSTRAINT, stated because it drives every width below. The
- * originals are 1672x941 — 16:9, and not large. That is plenty for a phone and
- * short for a Retina desktop, so the widths per crop stop at what the source
+ * masters are 1448x1086 — 4:3, and not large. That is plenty for a phone and
+ * short for a Retina desktop, so the widths per crop stop at what each crop
  * actually contains rather than at a number that would only look sharp in a
- * config file. The one exception is the desktop hero, marked below.
+ * config file. NOTHING here is upscaled; the guard below throws if a width ever
+ * exceeds its crop.
  *
  * TREATMENT is minimal on purpose: a small warm bias, nothing else. An earlier
  * version of this site graded its photographs hard enough that they all took on
@@ -49,8 +50,10 @@ const SRC = path.join(process.cwd(), 'assets/photos');
  *          a default centre has put a face half outside the frame on this
  *          project more than once.
  *          `q` optionally overrides encoder settings for one crop.
- *          `allowUpscale` permits widths beyond what the crop contains; only
- *          the desktop hero uses it, and the note there explains why.
+ *          `allowUpscale` permits widths beyond what the crop contains. No crop
+ *          currently sets it — it exists so that enlarging a source is always a
+ *          deliberate, visible decision rather than something that happens by
+ *          accident when a width is edited.
  */
 const SOURCES = [
   {
@@ -61,19 +64,22 @@ const SOURCES = [
        where the crop can breathe rather than where a face gets cut. */
     file: 'hero.jpg',
     crops: [
-      /* 0.95:1 on desktop, and this is the one crop that upscales.
+      /* 0.95:1 on desktop.
 
          The desktop panel has NO fixed aspect: it is 54% of the viewport wide
          and as tall as the copy beside it, so it MEASURES 553x809 (0.68) at
          1024px, 778x844 (0.92) at 1440px and 1037x844 (1.23) at 1920px. 0.95
-         sits in the middle of that range.
+         sits in the middle of that range, which makes this crop a compromise
+         rather than a match — object-cover trims the difference at both ends,
+         and the framing is chosen to survive it.
 
-         A 0.95 crop of a 1672x941 frame contains 894x941 real pixels, and the
-         slot wants about 1556x1688 on a 1440px screen at DPR 2. Nothing can
-         invent those pixels. Sharp's Lanczos upscale with a firmer unsharp mask
-         still beats leaving the browser to do it bilinearly at display time, so
-         the 1300 variant exists and is honestly an upscale. If higher-resolution
-         originals ever arrive, this is the first place they pay off. */
+         A 0.95 crop of the 4:3 master contains 1032x1086 real pixels, so 1032
+         is the ceiling and every variant is native. It is worth knowing what
+         that ceiling costs: a 1440px screen at DPR 2 would take about 1556px
+         wide if it existed. It does not, so the browser scales 1032 up at
+         display time. The honest fix is a larger original, not a larger number
+         here — an earlier version of this file did generate a 1300 by
+         upscaling, and it was bytes spent on invented detail. */
       { name: 'hero-wide', ratio: 0.95, widths: [600, 860, 1032], focus: { x: 0.60, y: 0.50 }, q: { avif: 46, webp: 72 } },
       /* 16:9 on phones — the native aspect of the master, which means the
          phone hero is the whole frame with nothing cropped away at all.
@@ -85,8 +91,11 @@ const SOURCES = [
          this frame means losing the client at the right edge and shipping a
          hero of one person talking to nobody. The container is now
          `aspect-[16/9]`, so the box and the crop are the same shape at every
-         width and both people are guaranteed to survive. It is also sharper:
-         every width below is native pixels. */
+         width and both people are guaranteed to survive.
+
+         A 16:9 crop of the 4:3 master is 1448x815 — the full width of the
+         source, trimmed top and bottom — so every width below is native and the
+         phone hero, unlike the desktop one, is genuinely sharp at DPR 3. */
       { name: 'hero-tall', ratio: 16 / 9, widths: [480, 760, 1040, 1280, 1448], focus: { x: 0.5, y: 0.44 }, q: { avif: 44, webp: 70 } },
     ],
   },
