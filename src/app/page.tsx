@@ -85,7 +85,7 @@ export default function Home() {
               <article className="home-service" key={s.slug}>
                 <Link href={`/leistungen/${s.slug}`} className="home-service__link">
                   <div className="home-service__image">
-                    <Photo name={s.photo!.name} widths={[600, 900, 1400]} ratio={16 / 9} sizes="(min-width: 64rem) 25vw, (min-width: 40rem) 50vw, 100vw" alt={`${s.photo!.alt}. Symbolbild.`} />
+                    <Photo name={s.photo!.name} widths={[600, 900, 1400]} ratio={s.photo!.name === 'grundpflege' ? 3 / 2 : 16 / 9} sizes="(min-width: 64rem) 25vw, (min-width: 40rem) 50vw, 100vw" alt={`${s.photo!.alt}. Symbolbild.`} />
                     <span className="home-service__number" aria-hidden="true">0{i + 1}</span>
                   </div>
                   <div className="home-service__body">

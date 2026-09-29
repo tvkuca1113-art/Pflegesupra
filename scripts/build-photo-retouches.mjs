@@ -4,7 +4,7 @@ import { mkdir } from 'node:fs/promises';
 // Retouched masters are separate from the supplied originals. Versioned public
 // filenames ensure every page uses the corrected photograph without stale caches.
 const crops = [
-  { source: 'grundpflege-retouched.jpg', name: 'grundpflege-v2', ratio: 16 / 9 },
+  { source: 'grundpflege-retouched.jpg', name: 'grundpflege-v2', ratio: 3 / 2 },
   { source: 'grundpflege-retouched.jpg', name: 'haltung-v2', ratio: 3 / 2 },
   { source: 'karriere-retouched.jpg', name: 'karriere-v2', ratio: 3 / 2 },
 ];
