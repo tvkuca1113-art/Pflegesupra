@@ -236,3 +236,7 @@ console.log(`\n${pad('file', 30)}${pad('size', 10)}scale`);
 console.log('-'.repeat(56));
 for (const r of rows) console.log(pad(r[0], 30) + pad(r[1], 10) + r[2]);
 console.log(`\n${rows.length} files written to public/img.`);
+
+// Corrections from the September 2026 anatomy review use separate masters and
+// versioned public names; keep them reproducible in the standard image build.
+await import('./build-photo-retouches.mjs');

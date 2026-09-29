@@ -36,14 +36,16 @@ export default function Photo({
   name, widths, ratio, sizes, alt, className = '', imgClassName = '', priority = false,
 }: Props) {
   const largest = widths[widths.length - 1];
-  const srcSet = (ext: string) => widths.map((w) => `/img/${name}-${w}.${ext} ${w}w`).join(', ');
+  // Versioned filenames keep earlier cached anatomy defects out of every placement.
+  const imageName = ['grundpflege', 'haltung', 'karriere'].includes(name) ? `${name}-v2` : name;
+  const srcSet = (ext: string) => widths.map((w) => `/img/${imageName}-${w}.${ext} ${w}w`).join(', ');
 
   return (
     <picture className={className}>
       <source type="image/avif" srcSet={srcSet('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcSet('webp')} sizes={sizes} />
       <img
-        src={`/img/${name}-${largest}.webp`}
+        src={`/img/${imageName}-${largest}.webp`}
         alt={alt}
         width={largest}
         height={Math.round(largest / ratio)}
