@@ -848,7 +848,7 @@
   .home-text-link:hover svg { transform: translateX(4px); }
   .home-service-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1.3rem; }
   .home-service__link { display: block; text-decoration: none; height: 100%; }
-  .home-service__image { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--color-paper); }
+  .home-service__image { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--color-paper); }
   .home-service__image picture { height: 100%; display: block; }
   .home-service__image img { transition: transform .5s ease; }
   .home-service__link:hover .home-service__image img { transform: scale(1.035); }
@@ -923,6 +923,14 @@
     .home-questions__grid { gap: 2.5rem; }
   }
   @media (max-width: 63.999rem) {
+    .home-hero { min-height: 0; }
+    .home-hero__picture { inset: 0 0 auto; height: 22rem; }
+    .home-hero__picture img { object-position: 88% center; }
+    .home-hero__wash { background: linear-gradient(180deg, transparent 0, transparent 12rem, rgb(249 246 239 / .2) 15rem, #f9f6ef 21rem, #f9f6ef 100%); }
+    .home-hero__inner { display: block; padding-top: 18.5rem; padding-bottom: 2.2rem; }
+    .home-hero__copy { width: 100%; max-width: 35rem; }
+    .home-hero h1 { font-size: clamp(2.2rem,6vw,3.25rem); }
+    .home-hero__lead { max-width: 34rem; }
     .home-story { grid-template-columns: 1fr 1fr; }
     .home-story__visual { min-height: 31rem; }
     .home-story__copy { padding: 2rem; }
@@ -946,8 +954,6 @@
     .home-hero__copy { width: 100%; max-width: 35rem; }
     .home-hero__eyebrow { margin-bottom: .8rem; font-size: .65rem; }
     .home-hero h1 { font-size: clamp(2.2rem,8.6vw,3.25rem); line-height: 1.06; }
-    .home-hero h1 > span { display: inline; }
-    .home-hero h1 > span + span::before { content: ' '; }
     .home-hero__location { margin-top: .9rem; font-size: .77rem; }
     .home-hero__lead { margin-top: .6rem; font-size: .95rem; line-height: 1.7; max-width: 34rem; }
     .home-hero__actions { gap: 1rem; margin-top: 1.15rem; }
@@ -965,7 +971,7 @@
     .home-section-heading { display: block; }
     .home-section-heading > a { margin: -1rem 0 1.2rem; }
     .home-service-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.4rem 1rem; }
-    .home-service__image { aspect-ratio: 4/5; }
+    .home-service__image { aspect-ratio: 4/3; }
     .home-service h3 { font-size: 1.05rem; }
     .home-service p { font-size: .95rem; line-height: 1.65; }
     .home-service__body { padding-top: .8rem; }

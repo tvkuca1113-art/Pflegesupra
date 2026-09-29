@@ -70,7 +70,7 @@ export default function Header() {
           this site, so it sits above everything and never scrolls out of reach
           on desktop. */}
       <div className="utility-strip on-dark bg-brand-deep text-white">
-        <div className="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-sm">
+        <div className="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
           {/* Short on phones, full from tablet up. The long version wrapped to
               two lines and, with the number below it, pushed the headline most
               of a screen down before anyone had read a word. */}
