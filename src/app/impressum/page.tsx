@@ -130,7 +130,7 @@ export default function ImpressumPage() {
 
             <h2>Bildnachweis</h2>
             <p>
-              Die Fotografien auf dieser Website wurden {PHOTO_CREDIT.origin}. Sie
+              Die Bestandsfotografien wurden {PHOTO_CREDIT.origin}. Das neue Titelbild wurde im Rahmen der Gestaltung mit generativer KI erstellt. Die Bilddateien
               wurden für die Verwendung auf dieser Seite lediglich zugeschnitten und
               in Größe und Dateiformat für die Auslieferung im Web optimiert.
             </p>

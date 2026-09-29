@@ -69,7 +69,7 @@ export default function Header() {
       {/* Utility strip. The phone number is the single most valuable element on
           this site, so it sits above everything and never scrolls out of reach
           on desktop. */}
-      <div className="on-dark bg-brand-deep text-white">
+      <div className="utility-strip on-dark bg-brand-deep text-white">
         <div className="shell flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 text-sm">
           {/* Short on phones, full from tablet up. The long version wrapped to
               two lines and, with the number below it, pushed the headline most
@@ -116,12 +116,12 @@ export default function Header() {
 
           <nav aria-label="Hauptnavigation" className="hidden lg:block">
             <ul className="m-0 flex list-none items-center gap-1 p-0">
-              {primaryNav.map((item) => (
+              {primaryNav.filter((item) => !['/ablauf', '/fragen-und-antworten'].includes(item.href)).map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
-                    className="relative block rounded px-3 py-2.5 font-semibold text-brand-ink no-underline hover:bg-paper"
+                    className="header-nav-link relative block rounded px-3 py-2.5 font-semibold text-brand-ink no-underline hover:bg-paper"
                   >
                     {item.label}
                     {/* The active marker is the Horizont, 4px of brand orange —
